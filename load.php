@@ -105,6 +105,9 @@ function load_plugins() {
 	}
 
 	if ( $config['cavalcade'] ) {
+		if ( ! defined( 'DISABLE_WP_CRON' ) ) {
+			define( 'DISABLE_WP_CRON', true );
+		}
 		require __DIR__ . '/plugins/cavalcade/plugin.php';
 	}
 }
