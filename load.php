@@ -87,27 +87,35 @@ function load_db() {
 }
 
 /**
+ * Get available platform plugins.
+ *
+ * @return array Map of plugin ID => path relative to plugins directory.
+ */
+function get_available_plugins() {
+	return array(
+		's3-uploads'      => 's3-uploads/s3-uploads.php',
+		'aws-ses-wp-mail' => 'aws-ses-wp-mail/aws-ses-wp-mail.php',
+		'tachyon'         => 'tachyon/tachyon.php',
+		'cavalcade'       => 'cavalcade/plugin.php',
+	);
+}
+
+/**
  * Load the plugins in hm-platform.
  */
 function load_plugins() {
 	$config = get_config();
 
-	if ( $config['s3-uploads'] ) {
-		require __DIR__ . '/plugins/s3-uploads/s3-uploads.php';
+	// Force DISABLE_WP_CRON for Cavalcade.
+	if ( $config['cavalcade'] && ! defined( 'DISABLE_WP_CRON' ) ) {
+		define( 'DISABLE_WP_CRON', true );
 	}
 
-	if ( $config['aws-ses-wp-mail'] ) {
-		require __DIR__ . '/plugins/aws-ses-wp-mail/aws-ses-wp-mail.php';
-	}
-
-	if ( $config['tachyon'] ) {
-		require __DIR__ . '/plugins/tachyon/tachyon.php';
-	}
-
-	if ( $config['cavalcade'] ) {
-		if ( ! defined( 'DISABLE_WP_CRON' ) ) {
-			define( 'DISABLE_WP_CRON', true );
+	foreach ( get_available_plugins() as $plugin => $file ) {
+		if ( ! $config[ $plugin ] ) {
+			continue;
 		}
-		require __DIR__ . '/plugins/cavalcade/plugin.php';
+
+		require __DIR__ . '/plugins/' . $file;
 	}
 }
