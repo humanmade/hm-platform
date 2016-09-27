@@ -55,10 +55,36 @@ function add_platform_link( $views ) {
 }
 
 /**
+ * Get drop-in files.
+ *
+ * @return array Map of drop-in ID => drop-in file.
+ */
+function get_dropins() {
+	return array(
+		'batcache' => 'batcache/batcache.php',
+		'memcached' => 'wordpress-pecl-memcached/object-cache.php',
+		'ludicrousdb' => 'ludicrousdb/ludicrousdb.php',
+	);
+}
+
+/**
  * Add plugin data to the plugin list table.
  */
 function show_in_admin() {
 	global $plugins, $wp_list_table;
+
+	$plugins['platform'] = array();
+
+	// Add drop-ins first.
+	foreach ( get_dropins() as $name => $plugin_file ) {
+		$plugin_data = get_plugin_data( __DIR__ . '/dropins/' . $plugin_file, false, false );
+
+		if ( empty ( $plugin_data['Name'] ) ) {
+			$plugin_data['Name'] = $name;
+		}
+
+		$plugins['platform'][ $plugin_file ] = $plugin_data;
+	}
 
 	// Add our own mu-plugins to the page
 	foreach ( Platform\get_available_plugins() as $name => $plugin_file ) {
