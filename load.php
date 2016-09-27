@@ -6,15 +6,21 @@ if ( ! defined( 'WP_CACHE' ) ) {
 	define( 'WP_CACHE', true );
 }
 
+// Load the platform as soon as WP is loaded.
 $GLOBALS['wp_filter']['enable_wp_debug_mode_checks'][10]['hm_platform'] = array(
-	'function' => function() {
-		load_object_cache();
-
-		add_filter( 'enable_loading_advanced_cache_dropin', __NAMESPACE__ . '\\load_advanced_cache', 10, 1 );
-		add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
-	},
+	'function' => __NAMESPACE__ . '\\bootstrap',
 	'accepted_args' => 1,
 );
+
+/**
+ * Bootstrap the platform pieces.
+ */
+function bootstrap() {
+	load_object_cache();
+
+	add_filter( 'enable_loading_advanced_cache_dropin', __NAMESPACE__ . '\\load_advanced_cache', 10, 1 );
+	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
+}
 
 /**
  * Get the config for hm-platform for which features to enable.
