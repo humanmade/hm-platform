@@ -20,6 +20,11 @@ function bootstrap() {
 
 	add_filter( 'enable_loading_advanced_cache_dropin', __NAMESPACE__ . '\\load_advanced_cache', 10, 1 );
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
+
+	if ( is_admin() ) {
+		require __DIR__ . '/admin.php';
+		Admin\bootstrap();
+	}
 }
 
 /**
