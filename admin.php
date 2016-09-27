@@ -141,12 +141,29 @@ function show_in_admin() {
  */
 function get_platform_actions( $actions, $plugin_file, $plugin_data, $context ) {
 	$mu_plugins = Platform\get_available_plugins();
+	$config = Platform\get_config();
 
-	if ( $context !== 'platform' || ! in_array( $plugin_file, $mu_plugins ) ) {
-		return;
+	if ( $context !== 'platform' ) {
+		return $actions;
 	}
 
 	$actions = array();
-	$actions[] = sprintf( '<span style="color:#333">File: <code>%s</code></span>', $plugin_file );
+	$key = array_search( $plugin_file, $mu_plugins );
+	if ( $key ) {
+		if ( $config[ $key ] ) {
+			$actions[] = '<span style="color:#333">Plugin (Active)</span>';
+		} else {
+			$actions[] = 'Plugin (Inactive)';
+		}
+	} else {
+		$dropins = get_dropins();
+		$key = array_search( $plugin_file, $dropins );
+		if ( $config[ $key ] ) {
+			$actions[] = '<span style="color:#333">Drop-In (Active)</span>';
+		} else {
+			$actions[] = 'Drop-In (Inactive)';
+		}
+	}
+
 	return $actions;
 }
