@@ -150,7 +150,7 @@ function get_platform_actions( $actions, $plugin_file, $plugin_data, $context ) 
 	$actions = array();
 	$key = array_search( $plugin_file, $mu_plugins );
 	if ( $key ) {
-		if ( $config[ $key ] ) {
+		if ( ! empty( $config[ $key ] ) ) {
 			$actions[] = '<span style="color:#333">Plugin (Active)</span>';
 		} else {
 			$actions[] = 'Plugin (Inactive)';
@@ -158,7 +158,7 @@ function get_platform_actions( $actions, $plugin_file, $plugin_data, $context ) 
 	} else {
 		$dropins = get_dropins();
 		$key = array_search( $plugin_file, $dropins );
-		if ( $config[ $key ] ) {
+		if ( ! empty( $config[ $key ] ) ) {
 			$actions[] = '<span style="color:#333">Drop-In (Active)</span>';
 		} else {
 			$actions[] = 'Drop-In (Inactive)';
