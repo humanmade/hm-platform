@@ -18,6 +18,11 @@ $GLOBALS['wp_filter']['enable_wp_debug_mode_checks'][10]['hm_platform'] = array(
 function bootstrap() {
 	load_object_cache();
 
+	global $wp_version;
+	if ( version_compare( '4.6', $wp_version, '>' ) ) {
+		die( 'HM Platform is only supported on WordPress 4.6+.' );
+	}
+
 	add_filter( 'enable_loading_advanced_cache_dropin', __NAMESPACE__ . '\\load_advanced_cache', 10, 1 );
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
 
