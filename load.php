@@ -12,6 +12,14 @@ $GLOBALS['wp_filter']['enable_wp_debug_mode_checks'][10]['hm_platform'] = array(
 	'accepted_args' => 1,
 );
 
+// Load the Cavalcade Runner CloudWatch extension.
+// This is loaded on the Cavalcade-Runner, not WordPress, crazy I know.
+if ( get_config()['cavalcade'] && class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) ) {
+	// Load the common AWS SDK. bootstrap() is not called in this context.
+	require __DIR__ . '/lib/aws-sdk/aws-autoloader.php';
+	require_once( __DIR__ . '/lib/cavalcade-runner-to-cloudwatch/plugin.php' );
+}
+
 /**
  * Bootstrap the platform pieces.
  */
