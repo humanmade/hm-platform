@@ -16,6 +16,9 @@ $GLOBALS['wp_filter']['enable_wp_debug_mode_checks'][10]['hm_platform'] = array(
  * Bootstrap the platform pieces.
  */
 function bootstrap() {
+	// Load the common AWS SDK.
+	require __DIR__ . '/lib/aws-sdk/aws-autoloader.php';
+
 	load_object_cache();
 
 	global $wp_version;
