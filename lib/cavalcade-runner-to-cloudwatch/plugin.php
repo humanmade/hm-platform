@@ -1,13 +1,13 @@
 <?php
 
-namespace HM\Cavalcade\Runner\CloudWatch;
+namespace HM\Cavalcade\CloudWatch;
 
-use HM\Cavalcade\Runner\Hooks;
-use HM\Cavalcade\Runner\Runner;
-use HM\Cavalcade\Runner\Worker;
-use HM\Cavalcade\Runner\Job;
 use Aws\CloudWatch\CloudWatchClient;
 use Exception;
+use HM\Cavalcade\Runner\Hooks;
+use HM\Cavalcade\Runner\Job;
+use HM\Cavalcade\Runner\Runner;
+use HM\Cavalcade\Runner\Worker;
 
 Runner::instance()->hooks->register( 'Runner.run_job.started', __NAMESPACE__ . '\\on_job_started' );
 Runner::instance()->hooks->register( 'Runner.check_workers.job_failed', __NAMESPACE__ . '\\on_job_failed' );
