@@ -77,7 +77,6 @@ function on_end_job( Job $job ) {
  */
 function put_metric_data( $metric_name, $value, $dimensions = [], $unit = 'None' ) {
 	$client = CloudWatchClient::factory( [
-		'profile'     => 'default',
 		'version'     => '2010-08-01',
 		'region'      => HM_ENV_REGION,
 		'http'        => [
