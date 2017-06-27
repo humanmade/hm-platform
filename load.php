@@ -149,4 +149,6 @@ function load_plugins() {
 
 		require __DIR__ . '/plugins/' . $file;
 	}
+
+	require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
 }
