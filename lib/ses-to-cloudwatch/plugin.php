@@ -4,6 +4,7 @@ namespace HM\AWS_SES_WP_Mail\CloudWatch;
 
 use Exception;
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
+use Aws\Exception\AwsException;
 
 add_action( 'aws_ses_wp_mail_ses_sent_message', __NAMESPACE__ . '\\on_sent_message', 10, 2 );
 
@@ -14,36 +15,14 @@ add_action( 'aws_ses_wp_mail_ses_sent_message', __NAMESPACE__ . '\\on_sent_messa
  * @param  array $message
  */
 function on_sent_message( $result, $message ) {
-	try {
-		// Lock the batch ID
-		$streams = cloudwatch_logs_client()->describeLogStreams([
-			'logGroupName'        => HM_ENV . '/ses',
-			'logStreamNamePrefix' => 'Sent',
-		])['logStreams'];
-
-		if ( ! $streams ) {
-			cloudwatch_logs_client()->createLogStream([
-				'logGroupName'  => HM_ENV . '/ses',
-				'logStreamName' => 'Sent',
-			]);
-		}
-		$params = [
-			'logEvents' => [
-				[
-					'timestamp' => time() * 1000,
-					'message'   => json_encode( $message ),
-				],
-			],
-			'logGroupName'  => HM_ENV . '/ses',
-			'logStreamName' => 'Sent',
-		];
-		if ( $streams ) {
-			$params['sequenceToken'] = $streams[0]['uploadSequenceToken'];
-		}
-		cloudwatch_logs_client()->putLogEventsAsync( $params );
-	} catch ( Exception $e ) {
-		trigger_error( 'Failed to send email to CloudWatch: ' . $e->getMessage(), E_USER_WARNING );
-	}
+	send_event_to_stream(
+		[
+			'timestamp' => time() * 1000,
+			'message'   => json_encode( $message ),
+		],
+		HM_ENV . '/ses',
+		'Sent'
+	);
 }
 
 function cloudwatch_logs_client() {
@@ -51,7 +30,6 @@ function cloudwatch_logs_client() {
 	if ( $cloudwatch_logs_client ) {
 		return $cloudwatch_logs_client;
 	}
-
 	$cloudwatch_logs_client = CloudWatchLogsClient::factory( [
 		'version'     => '2014-03-28',
 		'region'      => HM_ENV_REGION,
@@ -59,6 +37,46 @@ function cloudwatch_logs_client() {
 			'synchronous' => true,
 		],
 	] );
-
 	return $cloudwatch_logs_client;
+}
+
+function send_event_to_stream( array $event, string $group, string $stream ) {
+	// Attempt to get the nextToken from the cache.
+	$next_token = wp_cache_get( 'next_token', $group . $stream );
+	if ( ! $next_token ) {
+		try {
+			// Check if there's already a log srteam existing.
+			$streams = cloudwatch_logs_client()->describeLogStreams([
+				'logGroupName'        => $group,
+				'logStreamNamePrefix' => $stream,
+			])['logStreams'];
+
+			// Create a new log stream if none are found.
+			if ( empty( $streams ) ) {
+				$result = cloudwatch_logs_client()->createLogStream([
+					'logGroupName'  => $group,
+					'logStreamName' => $stream,
+				]);
+			} else {
+				$next_token = $streams[0]['uploadSequenceToken'];
+			}
+		} catch ( Exception $e ) {
+
+		}
+	}
+	$params = [
+		'logEvents'     => [ $event ],
+		'logGroupName'  => $group,
+		'logStreamName' => $stream,
+	];
+	if ( $next_token ) {
+		$params['sequenceToken'] = $next_token;
+	}
+	$promise = cloudwatch_logs_client()->putLogEventsAsync( $params )
+		->then( function ( $result ) use ( $group, $stream ) {
+			wp_cache_set( 'next_token', $result['nextSequenceToken'], $group . $stream );
+		} )
+		->otherwise( function ( $reason ) use ( $group, $stream ) {
+			wp_cache_delete( 'next_token', $group . $stream );
+		});
 }

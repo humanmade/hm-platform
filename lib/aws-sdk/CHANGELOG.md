@@ -1,5 +1,935 @@
 # CHANGELOG
 
+## 3.30.2 - 2017-06-23
+
+* `Aws\Lambda` - The Lambda Invoke API will now throw new exception InvalidRuntimeException (status code 502) for invokes with deprecated runtimes.
+
+## 3.30.1 - 2017-06-22
+
+* `Aws\CodePipeline` - A new API, ListPipelineExecutions, enables you to retrieve summary information about the most recent executions in a pipeline, including pipeline execution ID, status, start time, and last updated time. You can request information for a maximum of 100 executions. Pipeline execution data is available for the most recent 12 months of activity.
+* `Aws\DatabaseMigrationService` - Added tagging for DMS certificates.
+* `Aws\ElasticLoadBalancing` - Add retry error state to InstanceInService waiter for ElasticLoadBalancer
+* `Aws\Lambda` - Lambda is now available in the Canada (Central) region.
+* `Aws\Lightsail` - This release adds a new nextPageToken property to the result of the GetOperationsForResource API. Developers can now get the next set of items in a list by making subsequent calls to GetOperationsForResource API with the token from the previous call. This release also deprecates the nextPageCount property, which previously returned null (use the nextPageToken property instead). This release also deprecates the customImageName property on the CreateInstancesRequest class, which was previously ignored by the API.
+* `Aws\Route53` - This release reintroduces the HealthCheckInUse exception.
+
+## 3.30.0 - 2017-06-21
+
+* `Aws\DAX` - Amazon DynamoDB Accelerator (DAX) is a fully managed, highly available, in-memory cache for DynamoDB that delivers up to a 10x performance improvement - from milliseconds to microseconds - even at millions of requests per second. DAX does all the heavy lifting required to add in-memory acceleration to your DynamoDB tables, without requiring developers to manage cache invalidation, data population, or cluster management.
+* `Aws\Route53` - Amazon Route 53 now supports multivalue answers in response to DNS queries, which lets you route traffic approximately randomly to multiple resources, such as web servers. Create one multivalue answer record for each resource and, optionally, associate an Amazon Route 53 health check with each record, and Amazon Route 53 responds to DNS queries with up to eight healthy records.
+* `Aws\SSM` - Adding hierarchy support to the SSM Parameter Store API. Added support tor tagging. New APIs: GetParameter - retrieves one parameter, DeleteParameters - deletes multiple parameters (max number 10), GetParametersByPath - retrieves parameters located in the hierarchy. Updated APIs: PutParameter - added ability to enforce parameter value by applying regex (AllowedPattern), DescribeParameters - modified to support Tag filtering.
+* `Aws\WAF` - You can now create, edit, update, and delete a new type of WAF rule with a rate tracking component.
+
+## 3.29.9 - 2017-06-20
+
+* `Aws\WorkDocs` - This release provides a new API to retrieve the activities performed by WorkDocs users.
+
+## 3.29.8 - 2017-06-19
+
+* `Aws\Organizations` - Improvements to Exception Modeling
+
+## 3.29.7 - 2017-06-16
+
+* `Aws\Batch` - AWS Batch is now available in the ap-northeast-1 region.
+* `Aws\XRay` - Add a response time histogram to the services in response of GetServiceGraph API.
+
+## 3.29.6 - 2017-06-15
+
+* `Aws\EC2` - Adds API to describe Amazon FPGA Images (AFIs) available to customers, which includes public AFIs, private AFIs that you own, and AFIs owned by other AWS accounts for which you have load permissions.
+* `Aws\ECS` - Added support for cpu, memory, and memory reservation container overrides on the RunTask and StartTask APIs.
+* `Aws\IoT` - Revert the last release: remove CertificatePem from DescribeCertificate API.
+* `Aws\ServiceCatalog` - Added ProvisioningArtifactSummaries to DescribeProductAsAdmin's output to show the provisioning artifacts belong to the product. Allow filtering by SourceProductId in SearchProductsAsAdmin for AWS Marketplace products. Added a verbose option to DescribeProvisioningArtifact to display the CloudFormation template used to create the provisioning artifact.Added DescribeProvisionedProduct API. Changed the type of ProvisionedProduct's Status to be distinct from Record's Status. New ProvisionedProduct's Status are AVAILABLE, UNDER_CHANGE, TAINTED, ERROR. Changed Record's Status set of values to CREATED, IN_PROGRESS, IN_PROGRESS_IN_ERROR, SUCCEEDED, FAILED.
+
+## 3.29.5 - 2017-06-14
+
+* `Aws\ApplicationAutoScaling` - Application Auto Scaling now supports automatic scaling of read and write throughput capacity for DynamoDB tables and global secondary indexes.
+* `Aws\CloudDirectory` - Documentation update for Cloud Directory
+
+## 3.29.4 - 2017-06-13
+
+* `Aws\ConfigService` - With this release AWS Config supports the Amazon CloudWatch alarm resource type.
+
+## 3.29.3 - 2017-06-12
+
+* `Aws\RDS` - API Update for RDS: this update enables copy-on-write, a new Aurora MySQL Compatible Edition feature that allows users to restore their database, and support copy of TDE enabled snapshot cross region.
+
+## 3.29.2 - 2017-06-09
+
+* `Aws\OpsWorks` - Tagging Support for AWS OpsWorks Stacks
+
+## 3.29.1 - 2017-06-08
+
+* `Aws\IoT` - In addition to using certificate ID, AWS IoT customers can now obtain the description of a certificate with the certificate PEM.
+* `Aws\Pinpoint` - Starting today Amazon Pinpoint adds SMS Text and Email Messaging support in addition to Mobile Push Notifications, providing developers, product managers and marketers with multi-channel messaging capabilities to drive user engagement in their applications. Pinpoint also enables backend services and applications to message users directly and provides advanced user and app analytics to understand user behavior and messaging performance.
+* `Aws\Rekognition` - API Update for AmazonRekognition: Adding RecognizeCelebrities API
+
+## 3.29.0 - 2017-06-07
+
+* `Aws\CodeBuild` - Add support to APIs for privileged containers. This change would allow performing privileged operations like starting the Docker daemon inside builds possible in custom docker images.
+* `Aws\Greengrass` - AWS Greengrass is software that lets you run local compute, messaging, and device state synchronization for connected devices in a secure way. With AWS Greengrass, connected devices can run AWS Lambda functions, keep device data in sync, and communicate with other devices securely even when not connected to the Internet. Using AWS Lambda, Greengrass ensures your IoT devices can respond quickly to local events, operate with intermittent connections, and minimize the cost of transmitting IoT data to the cloud.
+
+## 3.28.10 - 2017-06-06
+
+* `Aws\ACM` - Documentation update for AWS Certificate Manager.
+* `Aws\CloudFront` - Doc update to fix incorrect prefix in S3OriginConfig
+* `Aws\IoT` - Update client side validation for SalesForce action.
+
+## 3.28.9 - 2017-06-05
+
+* `Aws\AppStream` - AppStream 2.0 Custom Security Groups allows you to easily control what network resources your streaming instances and images have access to. You can assign up to 5 security groups per Fleet to control the inbound and outbound network access to your streaming instances to specific IP ranges, network protocols, or ports.
+* `Aws\AutoScaling` - Autoscaling resource model update.
+* `Aws\IoT` -  Added Salesforce action to IoT Rules Engine.
+
+## 3.28.8 - 2017-06-02
+
+* `Aws\KinesisAnalytics` - Kinesis Analytics publishes error messages CloudWatch logs in case of application misconfigurations
+* `Aws\WorkDocs` - This release includes new APIs to manage tags and custom metadata on resources and also new APIs to add and retrieve comments at the document level.
+
+## 3.28.7 - 2017-06-01
+
+* `Aws\CodeDeploy` - AWS CodeDeploy has improved how it manages connections to GitHub accounts and repositories. You can now create and store up to 25 connections to GitHub accounts in order to associate AWS CodeDeploy applications with GitHub repositories. Each connection can support multiple repositories. You can create connections to up to 25 different GitHub accounts, or create more than one connection to a single account. The ListGitHubAccountTokenNames command has been introduced to retrieve the names of stored connections to GitHub accounts that you have created. The name of the connection to GitHub used for an AWS CodeDeploy application is also included in the ApplicationInfo structure. Two new fields, lastAttemptedDeployment and lastSuccessfulDeployment, have been added to DeploymentGroupInfo to improve the handling of deployment group information in the AWS CodeDeploy console. Information about these latest deployments can also be retrieved using the GetDeploymentGroup and BatchGetDeployment group requests. Also includes a region update (us-gov-west-1).
+* `Aws\CognitoIdentityProvider` - Added support within Amazon Cognito User Pools for 1) a customizable hosted UI for user sign up and sign in and 2) integration of external identity providers.
+* `Aws\ElasticLoadBalancingv2` - Update the existing DescribeRules API to support pagination.
+* `Aws\LexModelBuildingService` - Updated documentation and added examples for Amazon Lex Runtime Service.
+
+## 3.28.6 - 2017-05-31
+
+* `Aws\RDS` - Amazon RDS customers can now easily and quickly stop and start their DB instances.
+
+## 3.28.5 - 2017-05-30
+
+* `Aws\CloudDirectory` - Cloud Directory has launched support for Typed Links, enabling customers to create object-to-object relationships that are not hierarchical in nature. Typed Links enable customers to quickly query for data along these relationships. Customers can also enforce referential integrity using Typed Links, ensuring data in use is not inadvertently deleted.
+* `Aws\S3` - New example snippets for Amazon S3.
+* `Aws\S3` - S3 calls are now done with a host style URL by default. Options for path style on the client and command levels are available as `use_path_style_endpoint` and `@use_path_style_endpoint`, respectively. [More details on the differences between the styles can be found here.](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html#access-bucket-intro)
+
+## 3.28.4 - 2017-05-25
+
+* `Aws\AppStream` - Support added for persistent user storage, backed by S3.
+* `Aws\Rekognition` - Updated the CompareFaces API response to include orientation information, unmatched faces, landmarks, pose, and quality of the compared faces.
+
+## 3.28.3 - 2017-05-24
+
+* `Aws\IAM` - The unique ID and access key lengths were extended from 32 to 128
+* `Aws\STS` - The unique ID and access key lengths were extended from 32 to 128.
+* `Aws\StorageGateway` - Two Storage Gateway data types, Tape and TapeArchive, each have a new response element, TapeUsedInBytes. This element helps you manage your virtual tapes. By using TapeUsedInBytes, you can see the amount of data written to each virtual tape.
+
+## 3.28.2 - 2017-05-23
+
+* `Aws\DatabaseMigrationService` - This release adds support for using Amazon S3 and Amazon DynamoDB as targets for database migration, and using MongoDB as a source for database migration. For more information, see the AWS Database Migration Service documentation.
+
+## 3.28.1 - 2017-05-22
+
+* `Aws\ResourceGroupsTaggingAPI` - You can now specify the number of resources returned per page in GetResources operation, as an optional parameter, to easily manage the list of resources returned by your queries.
+* `Aws\SQS` - MD5 Validation of `MessageAttributes` is now being performed on `ReceiveMessage` calls. SQS uses a custom encoding for generating the hash input, [details on that scheme are available here.](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html#sqs-attrib-md5)
+
+## 3.28.0 - 2017-05-18
+
+* `Aws\Athena` - This release adds support for Amazon Athena. Amazon Athena is an interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL. Athena is serverless, so there is no infrastructure to manage, and you pay only for the queries that you run.
+* `Aws\Lightsail` - This release adds new APIs that make it easier to set network port configurations on Lightsail instances. Developers can now make a single request to both open and close public ports on an instance using the PutInstancePublicPorts operation.
+
+## 3.27.5 - 2017-05-17
+
+* `Aws\AutoScaling` - Various Auto Scaling documentation updates
+* `Aws\CloudWatchEvents` - Various CloudWatch Events documentation updates.
+* `Aws\CloudWatchLogs` - Various CloudWatch Logs documentation updates.
+* `Aws\Polly` - Amazon Polly adds new German voice "Vicki"
+
+## 3.27.4 - 2017-05-16
+
+* `Aws\CodeDeploy` - This release introduces the previousRevision field in the responses to the GetDeployment and BatchGetDeployments actions. previousRevision provides information about the application revision that was deployed to the deployment group before the most recent successful deployment. Also, the fileExistsBehavior parameter has been added for CreateDeployment action requests. In the past, if the AWS CodeDeploy agent detected files in a target location that weren't part of the application revision from the most recent successful deployment, it would fail the current deployment by default. This new parameter provides options for how the agent handles these files: fail the deployment, retain the content, or overwrite the content.
+* `Aws\GameLift` - Allow developers to specify how metrics are grouped in CloudWatch for their GameLift fleets. Developers can also specify how many concurrent game sessions activate on a per-instance basis.
+* `Aws\Inspector` - Adds ability to produce an assessment report that includes detailed and comprehensive results of a specified assessment run.
+* `Aws\KMS` - Update documentation for KMS.
+
+## 3.27.3 - 2017-05-15
+
+* `Aws\SSM` - UpdateAssociation API now supports updating document name and targets of an association. GetAutomationExecution API can return FailureDetails as an optional field to the StepExecution Object, which contains failure type, failure stage as well as other failure related information for a failed step.
+
+## 3.27.2 - 2017-05-11
+
+* `Aws\ElasticLoadBalancing` - Add a new API to allow customers to describe their account limits, such as load balancer limit, target group limit etc.
+* `Aws\ElasticLoadBalancingv2` - Add a new API to allow customers to describe their account limits, such as load balancer limit, target group limit etc.
+* `Aws\LexModelBuildingService` - Releasing new DeleteBotVersion, DeleteIntentVersion and DeleteSlotTypeVersion APIs.
+* `Aws\Organizations` - AWS Organizations APIs that return an Account object now include the email address associated with the account’s root user.
+
+## 3.27.1 - 2017-05-09
+
+* `Aws\CodeStar` - Updated documentation for AWS CodeStar.
+* `Aws\WorkSpaces` - Doc-only Update for WorkSpaces
+
+## 3.27.0 - 2017-05-04
+
+* `Aws\ECS` - Exposes container instance registration time in ECS:DescribeContainerInstances.
+* `Aws\Lambda` - Support for UpdateFunctionCode DryRun option
+* `Aws\MarketplaceEntitlementService` - AWS Marketplace Entitlement Service enables AWS Marketplace sellers to determine the capacity purchased by their customers.
+* `Aws\S3` - Fixed possible security issue in `Transfer`s download `transfer` operation where files could be downloaded to a directory outside the destination directory if the key contained relative paths. Ignoring files to continue with your transfer can be done through passing an iterator of files to download to `Transfer`s parameter: `$source`. These can be generated on `s3://` paths if you have registered the SDK's `StreamWrapper` via `\Aws\recursive_dir_iterator`.
+
+## 3.26.5 - 2017-04-28
+
+* `Aws\CloudFormation` - Adding back the removed waiters and paginators.
+
+## 3.26.4 - 2017-04-28
+
+* `Aws\CloudFormation` - API update for CloudFormation: New optional parameter ClientRequestToken which can be used as an idempotency token to safely retry certain operations as well as tagging StackEvents.
+* `Aws\RDS` - The DescribeDBClusterSnapshots API now returns a SourceDBClusterSnapshotArn field which identifies the source DB cluster snapshot of a copied snapshot.
+* `Aws\Rekognition` - Fix for missing file type check
+* `Aws\SQS` - Adding server-side encryption (SSE) support to SQS by integrating with AWS KMS; adding new queue attributes to SQS CreateQueue, SetQueueAttributes and GetQueueAttributes APIs to support SSE.
+* `Aws\Snowball` - The Snowball API has a new exception that can be thrown for list operation requests.
+
+## 3.26.3 - 2017-04-26
+
+* `Aws\RDS` - With Amazon Relational Database Service (Amazon RDS) running MySQL or Amazon Aurora, you can now authenticate to your DB instance using IAM database authentication.
+
+## 3.26.2 - 2017-04-21
+
+* `Aws\AppStream` - The new feature named "Default Internet Access" will enable Internet access from AppStream 2.0 instances - image builders and fleet instances. Admins will check a flag either through AWS management console for AppStream 2.0 or through API while creating an image builder or while creating/updating a fleet.
+* `Aws\Kinesis` - Adds a new waiter, StreamNotExists, to Kinesis 
+
+## 3.26.1 - 2017-04-20
+
+* `Aws\DeviceFarm` - API Update for AWS Device Farm: Support for Deals and Promotions 
+* `Aws\DirectConnect` - Documentation updates for AWS Direct Connect.
+* `Aws\ElasticLoadBalancingv2` - Adding LoadBalancersDeleted waiter for Elasticloadbalancingv2
+* `Aws\KMS` - Doc-only update for Key Management Service (KMS): Update docs for GrantConstraints and GenerateRandom
+* `Aws\Route53` - Release notes: SDK documentation now includes examples for ChangeResourceRecordSets for all types of resource record set, such as weighted, alias, and failover.
+* `Aws\Route53Domains` - Adding examples and other documentation updates.
+
+## 3.26.0 - 2017-04-19
+
+* `Aws\APIGateway` - Add support for "embed" property.
+* `Aws\CodeStar` - AWS CodeStar is a cloud-based service for creating, managing, and working with software development projects on AWS. An AWS CodeStar project creates and integrates AWS services for your project development toolchain. AWS CodeStar also manages the permissions required for project users.
+* `Aws\EC2` - Adds support for creating an Amazon FPGA Image (AFI) from a specified design checkpoint (DCP).
+* `Aws\IAM` - This changes introduces a new IAM role type, Service Linked Role, which works like a normal role but must be managed via services' control. 
+* `Aws\Lambda` - Lambda integration with CloudDebugger service to enable customers to enable tracing for the Lambda functions and send trace information to the CloudDebugger service.
+* `Aws\LexModelBuildingService` - Amazon Lex is a service for building conversational interfaces into any application using voice and text.
+* `Aws\Polly` - API Update for Amazon Polly: Add support for speech marks
+* `Aws\Rekognition` - Given an image, the API detects explicit or suggestive adult content in the image and returns a list of corresponding labels with confidence scores, as well as a taxonomy (parent-child relation) for each label.
+
+## 3.25.8 - 2017-04-18
+
+* `Aws\Lambda` - You can use tags to group and filter your Lambda functions, making it easier to analyze them for billing allocation purposes. For more information, see Tagging Lambda Functions.  You can now write or upgrade your Lambda functions using Python version 3.6. For more information, see Programming Model for Authoring Lambda Functions in Python. Note: Features will be rolled out in the US regions on 4/19.
+
+## 3.25.7 - 2017-04-11
+
+* `Aws\APIGateway` - API Gateway request validators
+* `Aws\Batch` - API Update for AWS Batch: Customer provided AMI for MANAGED Compute Environment 
+* `Aws\GameLift` - Allows developers to utilize an improved workflow when calling our Queues API and introduces a new feature that allows developers to specify a maximum allowable latency per Queue.
+* `Aws\OpsWorks` - Cloudwatch Logs agent configuration can now be attached to OpsWorks Layers using CreateLayer and UpdateLayer. OpsWorks will then automatically install and manage the CloudWatch Logs agent on the instances part of the OpsWorks Layer.
+
+## 3.25.6 - 2017-04-07
+
+* `Aws\Redshift` - This update adds the GetClusterCredentials API which is used to get temporary login credentials to the cluster. AccountWithRestoreAccess now has a new member AccountAlias, this is the identifier of the AWS support account authorized to restore the specified snapshot. This is added to support the feature where the customer can share their snapshot with the Amazon Redshift Support Account without having to manually specify the AWS Redshift Service account ID on the AWS Console/API.
+
+## 3.25.5 - 2017-04-06
+
+* `Aws\ElasticLoadBalancingv2` - Adds supports a new condition for host-header conditions to CreateRule and ModifyRule
+
+## 3.25.4 - 2017-04-05
+
+* `Aws\ElastiCache` - ElastiCache added support for testing the Elasticache Multi-AZ feature with Automatic Failover.
+
+## 3.25.3 - 2017-04-04
+
+* `Aws\CloudWatch` - Amazon Web Services announced the immediate availability of two additional alarm configuration rules for Amazon CloudWatch Alarms. The first rule is for configuring missing data treatment. Customers have the options to treat missing data as alarm threshold breached, alarm threshold not breached, maintain alarm state and the current default treatment. The second rule is for alarms based on percentiles metrics that can trigger unnecassarily if the percentile is calculated from a small number of samples. The new rule can treat percentiles with low sample counts as same as missing data. If the first rule is enabled, the same treatment will be applied when an alarm encounters a percentile with low sample counts.
+
+## 3.25.2 - 2017-04-03
+
+* `Aws\LexRuntimeService` - Adds support to PostContent for speech input
+
+## 3.25.1 - 2017-03-31
+
+* `Aws\CloudDirectory` - ListObjectAttributes now supports filtering by facet.
+
+## 3.25.0 - 2017-03-31
+
+* `Aws\CloudFormation` - Adding paginators for ListExports and ListImports
+* `Aws\CloudFront` - Amazon CloudFront now supports user configurable HTTP Read and Keep-Alive Idle Timeouts for your Custom Origin Servers
+* `Aws\ResourceGroupsTaggingAPI` - Resource Groups Tagging APIs can help you organize your resources and enable you to simplify resource management, access management, and cost allocation.
+* `Aws\StorageGateway` - File gateway mode in AWS Storage gateway provides access to objects in S3 as files on a Network File System (NFS) mount point. Once a file share is created, any changes made externally to the S3 bucket will not be reflected by the gateway. Using the cache refresh feature in this update, the customer can trigger an on-demand scan of the keys in their S3 bucket and refresh the file namespace cached on the gateway. It takes as an input the fileShare ARN and refreshes the cache for only that file share. Additionally there is new functionality on file gateway that allows you configure what squash options they would like on their file share, this allows a customer to configure their gateway to not squash root permissions. This can be done by setting options in NfsOptions for CreateNfsFileShare and UpdateNfsFileShare APIs.
+
+## 3.24.9 - 2017-03-28
+
+* `Aws\Batch` - Customers can now provide a retryStrategy as part of the RegisterJobDefinition and SubmitJob API calls. The retryStrategy object has a number value for attempts. This is the number of non successful executions before a job is considered FAILED. In addition, the JobDetail object now has an attempts field and shows all execution attempts.
+* `Aws\EC2` - Customers can now tag their Amazon EC2 Instances and Amazon EBS Volumes at the time of their creation. You can do this from the EC2 Instance launch wizard or through the RunInstances or CreateVolume APIs. By tagging resources at the time of creation, you can eliminate the need to run custom tagging scripts after resource creation. In addition, you can now set resource-level permissions on the CreateVolume, CreateTags, DeleteTags, and the RunInstances APIs. This allows you to implement stronger security policies by giving you more granular control over which users and groups have access to these APIs. You can also enforce the use of tagging and control what tag keys and values are set on your resources. When you combine tag usage and resource-level IAM policies together, you can ensure your instances and volumes are properly secured upon creation and achieve more accurate cost allocation reporting. These new features are provided at no additional cost. 
+
+## 3.24.8 - 2017-03-27
+
+* `Aws\SSM` - Updated validation rules for SendCommand and RegisterTaskWithMaintenanceWindow APIs
+
+## 3.24.7 - 2017-03-23
+
+* `Aws\ApplicationAutoScaling` - Application AutoScaling is launching support for a new target resource (AppStream 2.0 Fleets) as a scalable target.
+
+## 3.24.6 - 2017-03-22
+
+* `Aws\ApplicationDiscoveryService` - Adds export configuration options to the AWS Discovery Service API.
+* `Aws\ElasticLoadBalancingv2` - Adding waiters for Elastic Load Balancing V2
+* `Aws\Lambda` - Adds support for new runtime Node.js v6.10 for AWS Lambda service
+
+## 3.24.5 - 2017-03-21
+
+* `Aws\DirectConnect` - Deprecated DescribeConnectionLoa, DescribeInterconnectLoa, AllocateConnectionOnInterconnect and DescribeConnectionsOnInterconnect operations in favor of DescribeLoa, DescribeLoa, AllocateHostedConnection and DescribeHostedConnections respectively.
+* `Aws\MarketplaceCommerceAnalytics` - This update adds a new data set, us_sales_and_use_tax_records, which enables AWS Marketplace sellers to programmatically access to their U.S. Sales and Use Tax report data.
+* `Aws\Pinpoint` - Added support for segment endpoints by user attributes in addition to endpoint attributes, publishing raw app analytics and campaign events as events streams to Kinesis and Kinesis Firehose
+
+## 3.24.4 - 2017-03-14
+* `Aws\CloudWatchEvents` - Update documentation
+
+## 3.24.3 - 2017-03-13
+
+* `Aws\CloudWatchEvents` - This update extends Target Data Type for configuring Target behavior during invocation.
+* `Aws\DeviceFarm` - Network shaping allows users to simulate network connections and conditions while testing their Android, iOS, and web apps with AWS Device Farm.
+
+## 3.24.2 - 2017-03-10
+
+* `Aws\CodeDeploy` - Add paginators for Codedeploy
+* `Aws\EMR` - This release includes support for instance fleets in Amazon EMR.
+
+## 3.24.1 - 2017-03-09
+
+* `Aws\APIGateway` - API Gateway has added support for ACM certificates on custom domain names. Both Amazon-issued certificates and uploaded third-part certificates are supported.
+* `Aws\CloudDirectory` - Introduces a new Cloud Directory API that enables you to retrieve all available parent paths for any type of object (a node, leaf node, policy node, and index node) in a hierarchy.
+
+## 3.24.0 - 2017-03-08
+
+* `Aws\WorkDocs` - The Administrative SDKs for Amazon WorkDocs provides full administrator level access to WorkDocs site resources, allowing developers to integrate their applications to manage WorkDocs users, content and permissions programmatically
+
+## 3.23.3 - 2017-03-08
+
+* `Aws\RDS` - Add support to using encrypted clusters as cross-region replication masters. Update CopyDBClusterSnapshot API to support encrypted cross region copy of Aurora cluster snapshots.
+
+## 3.23.2 - 2017-03-06
+
+* `Aws\Budgets` - When creating or editing a budget via the AWS Budgets API you can define notifications that are sent to subscribers when the actual or forecasted value for cost or usage exceeds the notificationThreshold associated with the budget notification object. Starting today, the maximum allowed value for the notificationThreshold was raised from 100 to 300. This change was made to give you more flexibility when setting budget notifications.
+* `Aws\OpsWorksCM` - OpsWorks for Chef Automate has added a new field "AssociatePublicIpAddress" to the CreateServer request, "CloudFormationStackArn" to the Server model and "TERMINATED" server state.
+
+## 3.23.1 - 2017-02-28
+
+* `Aws\MTurk` - Update namespace for `Amazon Mechanical Turk`
+
+## 3.23.0 - 2017-02-28
+
+* `Aws\DynamoDB` - Time to Live (TTL) is a feature that allows you to define when items in a table expire and can be purged from the database, so that you don't have to track expired data and delete it manually. With TTL enabled on a DynamoDB table, you can set a timestamp for deletion on a per-item basis, allowing you to limit storage usage to only those records that are relevant.
+* `Aws\DynamoDBStreams` - Added support for TTL on a DynamoDB tables
+* `Aws\IAM` - Added support for AWS Organizations service control policies (SCPs) to SimulatePrincipalPolicy operation. If there are SCPs associated with the simulated user's account, their effect on the result is captured in the OrganizationDecisionDetail element in the EvaluationResult.
+* `Aws\MechanicalTurkRequesterService` - Amazon Mechanical Turk is a web service that provides an on-demand, scalable, human workforce to complete jobs that humans can do better than computers, for example, recognizing objects in photos.
+* `Aws\Organizations` - AWS Organizations is a web service that enables you to consolidate your multiple AWS accounts into an organization and centrally manage your accounts and their resources.
+
+## 3.22.11 - 2017-02-24
+
+* `Aws\ElasticsearchService` - Added three new API calls to existing Amazon Elasticsearch service to expose Amazon Elasticsearch imposed limits to customers.
+
+## 3.22.10 - 2017-02-24
+
+* `Aws\Ec2` - New EC2 I3 instance type
+
+## 3.22.9 - 2017-02-22
+
+* `Aws\CloudDirectory` - ListObjectAttributes documentation updated based on forum feedback
+* `Aws\ElasticBeanstalk` - Elastic Beanstalk adds support for creating and managing custom platform.
+* `Aws\GameLift` - Allow developers to configure global queues for creating GameSessions. Allow PlayerData on PlayerSessions to store player-specific data.
+* `Aws\Route53` - Added support for operations CreateVPCAssociationAuthorization and DeleteVPCAssociationAuthorization to throw a ConcurrentModification error when a conflicting modification occurs in parallel to the authorizations in place for a given hosted zone.
+
+## 3.22.8 - 2017-02-21
+
+* `Aws\Ec2` - Added the billingProduct parameter to the RegisterImage API
+
+## 3.22.7 - 2017-02-17
+
+* `Aws\DirectConnect` - Adding operations to support new LAG feature
+
+## 3.22.6 - 2017-02-17
+
+* `Aws\CognitoIdentity` - Allow createIdentityPool and updateIdentityPool API to set server side token check value on identity pool
+* `Aws\Config` - Enable customers to use dryrun mode for PutEvaluations
+
+## 3.22.5 - 2017-02-15
+
+* `Aws\Kms` - Added support for tagging
+
+## 3.22.4 - 2017-02-14
+
+* `Aws\Ec2` - Added support for new `ModifyVolume` API
+
+## 3.22.3 - 2017-02-10
+
+* Update endpoints.json with valid endpoints
+
+## 3.22.2 - 2017-02-10
+
+* `Aws\StorageGateway` - Added support for addition of clientList parameter to existing File share APIs
+
+## 3.22.1 - 2017-02-09
+
+* `Aws\Ec2` - Added support to associate `IAM profiles` to running instances API
+* `Aws\Rekognition` - Added support for `age` to the face description from `DetectFaces` and `IndexFaces`
+
+## 3.22.0 - 2017-02-08
+
+* `Aws\LexRuntimeService` - Added support for new service `Amazon Lex Runtime Service`
+
+## 3.21.6 - 2017-01-27
+
+* `Aws\CloudDirectory` - Added support for new service `AWS Cloud Directory`
+* `Aws\CodeDeploy` - Added support for blue/green deployments
+* `Aws\Ec2` - Added support to Add instance health check functionality to replace unhealthy EC2 Spot fleet instances with fresh ones.
+* `Aws\Rds` -  Upgraded Snapshot Engine Version
+
+## 3.21.5 - 2017-01-25
+
+* `Aws\ElasticLoadBalancing` - Added support for New load balancer type
+* `Aws\Rds` - Added support for Cross Region Read Replica Copying
+
+## 3.21.4 - 2017-01-25
+
+* `Aws\CodeCommit` - Added a new API to list the different files between 2 commits 
+* `Aws\Ecs` - Added support for Container instance draining
+
+## 3.21.3 - 2017-01-20
+
+* `Aws\Acm` - Updated response elements for DescribeCertificate API in support of managed renewal.
+
+## 3.21.2 - 2017-01-19
+
+* `Aws\Ec2` - Added support for new parameters to SpotPlacement in RequestSpotInstances API
+
+## 3.21.1 - 2017-01-18
+
+* `Aws\Rds` - Added support for `Mysql` to `Aurora` Replication
+
+## 3.21.0 - 2017-01-17
+
+* `Aws\Credentials` - Added support for AssumeRoleCredentialProvider and support for source ini credentials from ./aws/config file in defaultProvider
+* `Aws\DynamoDb` - Added tagging Support for Amazon DynamoDB Tables and Indexes
+* `Aws\Route53` - Added support for ca-central-1 and eu-west-2 enum values in CloudWatchRegion enum
+
+## 3.20.16 - 2017-01-16
+
+* Fix manifest
+
+## 3.20.15 - 2017-01-16
+
+* `Aws\Cur` - Added Support for new service `AWS CostAndUsageReport`
+
+## 3.20.14 - 2017-01-16
+
+* `Aws\Config` - Updated the models to include InvalidNextTokenException in API response
+
+## 3.20.13 - 2017-01-04
+
+* `Aws\Config` - Added support for customers to use/write rules based on OversizedConfigurationItemChangeNotification mesage type.
+* `Aws\MarketplaceAnalytics` - Added support for data set disbursed_amount_by_instance_hours, with historical data available starting 2012-09-04
+
+## 3.20.12 - 2016-12-29
+
+* `Aws\CodeDeploy` - Added support for IAM Session Arns in addition to IAM User Arns for on premise host authentication.
+* `Aws\Ecs` - Added the ability to customize the placement of tasks on container instances.
+
+## 3.20.11 - 2016-12-22
+
+* `Aws\ApiGateway` - Added support for generating SDKs in more languages.
+* `Aws\ElasticBeanstalk` - Added Support for Resource Lifecycle Feature
+* `Aws\Iam`- Added service-specific credentials to IAM service to make it easier to onboard CodeCommit customers
+
+## 3.20.10 - 2016-12-21
+
+* `Aws\Ecr` - Added implementation for Docker Image Manifest V2, Schema 2
+* `Aws\Rds` - Added support for Cross Region Encrypted Snapshot Copying (CopyDBSnapshot) 
+
+## 3.20.9 - 2016-12-20
+
+* `Aws\Firehose` - Added Support for Processing Feature
+* `Aws\Route53` - Enum updates for eu-west-2 and ca-central-1
+* `Aws\StorageGateway` - Added new storage type for files to complement block and tape
+
+## 3.20.8 - 2016-12-19
+
+* `Aws\CognitoIdentity` - Added Groups to Cognito user pools. 
+* `Aws\DiscoveryService` - Added new APIs to group discovered servers into Applications with get summary and neighbors. 
+  Includes additional filters for `ListConfigurations` and `DescribeAgents` API.
+
+## 3.20.7 - 2016-12-15
+
+* `Aws\CognitoIdentityProvider` - Adding support for fine-grained role-based access control (RBAC)
+* `Aws\Ssm` - Adding support for access to the Patch Baseline and Patch Compliance APIs
+
+## 3.20.6 - 2016-12-14
+
+* `Aws\Batch` - Added support for new service `AWS Batch`
+* `Aws\CloudWatchLogs` - Added support for associating LogGroups with `AWSTagris` tags
+* `Aws\Dms` - Added support for SSL enabled Oracle endpoints
+* `Aws\MarketplaceCommerceAnalytics` -  Add new enum to `DataSetType`
+
+## 3.20.5 - 2016-12-12
+
+* `Aws\Credentials` - Fix `EcsCredential` latency issue
+
+## 3.20.4 - 2016-12-08
+
+* `Aws\Cloudfront` - Adding lambda function associations to cache behaviors
+* `Aws\Rds` - Add cluster create time to DBCluster
+* `Aws\WafRegional` - Adding support for new service `AWS WAF Regional`
+
+## 3.20.3 - 2016-12-07
+
+* `Aws\Config` - Adding support for Redshift resource types
+* `Aws\S3` - Adding Version ID to Get/Put ObjectTagging
+
+## 3.20.2 - 2016-12-06
+
+* `Aws\Ec2` - Adding T2.xlarge, T2.2xlarge, and R4 instance type
+* `Aws\Config` - Adding support for `DescribeConfigRuleEvaulationStatus`
+* `Aws\Pinpoint` - Adding support for fixed type
+
+## 3.20.1 - 2016-12-01
+
+* `Aws\ApiGateway` - Added support for publishing your APIs on `Amazon API Gateway`
+  as products on the `AWS Marketplace`
+* `Aws\AppStream` - Added support for new service `AWS AppStream`
+* `Aws\CodeBuild` - Added support for new service `AWS CodeBuild`
+* `Aws\DirectConnect` - Added support for `Ipv6` support
+* `Aws\Ec2` - Added support for native `IPv6` support for VPCs
+* `Aws\ElasticBeanstalk` - Added support for `CodeBuild` Integration
+* `Aws\Lambda` - Added support for new API `GetAccountSettings`
+* `Aws\Health` - Added support for new service `AWS Health`
+* `Aws\OpsWorksCM` - Added support for new service `AWS OpsWorks Managed Chef`
+* `Aws\Pinpoint` - Added support for new service `AWS Pinpoint`
+* `Aws\Sfn` - Added support for `AWS Step Functions`
+* `Aws\Shield` - Added support for new service `AWS Shield`
+* `Aws\SSm` - Added support for 6 new sets of APIs
+* `Aws\XRay` - Added support for new service `AWS X-Ray`
+
+
+## 3.20.0 - 2016-11-30
+
+* `Aws\Lightsail` - Added support for new service `AWS Lightsail`
+* `Aws\Polly` - Added support for new service `AWS Polly Service`
+* `Aws\Rekognition` - Added support for new service `AWS Rekognition Service`
+* `Aws\Snowball` - Added support for a new job type, new APIs, and
+  the new `AWS Snowball` Edge device to support local compute and storage use cases
+
+## 3.19.33 - 2016-11-29
+
+* `Aws\S3` - Added support for Storage Insights, Object Tagging, Lifecycle Filtering
+
+## 3.19.32 - 2016-11-22
+
+* `Aws\Cloudformation` - Added support for List-imports API
+* `Aws\Glacier` - Added support for retrieving data with different tiers
+* `Aws\Route53` - Added support for expanding current IPAddress
+  field to accept IPv6 address
+* `Aws\S3` - Added support for Glacier retrieval tier information
+
+## 3.19.31 - 2016-11-21
+
+* `Aws\CloudTrail` - Added support for S3 data plane operations
+* `Aws\Ecs` - Added support for new "version" field for tasks and container instances
+
+## 3.19.30 - 2016-11-18
+
+* `Aws\ApplicationAutoscaling` - Added  support for a new target resource
+  (EMR Instance Groups) as a scalable target
+
+## 3.19.29 - 2016-11-18
+
+* `Aws\ElasticTranscoder` - Added support for multiple media input files
+  that can be stitched together
+* `Aws\Emr` - Added support for Automatic Scaling of EMR clusters based on metrics
+* `Aws\Lambda` -  Added support for Environment variables
+* `Aws\GameLift` - Added support for remote access into GameLift managed servers.
+
+## 3.19.28 - 2016-11-17
+
+* `Aws\ApiGateway` - Added support for custom encoding feature
+* `Aws\CloudWatch` - Added support for percentile statistic (pN) to metrics and alarms
+* `Aws\MarketplaceAnalytics` - Added support for third party metrics
+* `Aws\Sqs` - Added support for creating FIFO (first-in-first-out) queues
+
+## 3.19.27 - 2016-11-16
+
+* `Aws\ServiceCatalog` - Added support for new operations
+* `Aws\Route53` Added support for cross account VPC Association
+
+## 3.19.26 - 2016-11-15
+
+* `Aws\DirectoryService` - Added support for `SchemaExtensions`
+* `Aws\Elasticache` - Added support for `AuthToken`
+* `Aws\Kinesis` - Added support for Describe shard limit, open shard count
+ and stream creation timestamp
+
+## 3.19.25 - 2016-11-14
+
+* `Aws\CognitoIdentityProvider` - Added support for schema attributes in `CreateUserPool`
+
+## 3.19.24 - 2016-11-10
+
+* `Aws\CloudWatchLogs` - Added support for capability that helps pivot from
+ your logs-extracted metrics
+
+## 3.19.23 - 2016-11-03
+
+* `Aws\DirectConnect` - Added support for tagging on `DirectConnect` resources.
+
+## 3.19.22 - 2016-11-02
+
+* `Aws\Ses` - Adding support for `SES` Metrics
+
+## 3.19.21 - 2016-11-01
+
+* `Aws\CloudFormation` - Adding ResourcesToSkip parameter to `ContinueUpdateRollback` API,
+  adding support for `ListExports`, new `ChangeSet` types and `Transforms`
+* `Aws\Ecr` - Added support for updated paginators
+
+## 3.19.20 - 2016-10-25
+
+* Documentation update for `Autoscaling` and `ElasticloadbalancingV2`
+
+## 3.19.19 - 2016-10-24
+
+* `Aws\Sms` - Added support for new service `AWS Server Migration Service`
+
+## 3.19.18 - 2016-10-20
+
+* `Aws\Budgets` - Added support for new service `AWSBudgetService`
+
+## 3.19.17 - 2016-10-18
+
+* `Aws\Config` -  Added support for S3 Bucket resource type
+* `Aws\CloudFront` - Added support for `isIPV6Enabled` property for http distributions
+* `Aws\Iot` - Added DynamoActionV2 action to IoT Rules Engine
+* `Aws\Rds` - Added support for AWS roles integration with `Aurora Cluster`
+
+## 3.19.16 - 2016-10-17
+
+* `Aws\Route53` - Added support for API updates
+
+## 3.19.15 - 2016-10-13
+
+* `Aws\Acm` - Added support for third-party `SSL/TLS` certificates
+* `Aws\ElasticBeanstalk` - Added support for `Pagination` for `DescribeApplicationVersions`
+* `Aws\Gamelift` - Added support for resource protection
+
+## 3.19.14 - 2016-10-12
+
+* `Aws\Elasticache` - Added support for Redis Cluster
+* `Aws\Ecr` - Added support for new API `DescribeImages`
+* `Aws\S3` - Added support for `s3-accelerate.dualstack` endpoint
+
+## 3.19.13 - 2016-10-06
+
+* `Aws\Kms` -  Add `InvalidMarkerException` as modeled exception in `ListKeys`
+* `Aws\CognitoIdentityProvider` - Added new operation `AdminCreateUser`
+* `Aws\Waf` - Added support for IPV6 in `IPSetDescriptorType`
+
+## 3.19.12 - 2016-09-29
+
+* `Aws\Ec2` - Added support for new Ec2 instance types and
+  EC2 Convertible RIs and the EC2 RI regional benefit
+* `Aws\S3` - Added support for `partNumber` extension
+
+## 3.19.11 - 2016-09-27
+
+* `Aws\CloudFormation` - Added support for `roleArn`
+* `Aws\S3` - Fixed `PostObjectV4` with security token option
+
+## 3.19.10 - 2016-09-22
+
+* `Aws\ApiGateway` - Added new enum values to the service
+
+## 3.19.9 - 2016-09-20
+
+* `Aws\CodeDeploy` - Added support for Rollback deployment
+* `Aws\Emr` - Added support for the new end-to-end encryption
+* `Aws\Rds` - Added support for local time zone
+* `Aws\Redshift` - Added support for `EnhancedVpcRouting` feature
+
+## 3.19.8 - 2016-09-15
+
+* `Aws\Iot` - Added support for changes in `RegisterCertificate` API &
+  Adding a new field "cannedAcl" in S3 action
+* `Aws\Rds` - Added support for Aurora cluster reader endpoint
+
+## 3.19.7 - 2016-09-13
+
+* `Aws\ServiceCatalog` - Added support for API Update for AWS Service Catalog
+
+## 3.19.6 - 2016-09-08
+
+* `Aws\CloudFront` - Added support for HTTP2
+
+## 3.19.5 - 2016-09-06
+
+* `Aws\Codepipeline` - Added support for pipeline execution details
+* `Aws\Rds` - Added support for `DescribeSourceRegions` API
+* `Aws\Sns` - Added new exceptions
+
+## 3.19.4 - 2016-09-01
+
+* `Aws\ApplicationAutoScaling` - Added support for automatically scaling an
+  Amazon EC2 Spot fleet in order to manage application availability and
+  costs during changes in demand based on conditions you define
+* `Aws\CognitoIdentity` - Added support for bulk import of users
+* `Aws\Rds` - Added support for the information about option conflicts
+  to the describe-option-group-options api response
+* `Aws\ConfigService` - Added support for a application loadbalancer type
+* `Aws\GameLift` - Added support for Linux instance
+
+## 3.19.3 - 2016-08-30
+
+* `Aws\CloudFront` - Added support for QueryString Whitelisting
+* `Aws\CodePipeline` - Added support for return pipeline execution details
+* `Aws\Ecs` - Added support for simplified waiter
+* `Aws\Route53` - Added support for `NAPTR` and new operation `TestDNSAnswer`
+
+## 3.19.2 - 2016-08-23
+
+* `Aws\Rds` - Added support for addition of resource ARNs to `Describe` APIs
+
+## 3.19.1 - 2016-08-18
+
+* `Aws\Ec2` - Added support for for Dedicated Host Reservations and
+  API Update for `EC2-SpotFleet`
+* `Aws\ElasticLoadBalancingV2` - Fix `ElasticLoadBalancingV2` endpoints
+* `Aws\WorkSpaces` - Added support for Hourly WorkSpaces APIs
+
+## 3.19.0 - 2016-08-16
+
+* `Aws\Acm` - Added support for increased tagging limit
+* `Aws\ApiGateway` - Added support for API usage plans
+* `Aws\Ecs` - Added support for memory reservation and `networkMode` on task definitions
+
+## 3.18.39 - 2016-08-11
+
+* `Aws\AutoScaling` - Added support for `ELB` L7 integration
+* `Aws\ElasticLoadBalancing` - Added support for `ELBv2` support
+* `Aws\KinesisAnalytics` - Added support for new service that 9allows customers to perform SQL queries against streaming data
+* `Aws\Kms` - Added support for importing customer-supplied cryptographic keys
+* `Aws\S3` - Added support for IPv6
+* `Aws\SnowBall` - Added support for new service `SnowBall`: snowball job management
+
+## 3.18.38 - 2016-08-09
+
+* `Aws\CloudFront` - Added support for tagging API
+* `Aws\Ecr` - Added support for `ListImages` filtering
+* `Aws\MarketplaceCommerceAnalytics` - Added support for `StartSupportDataExport`
+* `Aws\Rds` - Fixing duplicate acceptors in waiters
+
+## 3.18.37 - 2016-08-04
+
+* `Aws\GameLift` - Added support for `GameSession` Search
+* `Aws\Lambda` - Added support for throttling reasons, new exception for bad zip file,
+  and Event Source Token field for add permission request
+* `Aws\Rds` - Added support for `MoveToVpc` feature and S3 Snapshot Ingestion
+
+## 3.18.36 - 2016-08-02
+
+* `Aws\CloudWatchLogs` - Added support for Optional Parameter to PutMetricFilterRequest
+* `Aws\Emr` - Added support for Enhanced Debugging
+* `Aws\Iot` - Added support for `ListOutgoingCertificates` & `AutoRegistration` flag
+* `Aws\MachineLearning` - Added support for computing time and entity timestamp
+* `Aws\MarketplaceMetering` - API Constraint Update
+* `Aws\Rds` - Added support for license migration between BYOL and LI API Update for `AWS-RDS`,
+  Enable `version` with RDS Options
+
+## 3.18.35 - 2016-07-28
+
+* `Aws\Route53Domains` - API Updates
+
+## 3.18.34 - 2016-07-28
+
+* `Aws\CodeDeploy` - Added support for  `DeploymentSuccessful ` waiter
+* `Aws\ApiGateway` - Added support for `Cognito`User Pools Auth Support
+* `Aws\Ec2` - Added support for DNS for VPC Peering
+* `Aws\DirectoryService` - Added support for new API for Microsoft AD to manage routing
+* `Aws\Route53Domains` - Added support for `getDomainSuggestions` capability
+* `Aws\CognitoIdentity` - Added support for `User Pools`
+* `Aws\ElasticsearchService` - Added support for pipeline aggregations to perform advanced
+  analytics like moving averages and derivatives, and enhancements to geospatial queries
+
+## 3.18.33 - 2016-07-26
+
+`Aws\Iot` - Added support for Thing Types, ":" in Thing Name, and
+  `separator` in `Firehose` action
+`Aws\CloudSearchDomain` - Fix query value in `POST` request
+
+## 3.18.32 - 2016-07-21
+
+`Aws\Acm` - Added support for additional field to return for `Describe Certificate `
+`Aws\Config` - Added support for `ACM`, `RDS` resource types, introducing
+  Hybrid Rules & Forced Evaluation feature
+`Aws\CloudSearchDomain` - Convert long query request to `POST`
+`Aws\CloudFormation` - Added support for enum value for API parameter :`Capabilities`
+`Aws\ElasticTranscoder` - Added support for WAV file output format
+`Aws\Ssm` - Fixing missing paginator for SSM `DescribeInstanceInformation`
+
+## 3.18.31 - 2016-07-19
+
+`Aws\Ssm` - Added support for notification
+`Aws\DeviceFarm` - Added support for session based APIs
+
+## 3.18.30 - 2016-07-18
+
+Fix composer version constraints.
+
+## 3.18.29 - 2016-07-18
+
+Updating dependency to a version of Guzzle that addresses CVE-2016-5385.
+Please upgrade your version of the SDK or Guzzle if you are using the AWS SDK for PHP
+in a CGI process that connects to an `http` endpoint.
+
+See https://httpoxy.org for more details on the vulnerability.
+
+## 3.18.28 - 2016-07-13
+
+* `Aws\DatabaseMigrationService` - Added support for SSL Endpoint and Replication
+* `Aws\Ecs` - Added support for IAM roles for ECS Tasks
+* `Aws\Rds` - Adds new method `CopyDBClusterParameterGroup` and
+  new parameter `TargetDBInstanceIdentifier` to `FailoverDBCluster` API
+
+## 3.18.27 - 2016-07-07
+
+* `Aws\ServiceCatalog` - Added support for `Aws\ServiceCatalog`
+
+## 3.18.26 - 2016-07-07
+
+* `Aws\Config` - Added support for `DeleteConfigurationRecorder` API
+* `Aws\DirectoryService` - Added support for tagging APIs
+
+## 3.18.25 - 2016-07-05
+
+* `Aws\CodePipeline` - Added support for manual approvals.
+
+## 3.18.24 - 2016-07-01
+
+* Update composer dependency `"guzzlehttp/psr7": "~1.3.1"`
+
+## 3.18.23 - 2016-06-30
+
+* `Aws\DatabaseMigrationService` - Added support for specify `VpcSecurityGroupId`
+  for the replication instance
+* `Aws\Ssm` - Added support for registering customer servers to enable command function
+
+## 3.18.22 - 2016-06-28
+
+* `Aws\Ec2` - Added support for ENA supported instances
+* `Aws\Efs` - Added support for "PerformanceMode" parameter for
+  CreateFileSystem and DescribeFileSystems
+* `Aws\GameLift` - Added support for  declaring and inspecting game server
+  runtime configurations on fleets, including server process launch path,
+  parameters, and number of concurrent executions
+* `Aws\Iot` - Added support for "update" and "delete" an item
+  through Dynamo DB rule
+* `Aws\Sns` - Added Worldwide SMS support
+* `Aws\Route53` - Added support for BOM region
+
+## 3.18.21 - 2016-06-27
+
+## 3.18.20 - 2016-06-23
+
+* `Aws\CognitoIdentity` - Added support for
+  Security Assertion Markup Language (SAML) 2.0.
+* `Aws\DirectConnect` - Added support for downloading the Letter of Authorization:
+   Connecting Facility Assignment (LOA-CFA) for Connections and Interconnects
+* `Aws\Ec2` - Added support for new operations DescribeIdentityIdFormat
+  & ModifyIdentityIdFormat
+
+## 3.18.19 - 2016-06-21
+
+* `Aws\CodePipeline` - Added support for Retry Failed Actions
+* `Aws\Ec2` - Added support for new VPC resource waiters
+
+## 3.18.18 - 2016-06-14
+
+* `Aws\Rds` - Added support for RDS Cross-region managed binlog replication
+* `Aws\CloudTrail` - Added support for new exception to handle
+  `KMS InvalidStateException`
+* `Aws\Ses` - Added support for enhanced customer notifications
+
+## 3.18.17 - 2016-06-09
+
+* `Aws\S3` -  Fixed StartAfter option in ListObjectsV2 operation
+
+## 3.18.16 - 2016-06-07
+
+* `Aws\Iot` - Added support for string and numeric values in `hashKey`
+  and `rangeKey`, update `ListPolicyPrincipals`
+* `Aws\MachineLearning` - Added support for tagging operations
+* `Aws\Ec2` - Added support for `DescribeSpotFleetRequests` paginator
+* `Aws\DynamoDbStreams` - Added support for `ApproximationCreationDateTime`
+* `Aws\CloudWatch` - Added support for Alarm waiter
+
+
+## 3.18.15 - 2016-06-02
+
+* `Aws\Ec2` - Added support for `type` parameter in RequestSpotFleet API
+ and `fulfilledCapacity` in DescribeSpotFleetRequests API response
+
+## 3.18.14 - 2016-05-26
+
+* `Aws\ElastiCache` - Added support for exporting a Redis snapshot
+  to an Amazon S3 bucket
+
+## 3.18.13 - 2016-05-24
+
+* `Aws\Ec2` - Added support for accessing instance console screenshot
+* `Aws\Rds` - Added support for cross-account snapshot sharing
+
+## 3.18.12 - 2016-05-19
+
+* `Aws\ApplicationAutoScaling` - Added support for `Aws\ApplicationAutoScaling`
+  service
+
+## 3.18.11 - 2016-05-19
+
+* `Aws\Firehose` - Added support for configurable retry window for
+  loading data into Amazon Redshift
+* `Aws\Ecs` - Added support for status of ListTaskDefinitionFamilies
+
+## 3.18.10 - 2016-05-18
+
+* `Aws\S3` - Fixed signature with S3 presign request
+
+## 3.18.9 - 2016-05-17
+
+* `Aws\ApplicationDiscoveryService` - Fixed an incorrect model from the previous
+  release. To use `AWS Discovery` service, please upgrade to this version
+* `Aws\WorkSpaces` - Added support for tagging to categorize `Amazon WorkSpaces`,
+  which also allows allocating usage to cost centers from AWS account bill
+
+## 3.18.8 - 2016-05-12
+
+* `Aws\ApplicationDiscoveryService` - Added support for `Aws Discovery` service
+* `Aws\CloudFormation` - Added support for `ExecutionStatus` in `ChangeSets`
+* `Aws\Ec2` - Added support for identifying stale security groups in VPC
+* `Aws\Ssm` - Added support for document sharing feature
+
+## 3.18.7 - 2016-05-10
+
+* `Aws\` - Added support for new region and endpoints
+* `Aws\Emr` - Added support for ListInstances API having filter on instance state
+* `Aws\ImportExport` - Added support for `Aws\ImportExport` service
+
+## 3.18.6 - 2016-05-05
+
+* `Aws\ApiGateway` - Added support for additional field on Integration to
+  control passthrough behavior
+* `Aws\CloudTrail` - Deprecates the `SnsTopicName` field in favor of `SnsTopicArn`
+* `Aws\Ecs` - Added support for non-comprehensive logDriver enum
+* `Aws\Kms` - Added support for "pro-lockout" flag
+* `Aws\S3` - Amazon S3 Added a new list type to list objects in buckets
+  with a large number of delete markers
+
+## 3.18.5 - 2016-05-03
+
+* `Aws\Api` - Fixed serialization of booleans in querystrings
+ * `Aws\OpsWorks` - Added support for default tenancy selection
+
+## 3.18.4 - 2016-04-28
+
+* `Aws\OpsWorks` - Added support for default tenancy selection.
+* `Aws\Route53Domains` - Added support for getting contact reachability status
+  and resending contact reachability emails.
+
 ## 3.18.3 - 2016-04-27
 
 * `Aws\Api` - Fixed parsing empty responses
@@ -916,7 +1846,7 @@ for details about any changes you may need to make to your code for this upgrade
 
 * New requirements on Guzzle 5 and PHP 5.5.
 * Event system now uses Guzzle 5 events and no longer utilizes Symfony2.
-* `version` and `region` are noww required parameter for each client
+* `version` and `region` are now required parameter for each client
   constructor. You can op-into using the latest version of a service by
   setting `version` to `latest`.
 * Removed `Aws\S3\ResumableDownload`.

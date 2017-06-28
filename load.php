@@ -40,6 +40,7 @@ function bootstrap() {
 
 	add_filter( 'enable_loading_advanced_cache_dropin', __NAMESPACE__ . '\\load_advanced_cache', 10, 1 );
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
+	add_filter( 'aws_ses_wp_mail_ses_send_message_args', __NAMESPACE__ . '\\set_aws_ses_configuration_set' );
 
 	if ( is_admin() ) {
 		require __DIR__ . '/admin.php';
@@ -151,4 +152,20 @@ function load_plugins() {
 	}
 
 	require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
+}
+
+/**
+ * Hook into The AWS SES send action to set the Configuration Set and tags so we
+ * have better tracking in CloudWatch.
+ *
+ * @param array $array
+ * @return array
+ */
+function set_aws_ses_configuration_set( $args ) {
+	$args['ConfigurationSetName'] = 'hm-stack-by-application';
+	$args['Tags'][] = [
+		'Name' => 'application',
+		'Value' => HM_ENV,
+	];
+	return $args;
 }
