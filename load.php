@@ -33,6 +33,8 @@ function bootstrap() {
 
 	load_object_cache();
 
+	require __DIR__ . '/lib/healthcheck.php';
+
 	global $wp_version;
 	if ( version_compare( '4.6', $wp_version, '>' ) ) {
 		die( 'HM Platform is only supported on WordPress 4.6+.' );
