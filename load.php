@@ -26,8 +26,11 @@ function boostrap_cavalcade_runner() {
 
 /**
  * Bootstrap the platform pieces.
+ *
+ * This function is hooked into to enable_wp_debug_mode_checks so we have to return the value
+ * that was passed in at the end of the function.
  */
-function bootstrap() {
+function bootstrap( $wp_debug_enabled ) {
 	// Load the common AWS SDK.
 	require __DIR__ . '/lib/aws-sdk/aws-autoloader.php';
 
@@ -45,6 +48,8 @@ function bootstrap() {
 		require __DIR__ . '/admin.php';
 		Admin\bootstrap();
 	}
+
+	return $wp_debug_enabled;
 }
 
 /**
