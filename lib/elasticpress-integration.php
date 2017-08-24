@@ -36,9 +36,11 @@ function sign_wp_request( array $args, string $url ) : array {
 		$provider = new Credentials\InstanceProfileProvider();
 		$credentials = call_user_func( $provider )->wait();
 	}
-
 	$signed_request = $signer->signRequest( $request, $credentials );
 	$args['headers']['Authorization'] = $signed_request->getHeader( 'Authorization' )[0];
 	$args['headers']['X-Amz-Date'] = $signed_request->getHeader( 'X-Amz-Date' )[0];
+	if ( $signed_request->getHeader( 'X-Amz-Security-Token' ) ) {
+		$args['headers']['X-Amz-Security-Token'] = $signed_request->getHeader( 'X-Amz-Security-Token' )[0];
+	}
 	return $args;
 }
