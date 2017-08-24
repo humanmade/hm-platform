@@ -148,7 +148,8 @@ function load_plugins() {
 		if ( strpos( $plugin, __DIR__ ) === false ) {
 			return $url;
 		}
-		return str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( $plugin ) );
+
+		return str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( $plugin ) ) . $path;
 	}, 10, 3 );
 
 	// Force DISABLE_WP_CRON for Cavalcade.
