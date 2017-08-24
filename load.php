@@ -68,6 +68,7 @@ function get_config() {
 		'batcache'        => true,
 		'memcached'       => true,
 		'ludicrousdb'     => true,
+		'elasticsearch'   => true,
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
@@ -133,6 +134,7 @@ function get_available_plugins() {
 		'aws-ses-wp-mail' => 'aws-ses-wp-mail/aws-ses-wp-mail.php',
 		'tachyon'         => 'tachyon/tachyon.php',
 		'cavalcade'       => 'cavalcade/plugin.php',
+		'elasticsearch'   => 'elasticpress/elasticpress.php',
 	);
 }
 
@@ -141,6 +143,13 @@ function get_available_plugins() {
  */
 function load_plugins() {
 	$config = get_config();
+
+	add_filter( 'plugins_url', function ( $url, $path, $plugin ) {
+		if ( strpos( $plugin, __DIR__ ) === false ) {
+			return $url;
+		}
+		return str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( $plugin ) );
+	}, 10, 3 );
 
 	// Force DISABLE_WP_CRON for Cavalcade.
 	if ( $config['cavalcade'] && ! defined( 'DISABLE_WP_CRON' ) ) {
@@ -153,5 +162,10 @@ function load_plugins() {
 		}
 
 		require __DIR__ . '/plugins/' . $file;
+	}
+
+	if ( ! empty( $config['elasticsearch'] ) ) {
+		require_once __DIR__ . '/lib/elasticpress-integration.php';
+		ElasticPress_Integration\bootstrap();
 	}
 }
