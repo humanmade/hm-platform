@@ -68,7 +68,7 @@ function get_config() {
 		'batcache'        => true,
 		'memcached'       => true,
 		'ludicrousdb'     => true,
-		'elasticsearch'   => true,
+		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
