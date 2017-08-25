@@ -19,6 +19,3 @@
 [submodule "plugins/tachyon"]
 	path = plugins/tachyon
 	url = https://github.com/humanmade/tachyon-plugin.git
-[submodule "plugins/elasticpress"]
-	path = plugins/elasticpress
-	url = git@github.com:10up/ElasticPress.git
