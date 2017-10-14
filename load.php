@@ -68,6 +68,7 @@ function get_config() {
 		'batcache'        => true,
 		'memcached'       => true,
 		'ludicrousdb'     => true,
+		'hm-cloud-plugin' => true,
 		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
@@ -134,6 +135,7 @@ function get_available_plugins() {
 		'aws-ses-wp-mail' => 'aws-ses-wp-mail/aws-ses-wp-mail.php',
 		'tachyon'         => 'tachyon/tachyon.php',
 		'cavalcade'       => 'cavalcade/plugin.php',
+		'hm-cloud-plugin' => 'hm-cloud-plugin/plugin.php',
 	);
 }
 
