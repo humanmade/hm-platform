@@ -19,6 +19,6 @@
 [submodule "plugins/tachyon"]
 	path = plugins/tachyon
 	url = https://github.com/humanmade/tachyon-plugin.git
-[submodule "hm-cloud-plugin"]
-	path = hm-cloud-plugin
-	url = git@github.com:humanmade/hm-cloud-plugin.git
+[submodule "plugins/hm-cloud-plugin"]
+	path = plugins/hm-cloud-plugin
+	url = https://github.com/humanmade/hm-cloud-plugin.git
