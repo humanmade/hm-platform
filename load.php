@@ -88,8 +88,8 @@ function load_object_cache() {
 	if( $config['memcached'] ) {
 		require __DIR__ . '/dropins/wordpress-pecl-memcached-object-cache/object-cache.php';
 	} else if ( $config['redis'] ) {
-		require __DIR__ . '/dropins/wp-redis-predis-client/functions.php';
-		WP_Predis\add_filters();
+		require __DIR__ . '/dropins/wp-redis-predis-client/vendor/autoload.php';
+		\WP_Predis\add_filters();
 		require __DIR__ . '/plugins/wp-redis/object-cache.php';
 	}
 
