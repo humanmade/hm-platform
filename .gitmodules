@@ -22,6 +22,3 @@
 [submodule "plugins/wp-redis"]
 	path = plugins/wp-redis
 	url = https://github.com/pantheon-systems/wp-redis.git
-[submodule "dropins/wp-redis-predis-client"]
-	path = dropins/wp-redis-predis-client
-	url = https://github.com/humanmade/wp-redis-predis-client.git
