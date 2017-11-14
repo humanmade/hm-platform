@@ -45,7 +45,7 @@ function bootstrap( $wp_debug_enabled ) {
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
 
 	if ( is_admin() ) {
-		require __DIR__ . '/admin.php';
+		require __DIR__ . '/admin/admin.php';
 		Admin\bootstrap();
 	}
 
@@ -59,6 +59,9 @@ function bootstrap( $wp_debug_enabled ) {
  */
 function get_config() {
 	global $hm_platform;
+
+	// @todo: load config from JSON file
+	// check for hm.json -> hm.{env}.json -> package.json#hm -> package.json#hm.env.{env}
 
 	$defaults = array(
 		's3-uploads'      => true,
@@ -142,6 +145,11 @@ function get_available_plugins() {
  */
 function load_plugins() {
 	$config = get_config();
+
+	// Load hidden platform mu-plugins.
+	foreach ( glob( __DIR__ . '/plugins-mu/*.php' ) as $file ) {
+		require $file;
+	}
 
 	add_filter( 'plugins_url', function ( $url, $path, $plugin ) {
 		if ( strpos( $plugin, __DIR__ ) === false ) {
