@@ -63,7 +63,9 @@ function get_config() {
 	global $hm_platform;
 
 	// @todo: load config from JSON file
-	// check for hm.json -> hm.{env}.json -> package.json#hm -> package.json#hm.env.{env}
+	// check root then content for hm.json -> hm.{env}.json -> package.json#hm -> package.json#hm.env.{env}
+
+
 
 	$defaults = array(
 		's3-uploads'      => true,
