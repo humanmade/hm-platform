@@ -2,6 +2,8 @@
 
 namespace HM\Platform;
 
+const VERSION = '1.0.0';
+
 if ( ! defined( 'WP_CACHE' ) ) {
 	define( 'WP_CACHE', true );
 }

@@ -1,0 +1,17 @@
+.hm-ek-Header {
+  margin-left: -20px;
+  background: #fff;
+  padding: 20px 40px;
+}
+
+.hm-ek-Header h1 img {
+  max-width: 160px;
+  vertical-align: text-bottom;
+  margin-right: 20px;
+}
+
+.hm-ek-Header-Version {
+  margin-left: 10px;
+  font-size: 50%;
+  color: #999;
+}

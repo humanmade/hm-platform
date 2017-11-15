@@ -260,6 +260,9 @@ function add_menu_bar_item( WP_Admin_Bar $wp_admin_bar ) {
 		'id'     => 'hm-platform-toolbar-ui',
 		'title'  => 'HM Platform',
 		'parent' => 'hm-platform-toolbar',
+		'meta'   => [
+			'class' => 'menupop',
+		],
 	] );
 }
 
@@ -281,8 +284,9 @@ function enqueue_assets() {
 	wp_localize_script( 'hm-platform-ui', 'HM', [
 		'EnterpriseKit' => [
 			'AdminURL' => admin_url( '/admin.php?page=hm-enterprise-kit' ),
+			'Version'  => \HM\Platform\VERSION,
+			'Features' => [],
 		],
 		'Environment'   => get_environment(),
-		'Features'      => [],
 	] );
 }

@@ -9,6 +9,7 @@ class Menu extends Component {
 				key="main-link"
 				to="/"
 				className="menu-top toplevel_page_hm-enterprise-kit"
+				activeClassName="current"
 			>
 				<div className="wp-menu-arrow"><div /></div>
 				<div className="wp-menu-image dashicons-before">
@@ -17,9 +18,9 @@ class Menu extends Component {
 				<div className="wp-menu-name">Enterprise Kit</div>
 			</NavLink>,
 			<ul key="submenu" className="wp-submenu wp-submenu-wrap">
-				<li><NavLink to="/">Dashboard</NavLink></li>
-				<li><NavLink to="/features">Features</NavLink></li>
-				<li><NavLink to="/stats">Stats</NavLink></li>
+				<li><NavLink exact to="/" activeClassName="current">Dashboard</NavLink></li>
+				<li><NavLink to="/features" activeClassName="current">Features</NavLink></li>
+				<li><NavLink to="/stats" activeClassName="current">Stats</NavLink></li>
 			</ul>
 		];
 	}
