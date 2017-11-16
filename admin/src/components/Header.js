@@ -9,7 +9,7 @@ class Header extends Component {
 		return <header className="hm-ek-Header">
 			<h1>
 				<img className="hm-logo-large" src={logo} alt="Human Made" />
-				Enterprise Kit
+				Platform
 				{ ' ' }
 				<small className="hm-ek-Header-Version">v{ HM.EnterpriseKit.Version }</small>
 			</h1>
