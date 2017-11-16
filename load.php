@@ -77,6 +77,7 @@ function get_config() {
 		'sitemaps'         => false,
 		'related-posts'    => false,
 		'post-cloner'      => false,
+		'seo'              => false,
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
@@ -145,6 +146,7 @@ function get_available_plugins() {
 		'sitemaps'        => 'msm-sitemap/msm-sitemap.php',
 		'related-posts'   => 'hm-related-posts/hm-related-posts.php',
 		'post-cloner'     => 'post-cloner/post-cloner.php',
+		'seo'             => 'wp-seo/wp-seo.php',
 	);
 }
 

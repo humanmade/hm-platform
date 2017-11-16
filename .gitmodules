@@ -28,3 +28,6 @@
 [submodule "plugins/post-cloner"]
 	path = plugins/post-cloner
 	url = git@github.com:humanmade/post-cloner.git
+[submodule "plugins/wp-seo"]
+	path = plugins/wp-seo
+	url = https://github.com/alleyinteractive/wp-seo.git
