@@ -210,41 +210,41 @@ function platform_menu_order( $menu_order ) {
  * Adds the parent menu bar item.
  */
 function add_menu_item() {
-	global $menu, $submenu;
+	global $submenu;
 
 	$ek_page_callback = function () {
-		printf( '<div id="hm-enterprise-kit">%s</div>', 'Loading Enterprise Kit...' );
+		printf( '<div id="hm-platform">%s</div>', 'Loading HM Platform...' );
 	};
 
 	add_menu_page(
-		'Human Made Enterprise Kit',
-		'Enterprise Kit',
+		'Human Made Platform',
+		'HM Platform',
 		'manage_options',
-		'hm-enterprise-kit',
+		'hm-platform',
 		$ek_page_callback,
 		'https://humanmade.github.io/hm-pattern-library/assets/images/logos/logo-small-red.svg',
 		2
 	);
 
 	$sub_pages = [
-		'/'         => 'Dashboard',
-		'/features' => 'Features',
-		'/stats'    => 'Stats',
+		'/'      => 'Dashboard',
+		'/ek'    => 'Enterprise Kit',
+		'/stats' => 'Stats',
 	];
 
 	foreach ( $sub_pages as $url => $title ) {
 		add_submenu_page(
-			'hm-enterprise-kit',
+			'hm-platform',
 			$title,
 			$title,
 			'manage_options',
-			'hm-enterprise-kit#' . $url,
+			'hm-platform#' . $url,
 			$ek_page_callback
 		);
 	}
 
 	// Remove default parent link.
-	unset( $submenu['hm-enterprise-kit'][0] );
+	unset( $submenu['hm-platform'][0] );
 }
 
 /**
@@ -283,7 +283,7 @@ function enqueue_assets() {
 	ReactWPScripts\enqueue_assets( 'hm-platform-ui', WP_CONTENT_URL . '/hm-platform/admin', __DIR__ );
 	wp_localize_script( 'hm-platform-ui', 'HM', [
 		'EnterpriseKit' => [
-			'AdminURL' => admin_url( '/admin.php?page=hm-enterprise-kit' ),
+			'AdminURL' => admin_url( '/admin.php?page=hm-platform' ),
 			'Version'  => \HM\Platform\VERSION,
 			'Features' => [],
 		],

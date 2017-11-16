@@ -7,7 +7,7 @@ import AdminPortal from './portal';
 class App extends Component {
   render() {
     return [
-      <AdminPortal key="main" id="hm-enterprise-kit">
+      <AdminPortal key="main" id="hm-platform">
         <Main/>
       </AdminPortal>,
       <AdminPortal key="toolbar" id="wp-admin-bar-hm-platform-toolbar-ui">

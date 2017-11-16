@@ -9,7 +9,7 @@ class Main extends Component {
 	render() {
 		return <HashRouter>
 			<div id="hm-enterprise-kit-ui">
-				<AdminPortal id="toplevel_page_hm-enterprise-kit">
+				<AdminPortal id="toplevel_page_hm-platform">
 					<Menu />
 				</AdminPortal>
 				<Header />

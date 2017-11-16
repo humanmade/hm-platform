@@ -15,11 +15,11 @@ class Menu extends Component {
 				<div className="wp-menu-image dashicons-before">
 					<img className="hm-logo-small" src={logo} alt="Human Made" />
 				</div>
-				<div className="wp-menu-name">Enterprise Kit</div>
+				<div className="wp-menu-name">Platform</div>
 			</NavLink>,
 			<ul key="submenu" className="wp-submenu wp-submenu-wrap">
 				<li><NavLink exact to="/" activeClassName="current">Dashboard</NavLink></li>
-				<li><NavLink to="/features" activeClassName="current">Features</NavLink></li>
+				<li><NavLink to="/ek" activeClassName="current">Enterprise Kit</NavLink></li>
 				<li><NavLink to="/stats" activeClassName="current">Stats</NavLink></li>
 			</ul>
 		];
