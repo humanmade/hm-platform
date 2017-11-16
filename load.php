@@ -65,18 +65,17 @@ function get_config() {
 	// @todo: load config from JSON file
 	// check root then content for hm.json -> hm.{env}.json -> package.json#hm -> package.json#hm.env.{env}
 
-
-
 	$defaults = array(
-		's3-uploads'      => true,
-		'aws-ses-wp-mail' => true,
-		'tachyon'         => true,
-		'cavalcade'       => true,
-		'batcache'        => true,
-		'memcached'       => true,
-		'ludicrousdb'     => true,
-		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
-		'msm-sitemap'     => false,
+		's3-uploads'       => true,
+		'aws-ses-wp-mail'  => true,
+		'tachyon'          => true,
+		'cavalcade'        => true,
+		'batcache'         => true,
+		'memcached'        => true,
+		'ludicrousdb'      => true,
+		'elasticsearch'    => defined( 'ELASTICSEARCH_HOST' ),
+		'msm-sitemap'      => false,
+		'related-posts'    => false
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
@@ -143,6 +142,7 @@ function get_available_plugins() {
 		'tachyon'         => 'tachyon/tachyon.php',
 		'cavalcade'       => 'cavalcade/plugin.php',
 		'msm-sitemap'     => 'msm-sitemap/msm-sitemap.php',
+		'related-posts'   => 'hm-related-posts/hm-related-posts.php'
 	);
 }
 
