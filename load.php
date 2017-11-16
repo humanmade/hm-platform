@@ -75,7 +75,8 @@ function get_config() {
 		'ludicrousdb'      => true,
 		'elasticsearch'    => defined( 'ELASTICSEARCH_HOST' ),
 		'sitemaps'         => false,
-		'related-posts'    => false
+		'related-posts'    => false,
+		'post-cloner'      => false,
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
@@ -142,7 +143,8 @@ function get_available_plugins() {
 		'tachyon'         => 'tachyon/tachyon.php',
 		'cavalcade'       => 'cavalcade/plugin.php',
 		'sitemaps'        => 'msm-sitemap/msm-sitemap.php',
-		'related-posts'   => 'hm-related-posts/hm-related-posts.php'
+		'related-posts'   => 'hm-related-posts/hm-related-posts.php',
+		'post-cloner'     => 'post-cloner/post-cloner.php',
 	);
 }
 
