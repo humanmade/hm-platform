@@ -25,9 +25,6 @@
 [submodule "plugins/hm-related-posts"]
 	path = plugins/hm-related-posts
 	url = https://github.com/humanmade/HM-Related-Posts.git
-[submodule "plugins/post-cloner"]
-	path = plugins/post-cloner
-	url = https://github.com/humanmade/post-cloner.git
 [submodule "plugins/wp-seo"]
 	path = plugins/wp-seo
 	url = https://github.com/humanmade/wp-seo.git
