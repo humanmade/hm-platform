@@ -37,7 +37,7 @@ function sign_wp_request( array $args, string $url ) : array {
 		$credentials = new Credentials\Credentials( ELASTICSEARCH_AWS_KEY, ELASTICSEARCH_AWS_SECRET );
 	} else {
 		$provider = Credentials\CredentialProvider::defaultProvider();
-		$credentials = $provider->wait();
+		$credentials = call_user_func( $provider )->wait();
 	}
 	$signed_request = $signer->signRequest( $request, $credentials );
 	$args['headers']['Authorization'] = $signed_request->getHeader( 'Authorization' )[0];
