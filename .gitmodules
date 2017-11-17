@@ -24,10 +24,10 @@
 	url = https://github.com/humanmade/msm-sitemap.git
 [submodule "plugins/hm-related-posts"]
 	path = plugins/hm-related-posts
-	url = git@github.com:humanmade/HM-Related-Posts.git
+	url = https://github.com/humanmade/HM-Related-Posts.git
 [submodule "plugins/post-cloner"]
 	path = plugins/post-cloner
-	url = git@github.com:humanmade/post-cloner.git
+	url = https://github.com/humanmade/post-cloner.git
 [submodule "plugins/wp-seo"]
 	path = plugins/wp-seo
-	url = git@github.com:humanmade/wp-seo.git
+	url = https://github.com/humanmade/wp-seo.git
