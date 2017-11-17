@@ -19,3 +19,12 @@
 [submodule "plugins/tachyon"]
 	path = plugins/tachyon
 	url = https://github.com/humanmade/tachyon-plugin.git
+[submodule "plugins/msm-sitemap"]
+	path = plugins/msm-sitemap
+	url = https://github.com/humanmade/msm-sitemap.git
+[submodule "plugins/hm-related-posts"]
+	path = plugins/hm-related-posts
+	url = https://github.com/humanmade/HM-Related-Posts.git
+[submodule "plugins/wp-seo"]
+	path = plugins/wp-seo
+	url = https://github.com/humanmade/wp-seo.git
