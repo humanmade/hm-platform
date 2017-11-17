@@ -17,8 +17,8 @@ function bootstrap() {
 	add_action( 'pre_current_active_plugins', __NAMESPACE__ . '\\show_in_admin' );
 	add_action( 'network_admin_plugin_action_links', __NAMESPACE__ . '\\get_platform_actions', 10, 4 );
 	add_action( 'plugin_action_links', __NAMESPACE__ . '\\get_platform_actions', 10, 4 );
-//	add_action( 'admin_menu', __NAMESPACE__ . '\\add_menu_item' );
-//	add_action( 'admin_bar_menu', __NAMESPACE__ . '\\add_menu_bar_item' );
+	add_action( 'admin_menu', __NAMESPACE__ . '\\add_menu_item' );
+	add_action( 'admin_bar_menu', __NAMESPACE__ . '\\add_menu_bar_item' );
 	add_filter( 'custom_menu_order', '__return_true' );
 	add_filter( 'menu_order', __NAMESPACE__ . '\\platform_menu_order', 20 );
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
