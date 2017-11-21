@@ -65,6 +65,7 @@ function get_config() {
 		'aws-ses-wp-mail' => true,
 		'tachyon'         => true,
 		'cavalcade'       => true,
+		'members'       	=> false,
 		'batcache'        => true,
 		'memcached'       => true,
 		'ludicrousdb'     => true,
@@ -134,6 +135,7 @@ function get_available_plugins() {
 		'aws-ses-wp-mail' => 'aws-ses-wp-mail/aws-ses-wp-mail.php',
 		'tachyon'         => 'tachyon/tachyon.php',
 		'cavalcade'       => 'cavalcade/plugin.php',
+		'members'					=> 'members/member.php',
 	);
 }
 
