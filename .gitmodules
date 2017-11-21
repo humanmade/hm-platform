@@ -19,3 +19,6 @@
 [submodule "plugins/tachyon"]
 	path = plugins/tachyon
 	url = https://github.com/humanmade/tachyon-plugin.git
+[submodule "plugins/members"]
+	path = plugins/members
+	url = git@github.com:humanmade/members.git
