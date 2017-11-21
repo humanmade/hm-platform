@@ -65,7 +65,7 @@ function get_config() {
 		'aws-ses-wp-mail' => true,
 		'tachyon'         => true,
 		'cavalcade'       => true,
-		'members'       	=> false,
+		'members'					=> false,
 		'batcache'        => true,
 		'memcached'       => true,
 		'ludicrousdb'     => true,
