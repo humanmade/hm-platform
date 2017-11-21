@@ -135,7 +135,7 @@ function get_available_plugins() {
 		'aws-ses-wp-mail' => 'aws-ses-wp-mail/aws-ses-wp-mail.php',
 		'tachyon'         => 'tachyon/tachyon.php',
 		'cavalcade'       => 'cavalcade/plugin.php',
-		'members'					=> 'members/member.php',
+		'members'         => 'members/member.php',
 	);
 }
 
