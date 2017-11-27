@@ -28,3 +28,6 @@
 [submodule "plugins/wp-seo"]
 	path = plugins/wp-seo
 	url = https://github.com/humanmade/wp-seo.git
+[submodule "plugins/hm-redirects"]
+	path = plugins/hm-redirects
+	url = https://github.com/humanmade/hm-redirects.git
