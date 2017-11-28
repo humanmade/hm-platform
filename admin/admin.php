@@ -222,7 +222,7 @@ function add_menu_item() {
 		'manage_options',
 		'hm-platform',
 		$ek_page_callback,
-		'https://humanmade.github.io/hm-pattern-library/assets/images/logos/logo-small-red.svg',
+		WP_CONTENT_URL . '/hm-platform/admin/src/assets/logo-small-red.svg',
 		2
 	);
 
