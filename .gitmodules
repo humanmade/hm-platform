@@ -31,3 +31,6 @@
 [submodule "plugins/hm-redirects"]
 	path = plugins/hm-redirects
 	url = https://github.com/humanmade/hm-redirects.git
+[submodule "plugins/bylines"]
+	path = plugins/bylines
+	url = https://github.com/humanmade/bylines.git

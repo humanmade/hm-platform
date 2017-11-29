@@ -78,6 +78,7 @@ function get_config() {
 		'related-posts'    => false,
 		'seo'              => false,
 		'redirects'        => false,
+		'bylines'          => false,
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
@@ -147,6 +148,7 @@ function get_available_plugins() {
 		'related-posts'   => 'hm-related-posts/hm-related-posts.php',
 		'seo'             => 'wp-seo/wp-seo.php',
 		'redirects'       => 'hm-redirects/hm-redirects.php',
+		'bylines'         => 'bylines/bylines.php',
 	);
 }
 
