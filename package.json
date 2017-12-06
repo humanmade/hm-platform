@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "docsVersion": "beta",
   "description": "Core HM Platform Enterprise Kit and UI",
-  "main": "index.js",
   "directories": {
-    "lib": "lib"
+    "bin": "bin"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
