@@ -1,0 +1,18 @@
+{
+  "name": "hm-platform",
+  "version": "0.1.0",
+  "docsVersion": "beta",
+  "description": "Core HM Platform Enterprise Kit and UI",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Human Made Limited",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "husky": "^0.14.3"
+  }
+}

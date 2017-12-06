@@ -2,7 +2,23 @@
 
 namespace HM\Platform;
 
-const VERSION = '1.0.0';
+/**
+ * Retrieve plugin version from package.json.
+ *
+ * @return string
+ */
+function version() {
+	return json_decode( file_get_contents( 'package.json' ) )->version;
+}
+
+/**
+ * Retrieve plugin docs version from package.json.
+ *
+ * @return string
+ */
+function docs_version() {
+	return json_decode( file_get_contents( 'package.json' ) )->docsVersion;
+}
 
 if ( ! defined( 'WP_CACHE' ) ) {
 	define( 'WP_CACHE', true );
