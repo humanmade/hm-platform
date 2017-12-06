@@ -283,9 +283,10 @@ function enqueue_assets() {
 	ReactWPScripts\enqueue_assets( 'hm-platform-ui', WP_CONTENT_URL . '/hm-platform/admin', __DIR__ );
 	wp_localize_script( 'hm-platform-ui', 'HM', [
 		'EnterpriseKit' => [
-			'AdminURL' => admin_url( '/admin.php?page=hm-platform' ),
-			'Version'  => \HM\Platform\VERSION,
-			'Features' => [],
+			'AdminURL'    => admin_url( '/admin.php?page=hm-platform' ),
+			'Version'     => \HM\Platform\version(),
+			'DocsVersion' => \HM\Platform\docs_version(),
+			'Features'    => [],
 		],
 		'Environment'   => get_environment(),
 	] );

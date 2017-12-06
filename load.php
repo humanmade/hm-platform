@@ -8,7 +8,7 @@ namespace HM\Platform;
  * @return string
  */
 function version() {
-	return json_decode( file_get_contents( 'package.json' ) )->version;
+	return json_decode( file_get_contents( __DIR__ . '/package.json' ) )->version;
 }
 
 /**
@@ -17,7 +17,7 @@ function version() {
  * @return string
  */
 function docs_version() {
-	return json_decode( file_get_contents( 'package.json' ) )->docsVersion;
+	return json_decode( file_get_contents( __DIR__ . '/package.json' ) )->docsVersion;
 }
 
 if ( ! defined( 'WP_CACHE' ) ) {
