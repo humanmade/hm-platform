@@ -4,10 +4,11 @@
   padding: 20px 40px;
 }
 
-.hm-ek-Header h1 img {
-  max-width: 160px;
+.hm-ek-Header h1 svg {
   vertical-align: text-bottom;
   margin-right: 20px;
+  height: 1.2em;
+  width: auto;
 }
 
 .hm-ek-Header-Version {

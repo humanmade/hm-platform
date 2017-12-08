@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import logo from '../assets/logo-small-red.svg';
+import Logo from '../assets/logo-small-red.svg';
 
 class Menu extends Component {
 	render() {
@@ -13,7 +13,7 @@ class Menu extends Component {
 			>
 				<div className="wp-menu-arrow"><div /></div>
 				<div className="wp-menu-image dashicons-before">
-					<img className="hm-logo-small" src={logo} alt="Human Made" />
+					<Logo className="hm-logo-small" title="Human Made Logo" />
 				</div>
 				<div className="wp-menu-name">Platform</div>
 			</NavLink>,

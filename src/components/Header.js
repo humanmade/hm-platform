@@ -1,6 +1,6 @@
 /*global HM*/
 import React, { Component } from 'react';
-import logo from '../assets/logo-red.svg';
+import Logo from '../assets/logo-red.svg';
 import './Header.css';
 
 class Header extends Component {
@@ -8,7 +8,7 @@ class Header extends Component {
 	render() {
 		return <header className="hm-ek-Header">
 			<h1>
-				<img className="hm-logo-large" src={logo} alt="Human Made" />
+				<Logo className="hm-logo-large" title="Human Made" />
 				Platform
 				{ ' ' }
 				<small className="hm-ek-Header-Version">v{ HM.EnterpriseKit.Version }</small>

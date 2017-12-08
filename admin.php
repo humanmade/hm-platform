@@ -2,7 +2,7 @@
 
 namespace HM\Platform\Admin;
 
-require_once 'loader.php';
+require_once 'react-loader.php';
 
 use HM\Platform;
 use WP_Admin_Bar;
@@ -222,7 +222,7 @@ function add_menu_item() {
 		'manage_options',
 		'hm-platform',
 		$ek_page_callback,
-		WP_CONTENT_URL . '/hm-platform/admin/src/assets/logo-small-red.svg',
+		WP_CONTENT_URL . '/hm-platform/src/assets/logo-small-red.svg',
 		2
 	);
 
@@ -274,14 +274,10 @@ function app_root() {
  * Load the React App.
  */
 function enqueue_assets() {
-	// Get styles.
-	if ( ! ReactWPScripts\is_development() ) {
-		wp_enqueue_style( 'hm-platform-ui', WP_CONTENT_URL . '/hm-platform/admin/build/css/main.css' );
-	}
-
-	// Get ReactWPScripts loader.
-	ReactWPScripts\enqueue_assets( 'hm-platform-ui', WP_CONTENT_URL . '/hm-platform/admin', __DIR__ );
-	wp_localize_script( 'hm-platform-ui', 'HM', [
+	ReactWPScripts\enqueue_assets( __DIR__, [
+		'base_url' => WP_CONTENT_URL . '/hm-platform',
+	] );
+	wp_localize_script( 'hm-platform', 'HM', [
 		'EnterpriseKit' => [
 			'AdminURL'    => admin_url( '/admin.php?page=hm-platform' ),
 			'Version'     => \HM\Platform\version(),

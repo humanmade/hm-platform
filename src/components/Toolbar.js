@@ -1,12 +1,12 @@
 /*global HM*/
 import React, { Component } from 'react';
-import logo from '../assets/logo-small-red.svg';
+import Logo from '../assets/logo-small-red.svg';
 
 class Toolbar extends Component {
 	render() {
 		return [
 			<a key="link" className="ab-item" href={ HM.EnterpriseKit.AdminURL + '#/' }>
-				<img className="hm-logo-small" src={logo} alt="Human Made" />
+				<Logo className="hm-logo-small" title="Human Made" />
 				{ ' ' }
 				Quick links
 			</a>,
