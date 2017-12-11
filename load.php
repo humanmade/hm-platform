@@ -96,7 +96,7 @@ function get_config() {
 		'redirects'        => false,
 		'bylines'          => false,
 	);
-	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
+	return array_merge( $defaults, $hm_platform ?: array() );
 }
 
 /**
