@@ -20,6 +20,15 @@ function docs_version() {
 	return json_decode( file_get_contents( __DIR__ . '/package.json' ) )->docsVersion;
 }
 
+/**
+ * Get the docs site home URL.
+ *
+ * @return string
+ */
+function docs_url() {
+	return defined( 'HM_DOCS_HOME' ) ? HM_DOCS_HOME : 'https://docs.aws.hmn.md/';
+}
+
 if ( ! defined( 'WP_CACHE' ) ) {
 	define( 'WP_CACHE', true );
 }

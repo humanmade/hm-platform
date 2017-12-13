@@ -282,6 +282,7 @@ function enqueue_assets() {
 			'AdminURL'    => admin_url( '/admin.php?page=hm-platform' ),
 			'Version'     => \HM\Platform\version(),
 			'DocsVersion' => \HM\Platform\docs_version(),
+			'DocsURL'     => \HM\Platform\docs_url(),
 			'Features'    => [],
 		],
 		'Environment'   => get_environment(),
