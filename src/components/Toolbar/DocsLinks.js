@@ -28,7 +28,14 @@ export class DocsLinks extends React.Component {
 		return <ul className="ab-submenu ab-sub-secondary hm-docs-links">
 			<li className="ab-submenu-header">Documentation</li>
 			{ docs.map( doc => <li key={doc.id}>
-				<IframeLink src={doc.link} title={`${doc.parent} ${doc.title}`}>{doc.parent} {doc.title}</IframeLink>
+				<IframeLink
+					src={doc.link} title={`${doc.parent} ${doc.title}`}
+					show={this.state && this.state.active === doc.id}
+					onOpen={() => this.setState({ active: doc.id })}
+					onClose={() => this.setState({ active: null })}
+				>
+					{doc.parent} {doc.title}
+				</IframeLink>
 			</li> ) }
 		</ul>;
 	}

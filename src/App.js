@@ -6,10 +6,10 @@ import AdminPortal from './portal';
 class App extends Component {
   render() {
     return [
-      <AdminPortal key="main" id="hm-platform">
+      <AdminPortal key="main" target="hm-platform">
         <Main/>
       </AdminPortal>,
-      <AdminPortal key="toolbar" id="wp-admin-bar-hm-platform-toolbar-ui">
+      <AdminPortal key="toolbar" target="wp-admin-bar-hm-platform-toolbar-ui">
         <Toolbar />
       </AdminPortal>,
     ];

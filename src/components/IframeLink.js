@@ -6,18 +6,30 @@ class IframeLink extends React.Component {
 	constructor( props ) {
 		super( props );
 		this.state = {
-			show: false,
+			show:    false,
+			loading: true,
 		};
 	}
 
-	onShow( event ) {
-		event.preventDefault();
+	onOpen( event ) {
+		event && event.preventDefault();
 		this.setState( { show: true } );
+		this.props.onOpen && this.props.onOpen();
 	}
 
-	onHide( event ) {
-		event.preventDefault();
+	onClose( event ) {
+		event && event.preventDefault();
 		this.setState( { show: false } );
+		this.props.onClose && this.props.onClose();
+	}
+
+	componentDidUpdate() {
+		if ( ! this.iframe || ! this.iframe.contentWindow ) {
+			return;
+		}
+
+		this.iframe.contentWindow.onload = () => this.setState( { loading: false } );
+		this.iframe.contentWindow.onunload = () => this.setState( { loading: true } );
 	}
 
 	render() {
@@ -27,22 +39,40 @@ class IframeLink extends React.Component {
 			return this.props.children;
 		}
 
-		const Open  = <a className="hm-iframe-open" key="open" href={src} onClick={e => this.onShow(e)}>{ this.props.children }</a>;
-		const Close = <a className="hm-iframe-close btn" key="close" href={src} onClick={e => this.onHide(e)}>&times; Close</a>;
+		const Open  = <a className="hm-iframe-open" key="open" href={src} onClick={e => this.onOpen(e)}>{ this.props.children }</a>;
+		const Close = <a className="hm-iframe-close btn" key="close" href={src} onClick={e => this.onClose(e)}>Close</a>;
 
-		if ( ! this.state.show ) {
-			return Open;
+		// Allow a show prop to override state.
+		if ( typeof this.props.show !== 'undefined' ) {
+			if ( ! this.props.show ) {
+				return Open;
+			}
+		} else {
+			if ( ! this.state.show ) {
+				return Open;
+			}
 		}
 
 		return [
 			Open,
-			<AdminPortal key="iframe" id="hm-platform-iframe-modal">
-				{ Close }
-				<iframe src={src + '?admin-request'} title={this.props.title || ''} width="100%" height="100%" />
+			<AdminPortal key="iframe" id={src} onUnload={() => this.setState( { loading: true } )}>
+				<div className="hm-platform-modal">
+					{ Close }
+					<iframe
+						//className={ this.state.loading ? 'hm-iframe-loading' : 'hm-iframe-loaded' }
+						src={src + '?admin-request'}
+						title={ this.props.title || '' }
+						width="100%"
+						height="100%"
+						ref={iframe => this.iframe = iframe}
+					/>
+				</div>
 			</AdminPortal>
 		];
 	}
 
 }
+
+IframeLink.instances = [];
 
 export default IframeLink;

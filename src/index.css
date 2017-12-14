@@ -458,17 +458,25 @@
   font-size: 50%;
   color: #999; }
 
-#hm-platform-iframe-modal .hm-iframe-close {
+.hm-platform-modal .hm-iframe-close {
   position: fixed;
   top: 50px;
   right: 50px;
   z-index: 9992; }
 
-#hm-platform-iframe-modal iframe {
+.hm-platform-modal iframe {
   position: absolute;
   z-index: 9991;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: #fff; }
+  background: #fff;
+  transition: top .3s linear, opacity .3s linear; }
+
+.hm-platform-modal .hm-iframe-loading {
+  opacity: 0;
+  top: 200px; }
+
+.hm-platform-modal .hm-iframe-loaded {
+  opacity: 1; }
