@@ -2,11 +2,13 @@ import 'whatwg-fetch';
 import React from 'react';
 
 /**
- * Simple and perhaps clunky fetch HoC
+ * Fetch HoC using localStorage.
  */
-export default const withFetch = url => {
+const withFetch = url => {
 	return Component => class extends React.Component {
-		construct() {
+		constructor() {
+			super();
+			// eslint-disable-next-line
 			this.state = {
 				loading: true,
 				expires: 0,
@@ -37,7 +39,7 @@ export default const withFetch = url => {
 
 		fetchStore() {
 			const store = window.localStorage.getItem( 'HMDocs' );
-			return store[ url ] || false;
+			return ( store && store[ url ] ) || null;
 		}
 
 		updateStore( data, loading = false, error = false ) {
@@ -50,7 +52,7 @@ export default const withFetch = url => {
 
 			// Update store.
 			const store = window.localStorage.getItem( 'HMDocs' );
-			window.localStorage.setItem( 'HMDocs', Object.assign( store, {
+			window.localStorage.setItem( 'HMDocs', Object.assign( store || {}, {
 				[ url ]: update
 			} ) );
 
@@ -59,11 +61,9 @@ export default const withFetch = url => {
 		}
 
 		render() {
-			return React.cloneElement( Component, {
-				data:    this.state.data,
-				loading: this.state.loading,
-				error:   this.state.error,
-			} );
+			return <Component {...this.state} {...this.props} />;
 		}
 	}
 }
+
+export default withFetch;

@@ -268,6 +268,7 @@ function add_menu_bar_item( WP_Admin_Bar $wp_admin_bar ) {
 
 function app_root() {
 	echo '<div id="hm-platform-root"></div>';
+	echo '<div id="hm-platform-iframe-modal"></div>';
 }
 
 /**

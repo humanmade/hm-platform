@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import Main from './components/Main';
 import Toolbar from './components/Toolbar';
 import AdminPortal from './portal';

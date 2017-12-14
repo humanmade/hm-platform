@@ -1,7 +1,6 @@
 /*global HM*/
 import React, { Component } from 'react';
 import Logo from '../assets/logo-red.svg';
-import './Header.sass';
 
 class Header extends Component {
 
