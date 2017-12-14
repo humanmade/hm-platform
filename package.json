@@ -8,7 +8,7 @@
     "bin": "bin"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar src/ -o src/",
+    "build-css": "node-sass-chokidar src/*.scss -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-app-rewired start --scripts-version react-wp-scripts",
     "build-js": "react-app-rewired build",

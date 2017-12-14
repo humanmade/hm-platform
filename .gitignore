@@ -8,6 +8,7 @@ coverage/
 
 # production
 build/
+src/*.css
 
 # misc
 .DS_Store
@@ -15,7 +16,6 @@ build/
 .env.development.local
 .env.test.local
 .env.production.local
-react-port
 asset-manifest.json
 
 npm-debug.log*
