@@ -213,7 +213,7 @@ function add_menu_item() {
 	global $submenu;
 
 	$ek_page_callback = function () {
-		printf( '<div id="hm-platform">%s</div>', 'Loading HM Platform...' );
+		printf( '<div id="hm-platform"><span class="loading--red"></span> %s</div>', 'Loading HM Platform' );
 	};
 
 	add_menu_page(
@@ -227,9 +227,8 @@ function add_menu_item() {
 	);
 
 	$sub_pages = [
-		'/'      => 'Dashboard',
-		'/ek'    => 'Enterprise Kit',
-		'/stats' => 'Stats',
+		'/'      => esc_html__( 'Dashboard', 'hm-platform' ),
+		'/ek'    => esc_html__( 'Enterprise Kit', 'hm-platform' ),
 	];
 
 	foreach ( $sub_pages as $url => $title ) {
@@ -279,8 +278,8 @@ function enqueue_assets() {
 		'base_url' => WP_CONTENT_URL . '/hm-platform',
 	] );
 	wp_localize_script( 'hm-platform', 'HM', [
+		'AdminURL'      => admin_url( '/admin.php?page=hm-platform' ),
 		'EnterpriseKit' => [
-			'AdminURL'    => admin_url( '/admin.php?page=hm-platform' ),
 			'Version'     => \HM\Platform\version(),
 			'DocsVersion' => \HM\Platform\docs_version(),
 			'DocsURL'     => \HM\Platform\docs_url(),

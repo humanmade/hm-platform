@@ -14,8 +14,7 @@ class Main extends Component {
 				</AdminPortal>
 				<Header />
 				<Route exact path="/" render={() => <h2>Dashboard</h2>} />
-				<Route path="/features" render={() => <h2>Features</h2>} />
-				<Route path="/stats" render={() => <h2>Stats</h2>} />
+				<Route path="/ek" render={() => <h2>Enterprise Kit</h2>} />
 			</div>
 		</HashRouter>;
 	}
