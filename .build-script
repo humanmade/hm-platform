@@ -1,0 +1,10 @@
+HERE=`pwd`
+
+cd "$HERE"
+npm i
+npm run build
+
+cd "$HERE/plugins/bylines"
+composer install
+npm i
+node_modules/.bin/grunt
