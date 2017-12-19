@@ -36,9 +36,10 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "husky": "^0.14.3",
-    "@storybook/react": "^3.2.18",
     "@storybook/addon-actions": "^3.2.18",
-    "@storybook/addon-links": "^3.2.18"
+    "@storybook/addon-links": "^3.2.18",
+    "@storybook/react": "^3.2.18",
+    "husky": "^0.14.3",
+    "react-storybook-addon-props-combinations": "^1.0.1"
   }
 }
