@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * Generic Dashboard wrapper block for displaying some information.
+ * Generic Dashboard wrapper block for displaying some information in the admin.
  *
- * @param title
- * @param children
+ * @param {String} title   Title to display in collapsbile header.
+ * @param {Array} children React children.
  */
 const DashboardBlock = ( { title, children } ) => {
 	return <div className="postbox-container">
