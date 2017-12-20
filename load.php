@@ -2,6 +2,8 @@
 
 namespace HM\Platform;
 
+use HM\Platform\RDS_IAM_Authentication;
+
 if ( ! defined( 'WP_CACHE' ) ) {
 	define( 'WP_CACHE', true );
 }
@@ -34,6 +36,7 @@ function bootstrap( $wp_debug_enabled ) {
 	// Load the common AWS SDK.
 	require __DIR__ . '/lib/aws-sdk/aws-autoloader.php';
 
+	load_db();
 	load_object_cache();
 
 	global $wp_version;
@@ -112,15 +115,10 @@ function load_advanced_cache( $should_load ) {
 function load_db() {
 	$config = get_config();
 
-	if ( ! $config['ludicrousdb'] ) {
-		return;
-	}
-
-	if ( ! defined( 'DB_CONFIG_FILE' ) ) {
-		define( 'DB_CONFIG_FILE', __DIR__ . '/dropins/db-config.php' );
-	}
-
-	require __DIR__ . '/dropins/ludicrousdb/ludicrousdb.php';
+	require_once __DIR__ . '/lib/rds-iam-authentication.php';
+	define( 'DB_PASSWORD', RDS_IAM_Authentication\get_db_password( DB_HOST, DB_PORT, DB_USER, HM_ENV_REGION ) );
+	var_dump( DB_PASSWORD );
+	exit;
 }
 
 /**
