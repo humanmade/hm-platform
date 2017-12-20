@@ -13,14 +13,7 @@ module.exports = {
 				include: [
 					path.resolve( __dirname, '../../../wordpress/wp-admin/css' ),
 					path.resolve( __dirname, '../src' ),
-				],
-				exclude: [
-					/\.woff/,
-					/\.woff2/,
-					/\.eot/,
-					/\.ttf/,
-					/\.svg/,
-				],
+				]
 			},
 		],
 	},
