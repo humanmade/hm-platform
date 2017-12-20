@@ -2,10 +2,14 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
-import DashboardBlock from '../components/Dashboard-Block'
+import PullRequests from '../components/Cloud/Pull-Requests'
+import { DashboardAdminDecorator } from './decorators';
+
+import { pullRequests } from './cloud-data-stubs';
 
 /**
  * Stories for HM-Cloud UI components.
  */
 storiesOf( 'Cloud', module )
-	.add( 'Dashboard Block', () => <DashboardBlock title={ 'My Little Dashboard Block' } /> );
+	.addDecorator( DashboardAdminDecorator )
+	.add( 'Pull Requests', () => <PullRequests items={ pullRequests } /> );
