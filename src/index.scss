@@ -96,3 +96,35 @@ $images-path: "./hm-pattern-library/assets/images";
   }
 
 }
+
+
+/**
+ * HM Cloud Pull Requests Pane.
+ */
+.pull-request-item {
+  display: flex;
+  list-style-type: none;
+}
+
+.pull-request-item__info {
+  flex-basis: 75%;
+}
+
+.pull-request-item__title {
+
+}
+
+.pull-request-item__date {
+
+}
+
+.pull-request-item__status {
+
+}
+
+.pull-request-item__status-indicator {
+
+  &.pr-status--COMMENTED {
+
+  }
+}
