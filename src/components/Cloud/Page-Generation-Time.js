@@ -6,9 +6,9 @@ import DashboardBlock from '../Dashboard-Block';
 import { adminTheme } from '../../victory-theme';
 
 /**
- * Display current bandwidth usage against a site for a rolling 30-day period.
+ * Display daily average page generation time for a rolling month period.
  *
- * @param {Array} responseTimeHistory An array of usage data for the current site.
+ * @param {Array} responseTimeHistory An array of server response data for the current site.
  */
 const PageGenerationTime = ( { responseTimeHistory } ) => {
 	const highestTime = responseTimeHistory.reduce( ( carry, item ) => { return item.time > carry ? item.time : carry }, 0 );
@@ -58,5 +58,3 @@ PageGenerationTime.propTypes = {
 }
 
 export default PageGenerationTime;
-
-

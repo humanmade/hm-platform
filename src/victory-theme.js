@@ -105,7 +105,6 @@ export const adminTheme = {
 		}
 	}, baseProps ),
 	chart: baseProps,
-	group: Object.assign( { colorScale: colors }, baseProps ),
 	line: Object.assign( {
 		style: {
 			data: {
@@ -127,17 +126,4 @@ export const adminTheme = {
 		cornerRadius:  5,
 		pointerLength: 10
 	},
-	legend: {
-		colorScale:       colors,
-		gutter:           10,
-		orientation:      'vertical',
-		titleOrientation: 'top',
-		style: {
-			data: {
-				type: 'circle'
-			},
-			labels: baseLabelStyles,
-			title:  Object.assign({}, baseLabelStyles, { padding: 5 })
-		}
-	}
 };

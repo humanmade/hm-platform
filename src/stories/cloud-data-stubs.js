@@ -84,6 +84,7 @@ export const pullRequests = [
 ];
 
 /**
+ * Average daily server response times for a site.
  *
  * @type {Array}
  */

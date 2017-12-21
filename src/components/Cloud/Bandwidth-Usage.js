@@ -50,11 +50,13 @@ const BandwidthUsage = ( { usageHistory } ) => {
 			<VictoryAxis
 				tickCount={ 6 }
 				tickFormat={ x => new Date( x ).getDate() }
-				style={ { grid: {
+				style={
+					{ grid: {
 						fill: "none",
 						stroke: "none",
 						pointerEvents: "visible"
-					} } }
+					} }
+				}
 			/>
 			<VictoryBar
 				data={ usageHistory }
@@ -76,5 +78,3 @@ BandwidthUsage.propTypes = {
 }
 
 export default BandwidthUsage;
-
-
