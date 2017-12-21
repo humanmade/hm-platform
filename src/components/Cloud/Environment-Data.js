@@ -6,12 +6,6 @@ import DashboardBlock from '../Dashboard-Block';
 /**
  * Data about the current environment's data.
  *
- * @param {Array} items Pull Requests.
- */
-
-/**
- * Data about the current environment's data.
- *
  * @param {Object} gitData        Data about the current Git state in this environment.
  * @param {Object} environmentData Data about the HM Cloud environment in this environment.
  */
