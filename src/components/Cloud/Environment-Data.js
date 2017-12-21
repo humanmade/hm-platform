@@ -13,9 +13,9 @@ import DashboardBlock from '../Dashboard-Block';
  * Data about the current environment's data.
  *
  * @param {Object} gitData        Data about the current Git state in this environment.
- * @param {Object} enironmentData Data about the HM Cloud environment in this environment.
+ * @param {Object} environmentData Data about the HM Cloud environment in this environment.
  */
-const EnvironmentData = ( { gitData, enironmentData } ) => <DashboardBlock title="Application Data">
+const EnvironmentData = ( { gitData, environmentData } ) => <DashboardBlock title="Application Data">
 	<div className="environment-data-block">
 		<h3 className="environment-data-block__title">Application Version</h3>
 		<dl>
@@ -29,11 +29,11 @@ const EnvironmentData = ( { gitData, enironmentData } ) => <DashboardBlock title
 		<h3 className="environment-data-block__title">HM Cloud Version</h3>
 		<dl>
 			<dt>PHP:</dt>
-			<dd>{ enironmentData.php }</dd>
+			<dd>{ environmentData.php }</dd>
 			<dt>MySQL:</dt>
-			<dd>{ enironmentData.mySql }</dd>
+			<dd>{ environmentData.mySql }</dd>
 			<dt>Elasticsearch:</dt>
-			<dd>{ enironmentData.elasticsearch }</dd>
+			<dd>{ environmentData.elasticsearch }</dd>
 		</dl>
 	</div>
 </DashboardBlock>
