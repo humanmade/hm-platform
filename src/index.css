@@ -450,6 +450,36 @@
   .pull-request-item__status-indicator.pr-status--DISMISSED {
     background-color: #333; }
 
+/**
+ * HM Cloud Environmental Data pane.
+ */
+.environment-data {
+  display: flex;
+  justify-content: space-between; }
+
+.environment-data-block {
+  border: 1px solid #eee;
+  flex-basis: 49%; }
+
+#dashboard-widgets h3.environment-data-block__title {
+  border-bottom: 1px solid #eee;
+  font-weight: bold;
+  padding: 7px; }
+
+.environment-data-block dl {
+  padding: 7px;
+  margin: 0; }
+
+.environment-data-block dt {
+  font-weight: bold;
+  clear: both;
+  margin-right: 7px; }
+
+.environment-data-block dt,
+.environment-data-block dd {
+  float: left;
+  margin-left: 0; }
+
 #toplevel_page_hm-enterprise-kit .wp-menu-image img,
 #toplevel_page_hm-enterprise-kit .wp-menu-image svg {
   max-width: 24px;

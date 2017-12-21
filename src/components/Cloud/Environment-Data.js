@@ -15,26 +15,28 @@ import DashboardBlock from '../Dashboard-Block';
  * @param {Object} gitData        Data about the current Git state in this environment.
  * @param {Object} environmentData Data about the HM Cloud environment in this environment.
  */
-const EnvironmentData = ( { gitData, environmentData } ) => <DashboardBlock title="Application Data">
-	<div className="environment-data-block">
-		<h3 className="environment-data-block__title">Application Version</h3>
-		<dl>
-			<dt>Git Branch:</dt>
-			<dd>{ gitData.branch }</dd>
-			<dt>Commit:</dt>
-			<dd>{  }</dd>
-		</dl>
-	</div>
-	<div className="environment-data-block">
-		<h3 className="environment-data-block__title">HM Cloud Version</h3>
-		<dl>
-			<dt>PHP:</dt>
-			<dd>{ environmentData.php }</dd>
-			<dt>MySQL:</dt>
-			<dd>{ environmentData.mySql }</dd>
-			<dt>Elasticsearch:</dt>
-			<dd>{ environmentData.elasticsearch }</dd>
-		</dl>
+const EnvironmentData = ( { gitData, environmentData } ) => <DashboardBlock title="Application Data" id="environment-data">
+	<div className="environment-data">
+		<div className="environment-data-block">
+			<h3 className="environment-data-block__title">Application Version</h3>
+			<dl>
+				<dt>Git Branch:</dt>
+				<dd>{ gitData.branch }</dd>
+				<dt>Commit:</dt>
+				<dd>{ gitData.commit && `${ gitData.commit.description } (${ gitData.commit.rev.substring( 0, 7 ) })` }</dd>
+			</dl>
+		</div>
+		<div className="environment-data-block">
+			<h3 className="environment-data-block__title">HM Cloud Version</h3>
+			<dl>
+				<dt>PHP:</dt>
+				<dd>v{ environmentData.php }</dd>
+				<dt>MySQL:</dt>
+				<dd>v{ environmentData.mySql }</dd>
+				<dt>Elasticsearch:</dt>
+				<dd>v{ environmentData.elasticsearch }</dd>
+			</dl>
+		</div>
 	</div>
 </DashboardBlock>
 

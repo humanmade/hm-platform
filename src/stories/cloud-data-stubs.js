@@ -53,7 +53,7 @@ export const pullRequests = [
 export const gitData = {
 	branch: 'master',
 	commit: {
-		ate:         '2017-09-20T18:22:46Z',
+		date:         '2017-09-20T18:22:46Z',
 		description: 'Merge pull request #213 from humanmade/update-build-tools\\n\\nUpdate build tools',
 		rev:         '055d9ce8d6676aa7880b7060baf56c24c9bae9d0',
 		status:      'active',
@@ -67,6 +67,6 @@ export const gitData = {
  */
 export const environmentData = {
 	php:           '7.1.2',
-	mySql:         'v10.2',
-	elasticsearch: 'v10.2',
+	mySql:         '10.2',
+	elasticsearch: '12',
 }
