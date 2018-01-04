@@ -2,14 +2,23 @@
 /**
  * Build endpoint data for Vantage data on this site.
  *
- * @package
+ * @package Vantage Integration Plugin
  */
 
 namespace Vantage;
 
+use WP_REST_Response;
+use WP_Error;
+use WP_Http;
+
+/**
+ * Class Endpoint_Controller
+ */
 class Endpoint_Controller extends \WP_REST_Controller {
 	/**
 	 * Register Vantage data routes for the WP REST API.
+	 *
+	 * @todo:: Add schemas to each endpoint.
 	 */
 	public function register_routes() {
 		$namespace = 'vantage/v1';
@@ -76,22 +85,105 @@ class Endpoint_Controller extends \WP_REST_Controller {
 	}
 
 	/**
-	 * Validate whether the current user has appropriate capabilities to fetch this data or not.
+	 * Validate whether the current user has appropriate capabilities to fetch Vantage data or not.
 	 *
 	 * @return bool
 	 */
-	public function permissions_check() {
-		return current_user_can( 'manage_options' );
+	public function permissions_check() : bool {
+		return true;
+		//return current_user_can( 'manage_options' );
 	}
 
-	public function get_site_activity() {}
+	/**
+	 * Make a human-readable error code from various Vantage responses.
+	 *
+	 * @param $error WP_Error Error to parse.
+	 * @return WP_Error
+	 */
+	private function get_return_error_message( WP_Error $error ) : WP_Error {
+		switch( $error->get_error_message() ) {
+			case 'WP_Error':
+				return new WP_Error(
+					'vantage.api.could_not_authenticate',
+					'Unable to authenticate to retrieve data.',
+					['status' => WP_Http::INTERNAL_SERVER_ERROR]
+				);
+			default :
+				return new WP_Error(
+					'vantage.api.could_not_connect',
+					'Unable to connect with the Vantage API.',
+					['status' => WP_Http::INTERNAL_SERVER_ERROR]
+				);
+		}
+	}
 
-	public function get_bandwidth() {}
+	/**
+	 * Need more information to fetch this data.
+	 */
+	public function get_bandwidth_usage() {}
 
-	public function get_environment() {}
+	/**
+	 * Send off environmental data about the site such as gitBranch information and PHP version.
+	 *
+	 * @return WP_REST_Response|\WP_Error
+	 */
+	public function get_environment() {
+		$vantage_data = ( new Vantage_API() )->get_environment_data();
 
-	public function get_pull_requests() {}
+		// If we've errored out, return a human-friendly message and code.
+		if ( is_wp_error( $vantage_data ) ) {
+			return $this->get_return_error_message( $vantage_data );
+		}
 
+		$data = [
+			'environmentData' => [
+				'elasticsearch' => '', // Awaiting this availability
+				'php'           => substr( phpversion(), 0, 5 ),
+				'mySql'         => '', // Will add this later.
+			],
+			'gitData' => [
+				'branch' => $vantage_data['git-deployment']->ref,
+				'commit' => $vantage_data['git-deployment']->branch_details->latest_commit,
+			],
+		];
+
+		return new WP_REST_Response( $data );
+	}
+
+	/**
+	 * Get latest notifications from Vantage about the site.
+	 *
+	 * @return WP_REST_Response|\WP_Error
+	 */
+	public function get_site_activity() {
+		$vantage_data =  ( new Vantage_API() )->get_activity();
+
+		// If we've errored out, return a human-friendly message and code.
+		if ( is_wp_error( $vantage_data ) ) {
+			return $this->get_return_error_message( $vantage_data );
+		}
+
+		return new WP_REST_Response( $vantage_data );
+	}
+
+	/**
+	 * Send off recent pull requests against the site.
+	 *
+	 * @return WP_REST_Response|\WP_Error
+	 */
+	public function get_pull_requests() {
+		$vantage_data = ( new Vantage_API() )->get_pull_requests();
+
+		// If we've errored out, return a human-friendly message and code.
+		if ( is_wp_error( $vantage_data ) ) {
+			return $this->get_return_error_message( $vantage_data );
+		}
+
+		return new WP_REST_Response( $vantage_data );
+	}
+
+	/**
+	 * Need more information to fetch this data.
+	 */
 	public function get_page_generation_time() {}
-
 }
