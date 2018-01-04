@@ -43,6 +43,7 @@ function bootstrap( $wp_debug_enabled ) {
 
 	add_filter( 'enable_loading_advanced_cache_dropin', __NAMESPACE__ . '\\load_advanced_cache', 10, 1 );
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
+	add_filter( 'aws_ses_wp_mail_ses_send_message_args', __NAMESPACE__ . '\\set_aws_ses_configuration_set' );
 
 	if ( is_admin() ) {
 		require __DIR__ . '/admin.php';
