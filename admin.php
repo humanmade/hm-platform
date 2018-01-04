@@ -101,7 +101,7 @@ function show_in_admin() {
 	$GLOBALS['totals']['platform'] = count( $plugins['platform'] );
 
 	// Only apply the rest if we're actually looking at the page
-	if ( $_REQUEST['plugin_status'] !== 'platform' ) {
+	if ( ! isset( $_REQUEST['plugin_status'] ) || $_REQUEST['plugin_status'] !== 'platform' ) {
 		return;
 	}
 
@@ -167,3 +167,14 @@ function get_platform_actions( $actions, $plugin_file, $plugin_data, $context ) 
 
 	return $actions;
 }
+
+/**
+ * Disable the Custom Meta box on the post edit screen.
+ *
+ * This meta box is very bad for performance due to the `postmeta_form_keys` query
+ * and how it counts all the post meta keys. It's a useless box, so better to just
+ * not use it.
+ */
+add_action( 'add_meta_boxes', function () {
+	remove_meta_box( 'postcustom', null, 'normal' );
+});
