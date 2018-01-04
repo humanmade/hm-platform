@@ -23,6 +23,7 @@ class Endpoint_Controller extends \WP_REST_Controller {
 					'default' => 'view',
 				],
 			],
+			'permission_callback' => [ $this, 'permissions_check' ],
 		] );
 
 		// Fetch bandwidth usage for this site.
@@ -34,6 +35,7 @@ class Endpoint_Controller extends \WP_REST_Controller {
 					'default' => 'view',
 				],
 			],
+			'permission_callback' => [ $this, 'permissions_check' ],
 		] );
 
 		// Fetch all site environmental data for this site.
@@ -45,6 +47,7 @@ class Endpoint_Controller extends \WP_REST_Controller {
 					'default' => 'view',
 				],
 			],
+			'permission_callback' => [ $this, 'permissions_check' ],
 		] );
 
 		// Fetch all pull requests against this site.
@@ -56,6 +59,7 @@ class Endpoint_Controller extends \WP_REST_Controller {
 					'default' => 'view',
 				],
 			],
+			'permission_callback' => [ $this, 'permissions_check' ],
 		] );
 
 		// Fetch average page generation time for this site.
@@ -67,6 +71,27 @@ class Endpoint_Controller extends \WP_REST_Controller {
 					'default' => 'view',
 				],
 			],
+			'permission_callback' => [ $this, 'permissions_check' ],
 		] );
 	}
+
+	/**
+	 * Validate whether the current user has appropriate capabilities to fetch this data or not.
+	 *
+	 * @return bool
+	 */
+	public function permissions_check() {
+		return current_user_can( 'manage_options' );
+	}
+
+	public function get_site_activity() {}
+
+	public function get_bandwidth() {}
+
+	public function get_environment() {}
+
+	public function get_pull_requests() {}
+
+	public function get_page_generation_time() {}
+
 }
