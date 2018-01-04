@@ -69,7 +69,7 @@ function send_event_to_stream( array $event, string $group, string $stream ) {
 	$next_token = wp_cache_get( 'next_token', $group . $stream );
 	if ( ! $next_token ) {
 		try {
-			// Check if there's already a log srteam existing.
+			// Check if there's already a log stream existing.
 			$streams = cloudwatch_logs_client()->describeLogStreams([
 				'logGroupName'        => $group,
 				'logStreamNamePrefix' => $stream,
