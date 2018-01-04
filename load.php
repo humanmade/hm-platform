@@ -26,8 +26,11 @@ function boostrap_cavalcade_runner() {
 
 /**
  * Bootstrap the platform pieces.
+ *
+ * This function is hooked into to enable_wp_debug_mode_checks so we have to return the value
+ * that was passed in at the end of the function.
  */
-function bootstrap() {
+function bootstrap( $wp_debug_enabled ) {
 	// Load the common AWS SDK.
 	require __DIR__ . '/lib/aws-sdk/aws-autoloader.php';
 
@@ -46,6 +49,8 @@ function bootstrap() {
 		require __DIR__ . '/admin.php';
 		Admin\bootstrap();
 	}
+
+	return $wp_debug_enabled;
 }
 
 /**
@@ -64,6 +69,7 @@ function get_config() {
 		'batcache'        => true,
 		'memcached'       => true,
 		'ludicrousdb'     => true,
+		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
@@ -138,6 +144,14 @@ function get_available_plugins() {
 function load_plugins() {
 	$config = get_config();
 
+	add_filter( 'plugins_url', function ( $url, $path, $plugin ) {
+		if ( strpos( $plugin, __DIR__ ) === false ) {
+			return $url;
+		}
+
+		return str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( $plugin ) ) . $path;
+	}, 10, 3 );
+
 	// Force DISABLE_WP_CRON for Cavalcade.
 	if ( $config['cavalcade'] && ! defined( 'DISABLE_WP_CRON' ) ) {
 		define( 'DISABLE_WP_CRON', true );
@@ -151,21 +165,8 @@ function load_plugins() {
 		require __DIR__ . '/plugins/' . $file;
 	}
 
-	require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
-}
-
-/**
- * Hook into The AWS SES send action to set the Configuration Set and tags so we
- * have better tracking in CloudWatch.
- *
- * @param array $array
- * @return array
- */
-function set_aws_ses_configuration_set( $args ) {
-	$args['ConfigurationSetName'] = 'hm-stack-by-application';
-	$args['Tags'][] = [
-		'Name' => 'application',
-		'Value' => HM_ENV,
-	];
-	return $args;
+	if ( ! empty( $config['elasticsearch'] ) ) {
+		require_once __DIR__ . '/lib/elasticpress-integration.php';
+		ElasticPress_Integration\bootstrap();
+	}
 }

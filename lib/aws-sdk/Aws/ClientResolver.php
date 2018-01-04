@@ -363,7 +363,7 @@ class ClientResolver
         foreach ($this->argDefinitions as $k => $a) {
             if (empty($a['required'])
                 || isset($a['default'])
-                || array_key_exists($k, $args)
+                || isset($args[$k])
             ) {
                 continue;
             }
@@ -567,6 +567,9 @@ class ClientResolver
 
         $value = array_map('strval', $value);
 
+        if (defined('HHVM_VERSION')) {
+            array_unshift($value, 'HHVM/' . HHVM_VERSION);
+        }
         array_unshift($value, 'aws-sdk-php/' . Sdk::VERSION);
         $args['ua_append'] = $value;
 

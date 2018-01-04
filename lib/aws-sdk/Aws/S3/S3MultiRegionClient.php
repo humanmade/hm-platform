@@ -1,10 +1,12 @@
 <?php
 namespace Aws\S3;
 
+use Aws\Api\Parser\PayloadParserTrait;
 use Aws\CacheInterface;
 use Aws\CommandInterface;
 use Aws\LruArrayCache;
 use Aws\MultiRegionClient as BaseClient;
+use Aws\Exception\AwsException;
 use Aws\S3\Exception\PermanentRedirectException;
 use GuzzleHttp\Promise;
 
@@ -27,6 +29,8 @@ use GuzzleHttp\Promise;
  * @method \GuzzleHttp\Promise\Promise deleteBucketAnalyticsConfigurationAsync(array $args = [])
  * @method \Aws\Result deleteBucketCors(array $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteBucketCorsAsync(array $args = [])
+ * @method \Aws\Result deleteBucketEncryption(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise deleteBucketEncryptionAsync(array $args = [])
  * @method \Aws\Result deleteBucketInventoryConfiguration(array $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteBucketInventoryConfigurationAsync(array $args = [])
  * @method \Aws\Result deleteBucketLifecycle(array $args = [])
@@ -55,6 +59,8 @@ use GuzzleHttp\Promise;
  * @method \GuzzleHttp\Promise\Promise getBucketAnalyticsConfigurationAsync(array $args = [])
  * @method \Aws\Result getBucketCors(array $args = [])
  * @method \GuzzleHttp\Promise\Promise getBucketCorsAsync(array $args = [])
+ * @method \Aws\Result getBucketEncryption(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise getBucketEncryptionAsync(array $args = [])
  * @method \Aws\Result getBucketInventoryConfiguration(array $args = [])
  * @method \GuzzleHttp\Promise\Promise getBucketInventoryConfigurationAsync(array $args = [])
  * @method \Aws\Result getBucketLifecycle(array $args = [])
@@ -121,6 +127,8 @@ use GuzzleHttp\Promise;
  * @method \GuzzleHttp\Promise\Promise putBucketAnalyticsConfigurationAsync(array $args = [])
  * @method \Aws\Result putBucketCors(array $args = [])
  * @method \GuzzleHttp\Promise\Promise putBucketCorsAsync(array $args = [])
+ * @method \Aws\Result putBucketEncryption(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise putBucketEncryptionAsync(array $args = [])
  * @method \Aws\Result putBucketInventoryConfiguration(array $args = [])
  * @method \GuzzleHttp\Promise\Promise putBucketInventoryConfigurationAsync(array $args = [])
  * @method \Aws\Result putBucketLifecycle(array $args = [])
@@ -198,7 +206,8 @@ class S3MultiRegionClient extends BaseClient implements S3ClientInterface
         );
     }
 
-    private function determineRegionMiddleware() {
+    private function determineRegionMiddleware()
+    {
         return function (callable $handler) {
             return function (CommandInterface $command) use ($handler) {
                 $cacheKey = $this->getCacheKey($command['Bucket']);
@@ -224,17 +233,31 @@ class S3MultiRegionClient extends BaseClient implements S3ClientInterface
                         $region = null;
                         if (isset($result['@metadata']['headers']['x-amz-bucket-region'])) {
                             $region = $result['@metadata']['headers']['x-amz-bucket-region'];
+                            $this->cache->set($cacheKey, $region);
                         } else {
-                            /** @var S3ClientInterface $client */
-                            $client = $this->getClientFromPool();
-                            $region = (yield $client->determineBucketRegionAsync(
+                            $region = (yield $this->determineBucketRegionAsync(
                                 $command['Bucket']
                             ));
                         }
 
-                        $this->cache->set($cacheKey, $region);
                         $command['@region'] = $region;
                         yield $handler($command);
+                    } catch (AwsException $e) {
+                        if ($e->getAwsErrorCode() === 'AuthorizationHeaderMalformed') {
+                            $region = $this->determineBucketRegionFromExceptionBody(
+                                $e->getResponse()->getBody()
+                            );
+                            if (!empty($region)) {
+                                $this->cache->set($cacheKey, $region);
+
+                                $command['@region'] = $region;
+                                yield $handler($command);
+                            } else {
+                                throw $e;
+                            }
+                        } else {
+                            throw $e;
+                        }
                     }
                 });
             };
@@ -279,11 +302,13 @@ class S3MultiRegionClient extends BaseClient implements S3ClientInterface
         /** @var S3ClientInterface $regionalClient */
         $regionalClient = $this->getClientFromPool();
         return $regionalClient->determineBucketRegionAsync($bucketName)
-            ->then(function ($region) use ($cacheKey) {
-                $this->cache->set($cacheKey, $region);
+            ->then(
+                function ($region) use ($cacheKey) {
+                    $this->cache->set($cacheKey, $region);
 
-                return $region;
-            });
+                    return $region;
+                }
+            );
     }
 
     private function getCacheKey($bucketName)
