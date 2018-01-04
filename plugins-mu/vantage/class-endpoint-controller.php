@@ -57,6 +57,25 @@ class Endpoint_Controller extends \WP_REST_Controller {
 				],
 			],
 			'permission_callback' => [ $this, 'permissions_check' ],
+			'schema'              => [
+				'$schema'              => 'http://json-schema.org/draft-04/schema#',
+				'title'                => 'environment-data',
+				'type'                 => 'object',
+				'properties'           => [
+					'environmentData' => [
+						'description'  => esc_html__( 'Data about the current server environment', 'my-textdomain' ),
+						'type'         => 'object',
+						'context'      => array( 'view' ),
+						'readonly'     => true,
+					],
+					'gitData' => [
+						'description'  => esc_html__( 'Data about the current state of git on the site.', 'my-textdomain' ),
+						'type'         => 'object',
+						'context'      => array( 'view' ),
+						'readonly'     => true,
+					],
+				],
+			]
 		] );
 
 		// Fetch all pull requests against this site.
