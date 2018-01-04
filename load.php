@@ -43,12 +43,13 @@ function bootstrap( $wp_debug_enabled ) {
 
 	add_filter( 'enable_loading_advanced_cache_dropin', __NAMESPACE__ . '\\load_advanced_cache', 10, 1 );
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
-	add_filter( 'aws_ses_wp_mail_ses_send_message_args', __NAMESPACE__ . '\\set_aws_ses_configuration_set' );
 
 	if ( is_admin() ) {
 		require __DIR__ . '/admin.php';
 		Admin\bootstrap();
 	}
+
+	require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
 
 	return $wp_debug_enabled;
 }
@@ -169,4 +170,28 @@ function load_plugins() {
 		require_once __DIR__ . '/lib/elasticpress-integration.php';
 		ElasticPress_Integration\bootstrap();
 	}
+}
+
+/**
+ * Get a globally configured instance of the AWS SDK.
+ */
+function get_aws_sdk() {
+	static $sdk;
+	if ( $sdk ) {
+		return $sdk;
+	}
+
+	$params = [
+		'region'   => HM_ENV_REGION,
+		'version'  => 'latest',
+	];
+
+	if ( defined( 'AWS_KEY' ) ) {
+		$params['credentials'] = [
+			'key'    => AWS_KEY,
+			'secret' => AWS_SECRET,
+		];
+	}
+	$sdk = new \Aws\Sdk( $params );
+	return $sdk;
 }
