@@ -1,8 +1,8 @@
 <?php
 /**
+ * API Class to communicate with the Vantage servers.
  *
- *
- * @package Vantage Integration Plugin
+ * @package VantageIntegration
  */
 
 namespace Vantage;

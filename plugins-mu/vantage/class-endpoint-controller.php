@@ -2,7 +2,7 @@
 /**
  * Build endpoint data for Vantage data on this site.
  *
- * @package Vantage Integration Plugin
+ * @package VantageIntegration
  */
 
 namespace Vantage;

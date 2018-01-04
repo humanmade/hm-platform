@@ -1,8 +1,12 @@
 <?php
 /**
- * Load Vantage API & Endpoint functionality.
+ * Plugin Name: Vantage Integration
+ * Description: Load Vantage API & Endpoint functionality.
+ * Version: 0.1.0
+ * Author: Human Made
+ * Author URI: http://hmn.md
  *
- * @package Vantage Integration Plugin
+ * @package VantageIntegration
  */
 
 namespace Vantage;
