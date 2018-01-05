@@ -161,8 +161,8 @@ class Endpoint_Controller extends \WP_REST_Controller {
 				'mySql'         => '', // Will add this later.
 			],
 			'gitData' => [
-				'branch' => $vantage_data['git-deployment']->ref,
-				'commit' => $vantage_data['git-deployment']->branch_details->latest_commit,
+				'branch' => $vantage_data['git-deployment']['ref'],
+				'commit' => $vantage_data['git-deployment']['branch_details']['latest_commit'],
 			],
 		];
 

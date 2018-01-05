@@ -82,7 +82,7 @@ class Vantage_API {
 		$data = json_decode( $body, true );
 
 		if ( isset( $data['data']['status'] ) && $data['data']['status'] === 403 ) {
-			return new WP_Error( 'Authentication Failed' );
+			return new WP_Error( '', 'Authentication Failed' );
 		}
 
 		return $data;
