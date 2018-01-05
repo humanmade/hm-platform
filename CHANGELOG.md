@@ -1,5 +1,12 @@
 ## Changelog
 
+### 1.2.1
+
+- Update AWS SES plugin to latest version
+    - Adds a filter to get more logging details
+- Send logs from SES and Cavalcade to CloudWatch
+- Add ElasticSearch support and plugin
+
 ### 1.2.0
 
 - Include common AWS SDK to avoid potential loading issues
