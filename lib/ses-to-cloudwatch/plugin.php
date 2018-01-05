@@ -57,9 +57,6 @@ function cloudwatch_logs_client() {
 	}
 	$cloudwatch_logs_client = get_aws_sdk()->createCloudWatchLogs([
 		'version'     => '2014-03-28',
-		'http'        => [
-			'synchronous' => true,
-		],
 	]);
 	return $cloudwatch_logs_client;
 }
