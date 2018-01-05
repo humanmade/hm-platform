@@ -27,7 +27,6 @@ class Vantage_API {
 	 */
 	public function get_bandwidth_usage() {}
 
-
 	/**
 	 * Fetch what environmental data Vantage can offer us.
 	 *
