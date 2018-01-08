@@ -120,16 +120,16 @@ class Endpoint_Controller extends \WP_REST_Controller {
 	 */
 	private function get_return_error_message( WP_Error $error ) : WP_Error {
 		switch( $error->get_error_message() ) {
-			case 'WP_Error':
+			case 'Authentication Failed':
 				return new WP_Error(
-					'vantage.api.could_not_authenticate',
+					'platform.vantage.api.could_not_authenticate',
 					'Unable to authenticate to retrieve data.',
 					['status' => WP_Http::INTERNAL_SERVER_ERROR]
 				);
 			default :
 				return new WP_Error(
-					'vantage.api.could_not_connect',
-					'Unable to connect with the Vantage API.',
+					'platform.vantage.api.could_not_connect',
+					'Unable to connect with the Vantage API. Error: ' . $error->get_error_message(),
 					['status' => WP_Http::INTERNAL_SERVER_ERROR]
 				);
 		}

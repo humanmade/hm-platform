@@ -64,11 +64,13 @@ class Vantage_API {
 		 *
 		 * Else, we need to use Basic Auth.
 		 */
-		if ( defined( 'HM_DEV' ) && HM_DEV ) {
+		if ( defined( 'HM_DEV' ) && defined( 'WP_PROXY_HOST' ) && HM_DEV ) {
 			$request = wp_remote_get( $url );
-		} else {
+		} else if ( defined( 'HM_STACK_API_USER' ) && defined( 'HM_STACK_API_PASSWORD' ) ) {
 			$request = wp_remote_get( $url, [
-				'headers' => [ 'Authorization: Basic '. base64_encode(HM_STACK_API_USER . ':' . HM_STACK_API_PASSWORD ), ]
+				'headers' => [
+					'Authorization' => 'Basic '. base64_encode(HM_STACK_API_USER . ':' . HM_STACK_API_PASSWORD ),
+				]
 			] );
 		}
 
@@ -82,7 +84,7 @@ class Vantage_API {
 		$data = json_decode( $body, true );
 
 		if ( isset( $data['data']['status'] ) && $data['data']['status'] === 403 ) {
-			return new WP_Error( '', 'Authentication Failed' );
+			return new WP_Error( 'authentication', 'Authentication Failed' );
 		}
 
 		return $data;
