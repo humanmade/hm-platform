@@ -4,16 +4,7 @@ import { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryLabel } f
 
 import DashboardBlock from '../Dashboard-Block';
 import { adminTheme } from '../../victory-theme';
-
-/**
- * Convert bytes to gigabytes and return a nicely formatted number.
- *
- * @param bytes
- * @returns {string}
- */
-const convertBytesToGigabytes = bytes => {
-	return Number( bytes / 1073741824 ).toLocaleString( undefined, { maximumFractionDigits: 0 } );
-}
+import { convertBytesToGigabytes } from '../../utils';
 
 /**
  * Display current bandwidth usage against a site for a rolling 30-day period.
@@ -68,7 +59,7 @@ const BandwidthUsage = ( { usageHistory } ) => {
 	</DashboardBlock>
 }
 
-BandwidthUsage.defaultTypes = { usageHistory: [] }
+BandwidthUsage.defaultProps = { usageHistory: [] }
 
 BandwidthUsage.propTypes = {
 	usageHistory: PropTypes.arrayOf( PropTypes.shape( {

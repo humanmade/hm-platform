@@ -28,3 +28,13 @@ export const getDocsForURL = config => {
 		.reduce( ( posts, pattern ) => posts.concat( config[ pattern ] ), [] )
 		.unique();
 }
+
+/**
+ * Convert bytes to gigabytes and return a nicely formatted number.
+ *
+ * @param bytes
+ * @returns {string}
+ */
+export const convertBytesToGigabytes = bytes => {
+	return Number( bytes / 1073741824 ).toLocaleString( undefined, { maximumFractionDigits: 0 } );
+}
