@@ -21,7 +21,7 @@ const EnvironmentData = ( { gitData, environmentData } ) => <DashboardBlock titl
 			</dl>
 		</div>
 		<div className="environment-data-block">
-			<h3 className="environment-data-block__title">HM Cloud Version</h3>
+			<h3 className="environment-data-block__title">HM Cloud Software</h3>
 			<dl>
 				<dt>PHP:</dt>
 				<dd>v{ environmentData.php }</dd>
