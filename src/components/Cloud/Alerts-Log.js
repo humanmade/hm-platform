@@ -12,12 +12,7 @@ import AlertItem from './Alert-Item';
 const AlertsLog = ( { items } ) => <DashboardBlock title="Activity Log">
 	{ ( items && items.length > 0 )
 		? <ul className="alert-listing">
-			{ items.map( alert => <AlertItem
-				date={ alert.date }
-				level={ alert.level }
-				message={ alert.message }
-				key={ alert.id }
-			/> ) }
+			{ items.map( alert => <AlertItem key={ alert.id } {...alert} /> ) }
 		</ul>
 		: <p>No Activity to Report</p>
 	}
