@@ -441,7 +441,8 @@
 .alert-item__time {
   float: right;
   font-size: .8em;
-  color: #999; }
+  color: #999;
+  font-style: italic; }
 
 /**
  * HM Cloud Pull Requests Pane.
