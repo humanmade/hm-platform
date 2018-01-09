@@ -11,13 +11,15 @@
 	flex-basis: 75%;
 }
 
-.pull-request-item__title {
+#dashboard-widgets h3.pull-request-item__title {
 	margin: 0 0 3px;
+	font-size: 13px;
 }
 
 .pull-request-item__date {
 	margin: 0;
 	color: #999;
+	font-style: italic;
 }
 
 .pull-request-item__status {

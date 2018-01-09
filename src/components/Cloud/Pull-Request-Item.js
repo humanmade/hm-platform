@@ -15,10 +15,10 @@ const PullRequestItem = ( { date, id, link, status, statusText, title } ) => {
 	const parsedDate = new Date( date );
 	return <li className="pull-request-item">
 		<div className="pull-request-item__info" >
-			<p className="pull-request-item__title">
+			<h3 className="pull-request-item__title">
 				<a href={ link }>#{ id }</a> <strong>{ title }</strong>
-			</p>
-			<p className="pull-request-item__date"><i>{ parsedDate.toLocaleDateString() }</i></p>
+			</h3>
+			<time datetime={ parsedDate.toISOString() } className="pull-request-item__date">{ parsedDate.toLocaleDateString() }</time>
 		</div>
 		<div className="pull-request-item__status">
 			<div className={ `pull-request-item__status-indicator pr-status--${ status }` } />

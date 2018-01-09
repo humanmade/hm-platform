@@ -81,3 +81,29 @@ export const pullRequests = [
 		title:      'Add colors on picker',
 	}
 ];
+
+/**
+ * Data about the current git status of an environment.
+ *
+ * @type {Object}
+ */
+export const gitData = {
+	branch: 'master',
+	commit: {
+		date:         '2017-09-20T18:22:46Z',
+		description: 'Merge pull request #213 from humanmade/update-build-tools\\n\\nUpdate build tools',
+		rev:         '055d9ce8d6676aa7880b7060baf56c24c9bae9d0',
+		status:      'active',
+	},
+}
+
+/**
+ * Data about the current environment status.
+ *
+ * @type {Object}
+ */
+export const environmentData = {
+	php:           '7.1.2',
+	mySql:         '10.2',
+	elasticsearch: '12',
+}
