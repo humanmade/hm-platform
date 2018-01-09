@@ -1,11 +1,11 @@
 <?php
 /**
- * Build endpoint data for Vantage data on this site.
+ * Build endpoint data for HM Stack data on this site.
  *
- * @package VantageIntegration
+ * @package HMStackIntegration
  */
 
-namespace Vantage;
+namespace HM_Stack;
 
 use WP_REST_Response;
 use WP_Error;
@@ -16,12 +16,12 @@ use WP_Http;
  */
 class Endpoint_Controller extends \WP_REST_Controller {
 	/**
-	 * Register Vantage data routes for the WP REST API.
+	 * Register HM_Stack data routes for the WP REST API.
 	 *
 	 * @todo:: Add schemas to each endpoint.
 	 */
 	public function register_routes() {
-		$namespace = 'vantage/v1';
+		$namespace = 'hm-stack/v1';
 
 		// Fetch all activity/alerts against this site.
 		register_rest_route( $namespace, 'activity', [
@@ -104,7 +104,7 @@ class Endpoint_Controller extends \WP_REST_Controller {
 	}
 
 	/**
-	 * Validate whether the current user has appropriate capabilities to fetch Vantage data or not.
+	 * Validate whether the current user has appropriate capabilities to fetch HM Stack data or not.
 	 *
 	 * @return bool
 	 */
@@ -113,7 +113,7 @@ class Endpoint_Controller extends \WP_REST_Controller {
 	}
 
 	/**
-	 * Make a human-readable error code from various Vantage responses.
+	 * Make a human-readable error code from various Hm Stack responses.
 	 *
 	 * @param $error WP_Error Error to parse.
 	 * @return WP_Error
@@ -122,14 +122,14 @@ class Endpoint_Controller extends \WP_REST_Controller {
 		switch( $error->get_error_message() ) {
 			case 'Authentication Failed':
 				return new WP_Error(
-					'platform.vantage.api.could_not_authenticate',
+					'platform.hmstack.api.could_not_authenticate',
 					'Unable to authenticate to retrieve data.',
 					['status' => WP_Http::INTERNAL_SERVER_ERROR]
 				);
 			default :
 				return new WP_Error(
-					'platform.vantage.api.could_not_connect',
-					'Unable to connect with the Vantage API. Error: ' . $error->get_error_message(),
+					'platform.hmstack.api.could_not_connect',
+					'Unable to connect with the HM Stack API. Error: ' . $error->get_error_message(),
 					['status' => WP_Http::INTERNAL_SERVER_ERROR]
 				);
 		}
@@ -146,11 +146,11 @@ class Endpoint_Controller extends \WP_REST_Controller {
 	 * @return WP_REST_Response|\WP_Error
 	 */
 	public function get_environment() {
-		$vantage_data = ( new Vantage_API() )->get_environment_data();
+		$stack_data = ( new HM_Stack_API() )->get_environment_data();
 
 		// If we've errored out, return a human-friendly message and code.
-		if ( is_wp_error( $vantage_data ) ) {
-			return $this->get_return_error_message( $vantage_data );
+		if ( is_wp_error( $stack_data ) ) {
+			return $this->get_return_error_message( $stack_data );
 		}
 
 		$data = [
@@ -160,8 +160,8 @@ class Endpoint_Controller extends \WP_REST_Controller {
 				'mySql'         => '', // Will add this later.
 			],
 			'gitData' => [
-				'branch' => $vantage_data['git-deployment']['ref'],
-				'commit' => $vantage_data['git-deployment']['branch_details']['latest_commit'],
+				'branch' => $stack_data['git-deployment']['ref'],
+				'commit' => $stack_data['git-deployment']['branch_details']['latest_commit'],
 			],
 		];
 
@@ -169,19 +169,19 @@ class Endpoint_Controller extends \WP_REST_Controller {
 	}
 
 	/**
-	 * Get latest notifications from Vantage about the site.
+	 * Get latest notifications from HM Stack about the site.
 	 *
 	 * @return WP_REST_Response|\WP_Error
 	 */
 	public function get_site_activity() {
-		$vantage_data =  ( new Vantage_API() )->get_activity();
+		$stack_data =  ( new HM_Stack_API() )->get_activity();
 
 		// If we've errored out, return a human-friendly message and code.
-		if ( is_wp_error( $vantage_data ) ) {
-			return $this->get_return_error_message( $vantage_data );
+		if ( is_wp_error( $stack_data ) ) {
+			return $this->get_return_error_message( $stack_data );
 		}
 
-		return new WP_REST_Response( $vantage_data );
+		return new WP_REST_Response( $stack_data );
 	}
 
 	/**
@@ -190,14 +190,14 @@ class Endpoint_Controller extends \WP_REST_Controller {
 	 * @return WP_REST_Response|\WP_Error
 	 */
 	public function get_pull_requests() {
-		$vantage_data = ( new Vantage_API() )->get_pull_requests();
+		$stack_data = ( new HM_Stack_API() )->get_pull_requests();
 
 		// If we've errored out, return a human-friendly message and code.
-		if ( is_wp_error( $vantage_data ) ) {
-			return $this->get_return_error_message( $vantage_data );
+		if ( is_wp_error( $stack_data ) ) {
+			return $this->get_return_error_message( $stack_data );
 		}
 
-		return new WP_REST_Response( $vantage_data );
+		return new WP_REST_Response( $stack_data );
 	}
 
 	/**

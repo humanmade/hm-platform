@@ -2,38 +2,38 @@
 /**
  * Test that the class queries for data appropriately.
  *
- * @package PhpStorm.
+ * @package HMStackIntegration.
  */
 
-namespace Vantage\Tests;
+namespace HM_Stack\Tests;
 
-use Vantage\Vantage_API;
+use HM_Stack\HM_Stack_API;
 
 /**
- * Class TestVantageAPI
+ * Class TestHMStackAPI
  */
-class TestVantageAPI {
+class TestHMStackAPI {
 
 	/**
 	 * Instance of the API class.
 	 *
-	 * @var Vantage_API
+	 * @var HM_Stack_API
 	 */
 	static $instance;
 
 	/**
-	 * Set up Vantage API mocking.
+	 * Set up HM Stack API mocking.
 	 */
 	public function wpSetUpBeforeClass() {
-		self::$instance = new Vantage_API();
-		add_filter( 'pre_http_request', '\\Vantage\\Tests\\mock_returns', 10, 3 );
+		self::$instance = new HM_Stack_API();
+		add_filter( 'pre_http_request', '\\HM_Stack\\Tests\\mock_returns', 10, 3 );
 	}
 
 	/**
 	 * Remove API mocking return.
 	 */
 	public static function wpTearDownAfterClass() {
-		remove_filter( 'pre_http_request', '\\Vantage\\Tests\\mock_returns', 10 );
+		remove_filter( 'pre_http_request', '\\HM_Stack\\Tests\\mock_returns', 10 );
 	}
 
 	/**

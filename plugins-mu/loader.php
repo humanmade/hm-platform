@@ -5,4 +5,4 @@
  * @package PhpStorm.
  */
 
-require_once 'vantage/vantage.php';
+require_once 'hm-stack/hm-stack.php';

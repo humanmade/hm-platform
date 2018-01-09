@@ -1,18 +1,18 @@
 <?php
 /**
- * API Class to communicate with the Vantage servers.
+ * API Class to communicate with the HM Stack servers.
  *
- * @package VantageIntegration
+ * @package HMStackIntegration`
  */
 
-namespace Vantage;
+namespace HM_Stack;
 
 use WP_Error;
 
 /**
- * Class Vantage_API
+ * Class HM_Stack_API
  */
-class Vantage_API {
+class HM_Stack_API {
 	/**
 	 *
 	 *
@@ -28,7 +28,7 @@ class Vantage_API {
 	public function get_bandwidth_usage() {}
 
 	/**
-	 * Fetch what environmental data Vantage can offer us.
+	 * Fetch what environmental data HM Stack can offer us.
 	 *
 	 * Example URL: https://us-east-1.aws.hmn.md/api/stack/applications/encompass-development/
 	 */
@@ -51,7 +51,7 @@ class Vantage_API {
 	}
 
 	/**
-	 * Query the Vantage API for the data that we want.
+	 * Query the HM Stack API for the data that we want.
 	 *
 	 * @param string $endpoint
 	 * @return mixed null for a bad request,

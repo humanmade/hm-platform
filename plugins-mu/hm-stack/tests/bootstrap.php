@@ -2,7 +2,7 @@
 /**
  * Bootstrap and load test files.
  *
- * @package VantageIntegration
+ * @package HMStackIntegration
  * @author Human Made Limited
  */
 
@@ -25,7 +25,7 @@ require_once $_tests_dir . '/includes/functions.php';
  * Loads the plugin files.
  */
 function _manually_load_plugin() {
-	require_once __DIR__ . '/../vantage.php';
+	require_once __DIR__ . '/../hm-stack.php';
 }
 
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );

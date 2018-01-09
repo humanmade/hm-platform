@@ -1,14 +1,14 @@
 <?php
 /**
- * Stub return data from Vantage.
+ * Stub return data from HM Stack.
  *
- * @package PhpStorm.
+ * @package HMStackIntegration.
  */
 
-namespace Vantage\Tests;
+namespace HM_Stack\Tests;
 
 /**
- * Function that returns mock Vantage API responses. Used as a callback for `pre_http_request`.
+ * Function that returns mock HM Stack API responses. Used as a callback for `pre_http_request`.
  *
  * @param mixed  $preempt Unused. Whether to preempt an HTTP request's return value.
  * @param array  $r       Unused. HTTP request arguments.
@@ -37,7 +37,7 @@ function mock_returns( $preempt, $r, $url ) {
 }
 
 /**
- * Raw Vantage data stubs.
+ * Raw HM Stack data stubs.
  *
  * @param $type string
  * @return string|bool
