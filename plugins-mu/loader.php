@@ -2,7 +2,10 @@
 /**
  * Load sub-folder mu-plugins.
  *
- * @package PhpStorm.
+ * @package HM Platform.
  */
 
+/**
+ * Load the HM Stack Integration plugin.
+ */
 require_once 'hm-stack/hm-stack.php';

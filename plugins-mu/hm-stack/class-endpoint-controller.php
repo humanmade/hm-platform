@@ -136,7 +136,7 @@ class Endpoint_Controller extends \WP_REST_Controller {
 	}
 
 	/**
-	 * Need more information to fetch this data.
+	 * @todo:: Need more information to fetch this data.
 	 */
 	public function get_bandwidth_usage() {}
 
@@ -146,10 +146,18 @@ class Endpoint_Controller extends \WP_REST_Controller {
 	 * @return WP_REST_Response|\WP_Error
 	 */
 	public function get_environment() {
+		// Check our cache first.
+		$data = wp_cache_get( 'environment', 'hm-stack' );
+		if ( $data !== false ) {
+			return $data;
+		}
+
 		$stack_data = ( new HM_Stack_API() )->get_environment_data();
 
 		// If we've errored out, return a human-friendly message and code.
 		if ( is_wp_error( $stack_data ) ) {
+			// Prevent constant re-fetching in the event of a failure.
+			wp_cache_set( 'activity', $stack_data, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
 			return $this->get_return_error_message( $stack_data );
 		}
 
@@ -165,6 +173,8 @@ class Endpoint_Controller extends \WP_REST_Controller {
 			],
 		];
 
+		wp_cache_set( 'environment', $data, 'hm-stack', 12 * \HOUR_IN_SECONDS );
+
 		return new WP_REST_Response( $data );
 	}
 
@@ -174,12 +184,22 @@ class Endpoint_Controller extends \WP_REST_Controller {
 	 * @return WP_REST_Response|\WP_Error
 	 */
 	public function get_site_activity() {
-		$stack_data =  ( new HM_Stack_API() )->get_activity();
+		// Check our cache first.
+		$data = wp_cache_get( 'activity', 'hm-stack' );
+		if ( $data !== false ) {
+			return $data;
+		}
+
+		$stack_data = ( new HM_Stack_API() )->get_activity();
 
 		// If we've errored out, return a human-friendly message and code.
 		if ( is_wp_error( $stack_data ) ) {
+			// Prevent constant re-fetching in the event of a failure.
+			wp_cache_set( 'activity', $stack_data, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
 			return $this->get_return_error_message( $stack_data );
 		}
+
+		wp_cache_set( 'activity', $stack_data, 'hm-stack', 12 * \HOUR_IN_SECONDS );
 
 		return new WP_REST_Response( $stack_data );
 	}
@@ -190,18 +210,29 @@ class Endpoint_Controller extends \WP_REST_Controller {
 	 * @return WP_REST_Response|\WP_Error
 	 */
 	public function get_pull_requests() {
+		// Check our cache first.
+		$data = wp_cache_get( 'pull-requests', 'hm-stack' );
+		if ( $data !== false ) {
+			return $data;
+		}
+
 		$stack_data = ( new HM_Stack_API() )->get_pull_requests();
 
 		// If we've errored out, return a human-friendly message and code.
 		if ( is_wp_error( $stack_data ) ) {
+			// Prevent constant re-fetching in the event of a failure.
+			wp_cache_set( 'activity', $stack_data, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
 			return $this->get_return_error_message( $stack_data );
 		}
+
+		wp_cache_set( 'pull-requests', $stack_data, 'hm-stack', 12 * \HOUR_IN_SECONDS );
+
 
 		return new WP_REST_Response( $stack_data );
 	}
 
 	/**
-	 * Need more information to fetch this data.
+	 * @todo:: Need more information to fetch this data.
 	 */
 	public function get_page_generation_time() {}
 }

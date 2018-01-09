@@ -11,9 +11,6 @@
 
 namespace HM_Stack;
 
-// @todo:: add tests
-// @todo:: Use autoloading.
-
 // Load files.
 require_once 'class-hm-stack-api.php';
 require_once 'class-endpoint-controller.php';
