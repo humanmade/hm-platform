@@ -8,11 +8,12 @@
 namespace HM_Stack\Tests;
 
 use HM_Stack\HM_Stack_API;
+use WP_UnitTestCase;
 
 /**
  * Class TestHMStackAPI
  */
-class TestHMStackAPI {
+class TestHMStackAPI extends WP_UnitTestCase {
 
 	/**
 	 * Instance of the API class.
@@ -24,7 +25,9 @@ class TestHMStackAPI {
 	/**
 	 * Set up HM Stack API mocking.
 	 */
-	public function wpSetUpBeforeClass() {
+	public static function wpSetUpBeforeClass() {
+		require_once 'vantage-data-stubs.php';
+
 		self::$instance = new HM_Stack_API();
 		add_filter( 'pre_http_request', '\\HM_Stack\\Tests\\mock_returns', 10, 3 );
 	}
@@ -41,7 +44,7 @@ class TestHMStackAPI {
 	 */
 	public function test_get_activity() {
 		$return = self::$instance->get_activity();
-		$expected = raw_stubs( 'alarms' );
+		$expected = json_decode( raw_stubs( 'alarms' ), true );
 
 		$this->assertEquals( $return, $expected );
 	}
@@ -51,7 +54,7 @@ class TestHMStackAPI {
 	 */
 	public function test_get_pull_requests() {
 		$return = self::$instance->get_pull_requests();
-		$expected = raw_stubs( 'pull-requests' );
+		$expected = json_decode( raw_stubs( 'pull-requests' ), true );
 
 		$this->assertEquals( $return, $expected );
 	}
@@ -61,7 +64,7 @@ class TestHMStackAPI {
 	 */
 	public function test_get_environment_data() {
 		$return = self::$instance->get_environment_data();
-		$expected = raw_stubs( '' );
+		$expected = json_decode( raw_stubs( '' ), true );
 
 		$this->assertEquals( $return, $expected );
 	}

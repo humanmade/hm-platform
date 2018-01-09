@@ -17,7 +17,7 @@ namespace HM_Stack\Tests;
  */
 function mock_returns( $preempt, $r, $url ) {
 	// Verify that we're parsing the correct URL structure.
-	if ( ! strpos( $url, HM_STACK_API_URL ) ) {
+	if ( -1 === strpos( $url, HM_STACK_API_URL ) ) {
 		return 'error';
 	}
 
