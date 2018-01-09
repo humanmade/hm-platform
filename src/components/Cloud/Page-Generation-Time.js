@@ -24,7 +24,8 @@ const PageGenerationTime = ( { responseTimeHistory } ) => {
 				tickFormat={ y => `${ Number( y ).toFixed( 0 ) } ms` }
 			/>
 			<VictoryAxis
-				tickCount={ 6 }
+				label="(Date)"
+				tickCount={ 7 }
 				tickFormat={ x => new Date( x ).getDate() }
 				style={ { grid: {
 						fill: "none",

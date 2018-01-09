@@ -34,7 +34,7 @@ const baseProps = {
 	padding:    {
 		top:    25,
 		right:  25,
-		bottom: 25,
+		bottom: 35,
 		left:   50,
 	},
 	colorScale: colors

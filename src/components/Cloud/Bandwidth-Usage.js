@@ -39,7 +39,8 @@ const BandwidthUsage = ( { usageHistory } ) => {
 				tickFormat={ y => `${ convertBytesToGigabytes( y ) } GB` }
 			/>
 			<VictoryAxis
-				tickCount={ 6 }
+				label="(Date)"
+				tickCount={ 7 }
 				tickFormat={ x => new Date( x ).getDate() }
 				style={
 					{ grid: {
