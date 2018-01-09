@@ -1,0 +1,54 @@
+/**
+ * HM Cloud Pull Requests Pane.
+ */
+.pull-request-item {
+	display: flex;
+	list-style-type: none;
+	margin: 15px;
+}
+
+.pull-request-item__info {
+	flex-basis: 75%;
+}
+
+#dashboard-widgets h3.pull-request-item__title {
+	margin: 0 0 3px;
+	font-size: 13px;
+}
+
+.pull-request-item__date {
+	margin: 0;
+	color: #999;
+	font-style: italic;
+}
+
+.pull-request-item__status {
+	color: #999;
+	flex: 0 1 23%;
+}
+
+.pull-request-item__status-indicator {
+	float: left;
+	margin-right: 7px;
+	height: 1.3em;
+	width: 1.3em;
+	border-radius: 50%;
+	background-color: transparent;
+
+	&.pr-status--APPROVED {
+		background-color: green;
+	}
+
+	&.pr-status--COMMENTED,
+	&.pr-status--CHANGES_REQUESTED {
+		background-color: red;
+	}
+
+	&.pr-status--PENDING {
+		background-color: green;
+	}
+
+	&.pr-status--DISMISSED {
+		background-color: #333;
+	}
+}

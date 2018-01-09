@@ -7,6 +7,8 @@ $images-path: "./hm-pattern-library/assets/images";
 @import "./hm-pattern-library/assets/sass/components/loading";
 @import "./hm-pattern-library/assets/sass/components/buttons";
 
+@import "./scss/Cloud/Pull-Requests";
+
 #toplevel_page_hm-enterprise-kit .wp-menu-image img,
 #toplevel_page_hm-enterprise-kit .wp-menu-image svg {
   max-width: 24px;
