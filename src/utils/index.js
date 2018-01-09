@@ -30,6 +30,41 @@ export const getDocsForURL = config => {
 }
 
 /**
+ * Calculate the amount of time since a date and return in nice English.
+ *
+ * @param {String} time ISO timestamp
+ * @return {String}
+ */
+export const getTimeSince = time => {
+	const now = new Date();
+	const then = new Date( time );
+
+	// If we're dealing with the future we don't have a timeSince to parse. Bounce.
+	if ( now < then ) {
+		return null;
+	}
+
+	const diff = Math.floor( now - then );
+	const microMinute = 60000; // Minute in microseconds
+	const microHour = 3600000; // Hour in microseconds
+	const microDay = 86400000; // Day in microseconds.
+
+	if ( diff < microMinute ) {
+		return 'just a minute ago';
+	} else if ( diff < microHour ) {
+		const time = Math.floor( diff / 1000 / 60 );
+		return `${ time } minute${ time > 1 ? 's' : ''} ago`;
+	} else if ( diff < microDay ) {
+		const time = Math.floor( diff / microHour );
+		return`${ time } hour${ time > 1 ? 's' : ''} ago`;
+	} else if ( diff > microDay && diff < ( microDay * 2 ) ) {
+		return 'yesterday';
+	} else {
+		return `${ Math.floor( diff / microDay ) } days ago`;
+	}
+};
+
+/**
  * Convert bytes to gigabytes and return a nicely formatted number.
  *
  * @param bytes

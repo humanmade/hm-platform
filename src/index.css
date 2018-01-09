@@ -413,6 +413,38 @@
   margin-bottom: -1px; }
 
 /**
+ * HM Cloud Alerts Pane.
+ */
+.alert-listing {
+  margin-bottom: 0; }
+
+.alert-item {
+  padding: 7px 7px 7px 10px;
+  border-left: 5px solid transparent;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px; }
+  .alert-item:after {
+    content: "";
+    clear: both;
+    display: block; }
+  .alert-item:last-of-type {
+    margin-bottom: 0; }
+  .alert-item--success {
+    border-left-color: #46b450; }
+  .alert-item--error {
+    border-left-color: #dc3232; }
+
+.alert-item__message {
+  margin: 0 0 2px;
+  line-height: 1.4; }
+
+.alert-item__time {
+  float: right;
+  font-size: .8em;
+  color: #999;
+  font-style: italic; }
+
+/**
  * HM Cloud Pull Requests Pane.
  */
 .pull-request-item {
@@ -423,12 +455,14 @@
 .pull-request-item__info {
   flex-basis: 75%; }
 
-.pull-request-item__title {
-  margin: 0 0 3px; }
+#dashboard-widgets h3.pull-request-item__title {
+  margin: 0 0 3px;
+  font-size: 13px; }
 
 .pull-request-item__date {
   margin: 0;
-  color: #999; }
+  color: #999;
+  font-style: italic; }
 
 .pull-request-item__status {
   color: #999;
@@ -449,6 +483,36 @@
     background-color: green; }
   .pull-request-item__status-indicator.pr-status--DISMISSED {
     background-color: #333; }
+
+/**
+ * HM Cloud Environmental Data pane.
+ */
+.environment-data {
+  display: flex;
+  justify-content: space-between; }
+
+.environment-data-block {
+  border: 1px solid #eee;
+  flex-basis: 49%; }
+
+#dashboard-widgets h3.environment-data-block__title {
+  border-bottom: 1px solid #eee;
+  font-weight: bold;
+  padding: 7px; }
+
+.environment-data-block dl {
+  padding: 7px;
+  margin: 0; }
+
+.environment-data-block dt {
+  font-weight: bold;
+  clear: both;
+  margin-right: 7px; }
+
+.environment-data-block dt,
+.environment-data-block dd {
+  float: left;
+  margin-left: 0; }
 
 #toplevel_page_hm-enterprise-kit .wp-menu-image img,
 #toplevel_page_hm-enterprise-kit .wp-menu-image svg {

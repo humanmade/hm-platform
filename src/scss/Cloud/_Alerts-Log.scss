@@ -1,0 +1,44 @@
+/**
+ * HM Cloud Alerts Pane.
+ */
+
+.alert-listing {
+	margin-bottom: 0;
+}
+
+.alert-item {
+	padding: 7px 7px 7px 10px;
+	border-left: 5px solid transparent;
+	box-shadow: 0 1px 1px 0 rgba( 0, 0, 0, 0.1 );
+	margin-bottom: 10px;
+
+	&:after {
+		content: "";
+		clear: both;
+		display: block;
+	}
+
+	&:last-of-type {
+		margin-bottom: 0;
+	}
+
+	&--success {
+		border-left-color: #46b450;
+	}
+
+	&--error {
+		border-left-color: #dc3232;
+	}
+}
+
+.alert-item__message {
+	margin: 0 0 2px;
+	line-height: 1.4;
+}
+
+.alert-item__time {
+	float: right;
+	font-size: .8em;
+	color: #999;
+	font-style: italic;
+}
