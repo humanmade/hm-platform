@@ -33,6 +33,7 @@
     "react-scripts": "1.0.17",
     "react-wp-scripts": "github:humanmade/react-wp-scripts#react-rewire-support",
     "styled-components": "^2.2.4",
+    "victory": "^0.24.3",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
