@@ -65,13 +65,13 @@ function get_config() {
 	$defaults = array(
 		's3-uploads'      	=> true,
 		'aws-ses-wp-mail' 	=> true,
-		'hm-user-redirect'  => false,
-		'tachyon'         	=> true,
-		'cavalcade'			=> true,
-		'batcache'			=> true,
-		'memcached'			=> true,
-		'ludicrousdb'		=> true,
-		'elasticsearch'		=> defined( 'ELASTICSEARCH_HOST' ),
+		'hm-user-redirect'	=> false,
+		'tachyon'       	=> true,
+		'cavalcade'     	=> true,
+		'batcache'      	=> true,
+		'memcached'     	=> true,
+		'ludicrousdb'   	=> true,
+		'elasticsearch' 	=> defined( 'ELASTICSEARCH_HOST' ),
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
