@@ -63,14 +63,15 @@ function get_config() {
 	global $hm_platform;
 
 	$defaults = array(
-		's3-uploads'      => true,
-		'aws-ses-wp-mail' => true,
-		'tachyon'         => true,
-		'cavalcade'       => true,
-		'batcache'        => true,
-		'memcached'       => true,
-		'ludicrousdb'     => true,
-		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
+		's3-uploads'      	=> true,
+		'aws-ses-wp-mail' 	=> true,
+		'hm-user-redirect'  => false,
+		'tachyon'         	=> true,
+		'cavalcade'			=> true,
+		'batcache'			=> true,
+		'memcached'			=> true,
+		'ludicrousdb'		=> true,
+		'elasticsearch'		=> defined( 'ELASTICSEARCH_HOST' ),
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
@@ -132,10 +133,11 @@ function load_db() {
  */
 function get_available_plugins() {
 	return array(
-		's3-uploads'      => 's3-uploads/s3-uploads.php',
-		'aws-ses-wp-mail' => 'aws-ses-wp-mail/aws-ses-wp-mail.php',
-		'tachyon'         => 'tachyon/tachyon.php',
-		'cavalcade'       => 'cavalcade/plugin.php',
+		's3-uploads'     	 => 's3-uploads/s3-uploads.php',
+		'aws-ses-wp-mail'	 => 'aws-ses-wp-mail/aws-ses-wp-mail.php',
+		'tachyon'        	 => 'tachyon/tachyon.php',
+		'cavalcade'      	 => 'cavalcade/plugin.php',
+		'hm-user-redirect'	 => 'hm-user-redirect/require-login.php',
 	);
 }
 
