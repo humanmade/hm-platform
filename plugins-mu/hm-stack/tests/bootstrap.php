@@ -10,7 +10,7 @@
 define( 'HM_DEV', false );
 
 // Setup Variables for testing.
-define( 'HM_STACK_API_URL', 'https://eu-west-1.aws.hmn.md/api/stack/applications/test-production/' );
+define( 'HM_STACK_API_URL', 'https://fake-test-1.fws.cloud.up/api/stack/applications/test-production/' );
 define( 'HM_STACK_API_USER', 'test-production' );
 define( 'HM_STACK_API_PASSWORD', '1234' );
 
