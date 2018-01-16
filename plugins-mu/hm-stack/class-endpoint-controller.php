@@ -120,7 +120,7 @@ class Endpoint_Controller extends WP_REST_Controller {
 	 * @param $error WP_Error Error to parse.
 	 * @return WP_Error
 	 */
-	private function get_return_error_message( WP_Error $error ) : WP_Error {
+	private function get_wp_error_for_hm_stack_return( WP_Error $error ) : WP_Error {
 		switch ( $error->get_error_message() ) {
 			case 'Authentication Failed':
 				return new WP_Error(
@@ -147,7 +147,7 @@ class Endpoint_Controller extends WP_REST_Controller {
 	 *
 	 * @return WP_REST_Response|\WP_Error
 	 */
-	public function get_environment() {
+	public function get_environment_data() {
 		// Check our cache first.
 		$data = wp_cache_get( 'environment', 'hm-stack' );
 		if ( $data !== false ) {
@@ -160,7 +160,7 @@ class Endpoint_Controller extends WP_REST_Controller {
 		if ( is_wp_error( $stack_data ) ) {
 			// Prevent constant re-fetching in the event of a failure.
 			wp_cache_set( 'activity', $stack_data, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
-			return $this->get_return_error_message( $stack_data );
+			return $this->get_wp_error_for_hm_stack_return( $stack_data );
 		}
 
 		$data = [
@@ -198,7 +198,7 @@ class Endpoint_Controller extends WP_REST_Controller {
 		if ( is_wp_error( $stack_data ) ) {
 			// Prevent constant re-fetching in the event of a failure.
 			wp_cache_set( 'activity', $stack_data, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
-			return $this->get_return_error_message( $stack_data );
+			return $this->get_wp_error_for_hm_stack_return( $stack_data );
 		}
 
 		wp_cache_set( 'activity', $stack_data, 'hm-stack', 12 * \HOUR_IN_SECONDS );
@@ -224,7 +224,7 @@ class Endpoint_Controller extends WP_REST_Controller {
 		if ( is_wp_error( $stack_data ) ) {
 			// Prevent constant re-fetching in the event of a failure.
 			wp_cache_set( 'activity', $stack_data, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
-			return $this->get_return_error_message( $stack_data );
+			return $this->get_wp_error_for_hm_stack_return( $stack_data );
 		}
 
 		wp_cache_set( 'pull-requests', $stack_data, 'hm-stack', 12 * \HOUR_IN_SECONDS );
