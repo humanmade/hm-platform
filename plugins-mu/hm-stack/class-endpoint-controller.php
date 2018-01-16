@@ -7,14 +7,16 @@
 
 namespace HM_Stack;
 
+use WP_REST_Controller;
 use WP_REST_Response;
+use WP_REST_Server;
 use WP_Error;
 use WP_Http;
 
 /**
  * Class Endpoint_Controller
  */
-class Endpoint_Controller extends \WP_REST_Controller {
+class Endpoint_Controller extends WP_REST_Controller {
 	/**
 	 * Register HM_Stack data routes for the WP REST API.
 	 *
@@ -25,7 +27,7 @@ class Endpoint_Controller extends \WP_REST_Controller {
 
 		// Fetch all activity/alerts against this site.
 		register_rest_route( $namespace, 'activity', [
-			'methods'  => \WP_REST_Server::READABLE,
+			'methods'  => WP_REST_Server::READABLE,
 			'callback' => [ $this, 'get_site_activity' ],
 			'args'     => [
 				'context' => [
@@ -37,7 +39,7 @@ class Endpoint_Controller extends \WP_REST_Controller {
 
 		// Fetch bandwidth usage for this site.
 		register_rest_route( $namespace, 'bandwidth-usage', [
-			'methods'  => \WP_REST_Server::READABLE,
+			'methods'  => WP_REST_Server::READABLE,
 			'callback' => [ $this, 'get_bandwidth' ],
 			'args'     => [
 				'context' => [
@@ -49,7 +51,7 @@ class Endpoint_Controller extends \WP_REST_Controller {
 
 		// Fetch all site environmental data for this site.
 		register_rest_route( $namespace, 'environment-data', [
-			'methods'  => \WP_REST_Server::READABLE,
+			'methods'  => WP_REST_Server::READABLE,
 			'callback' => [ $this, 'get_environment' ],
 			'args'     => [
 				'context' => [
@@ -75,12 +77,12 @@ class Endpoint_Controller extends \WP_REST_Controller {
 						'readonly'     => true,
 					],
 				],
-			]
+			],
 		] );
 
 		// Fetch all pull requests against this site.
 		register_rest_route( $namespace, 'pull-requests', [
-			'methods'  => \WP_REST_Server::READABLE,
+			'methods'  => WP_REST_Server::READABLE,
 			'callback' => [ $this, 'get_pull_requests' ],
 			'args'     => [
 				'context' => [
@@ -92,7 +94,7 @@ class Endpoint_Controller extends \WP_REST_Controller {
 
 		// Fetch average page generation time for this site.
 		register_rest_route( $namespace, 'page-generation', [
-			'methods'  => \WP_REST_Server::READABLE,
+			'methods'  => WP_REST_Server::READABLE,
 			'callback' => [ $this, 'get_page_generation_time' ],
 			'args'     => [
 				'context' => [
@@ -119,18 +121,18 @@ class Endpoint_Controller extends \WP_REST_Controller {
 	 * @return WP_Error
 	 */
 	private function get_return_error_message( WP_Error $error ) : WP_Error {
-		switch( $error->get_error_message() ) {
+		switch ( $error->get_error_message() ) {
 			case 'Authentication Failed':
 				return new WP_Error(
 					'platform.hmstack.api.could_not_authenticate',
 					'Unable to authenticate to retrieve data.',
-					['status' => WP_Http::INTERNAL_SERVER_ERROR]
+					[ 'status' => WP_Http::INTERNAL_SERVER_ERROR ]
 				);
 			default :
 				return new WP_Error(
 					'platform.hmstack.api.could_not_connect',
 					'Unable to connect with the HM Stack API. Error: ' . $error->get_error_message(),
-					['status' => WP_Http::INTERNAL_SERVER_ERROR]
+					[ 'status' => WP_Http::INTERNAL_SERVER_ERROR ]
 				);
 		}
 	}
@@ -226,7 +228,6 @@ class Endpoint_Controller extends \WP_REST_Controller {
 		}
 
 		wp_cache_set( 'pull-requests', $stack_data, 'hm-stack', 12 * \HOUR_IN_SECONDS );
-
 
 		return new WP_REST_Response( $stack_data );
 	}

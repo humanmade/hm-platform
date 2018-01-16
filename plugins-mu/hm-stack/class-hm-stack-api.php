@@ -57,7 +57,7 @@ class HM_Stack_API {
 	 * @return mixed null for a bad request,
 	 */
 	private function query_api( $endpoint ) {
-		$url =  esc_url_raw( HM_STACK_API_URL . $endpoint );
+		$url = esc_url_raw( HM_STACK_API_URL . $endpoint );
 
 		/**
 		 * If we're proxied on a local environment, then auth is handled for us.
@@ -69,8 +69,8 @@ class HM_Stack_API {
 		} else if ( defined( 'HM_STACK_API_USER' ) && defined( 'HM_STACK_API_PASSWORD' ) ) {
 			$request = wp_remote_get( $url, [
 				'headers' => [
-					'Authorization' => 'Basic '. base64_encode(HM_STACK_API_USER . ':' . HM_STACK_API_PASSWORD ),
-				]
+					'Authorization' => 'Basic ' . base64_encode( HM_STACK_API_USER . ':' . HM_STACK_API_PASSWORD ),
+				],
 			] );
 		}
 
