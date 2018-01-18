@@ -7,6 +7,7 @@
 
 namespace HM_Stack;
 
+use HM_Stack\API;
 use WP_REST_Controller;
 use WP_REST_Response;
 use WP_REST_Server;
@@ -154,7 +155,7 @@ class Endpoint_Controller extends WP_REST_Controller {
 			return $data;
 		}
 
-		$stack_data = ( new HM_Stack_API() )->get_environment_data();
+		$stack_data = API\get_environment_data();
 
 		// If we've errored out, return a human-friendly message and code.
 		if ( is_wp_error( $stack_data ) ) {
@@ -192,7 +193,7 @@ class Endpoint_Controller extends WP_REST_Controller {
 			return $data;
 		}
 
-		$stack_data = ( new HM_Stack_API() )->get_activity();
+		$stack_data = API\get_activity();
 
 		// If we've errored out, return a human-friendly message and code.
 		if ( is_wp_error( $stack_data ) ) {
@@ -218,7 +219,7 @@ class Endpoint_Controller extends WP_REST_Controller {
 			return $data;
 		}
 
-		$stack_data = ( new HM_Stack_API() )->get_pull_requests();
+		$stack_data = API\get_pull_requests();
 
 		// If we've errored out, return a human-friendly message and code.
 		if ( is_wp_error( $stack_data ) ) {
