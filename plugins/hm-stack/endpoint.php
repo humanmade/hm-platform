@@ -56,21 +56,21 @@ function register_routes() {
 		],
 		'permission_callback' => __NAMESPACE__ . '\\permissions_check',
 		'schema'              => [
-			'$schema'              => 'http://json-schema.org/draft-04/schema#',
-			'title'                => 'environment-data',
-			'type'                 => 'object',
-			'properties'           => [
+			'$schema'    => 'http://json-schema.org/draft-04/schema#',
+			'title'      => 'environment-data',
+			'type'       => 'object',
+			'properties' => [
 				'environment_data' => [
-					'description'  => esc_html__( 'Data about the current server environment', 'hm-stack' ),
-					'type'         => 'object',
-					'context'      => array( 'view' ),
-					'readonly'     => true,
+					'description' => esc_html__( 'Data about the current server environment.', 'hm-stack' ),
+					'type'        => 'object',
+					'context'     => array( 'view' ),
+					'readonly'    => true,
 				],
 				'git_data' => [
-					'description'  => esc_html__( 'Data about the current state of git on the site.', 'hm-stack' ),
-					'type'         => 'object',
-					'context'      => array( 'view' ),
-					'readonly'     => true,
+					'description' => esc_html__( 'Data about the current state of git on the site.', 'hm-stack' ),
+					'type'        => 'object',
+					'context'     => array( 'view' ),
+					'readonly'    => true,
 				],
 			],
 		],
@@ -107,7 +107,6 @@ function register_routes() {
  * @return bool
  */
 function permissions_check() : bool {
-	return true;
 	return current_user_can( 'manage_options' );
 }
 
@@ -144,7 +143,7 @@ function get_wp_error_for_hm_stack_return( WP_Error $error ) : WP_Error {
 function get_bandwidth_usage() {}
 
 /**
- * Send off environmental data about the site such as gitBranch information and PHP version.
+ * Send off environmental data about the site such as current git branch and PHP version.
  *
  * @return WP_REST_Response|\WP_Error
  */

@@ -2,7 +2,7 @@
 /**
  * API Functions to communicate with the HM Stack servers.
  *
- * @package HMStackIntegration`
+ * @package HMStackIntegration
  */
 
 namespace HM_Stack\API;
