@@ -18,4 +18,6 @@ require_once 'api.php';
 require_once 'endpoint.php';
 
 // Register endpoint controller
-Endpoint\register_routes();
+add_action( 'rest_api_init', function() {
+	Endpoint\register_routes();
+} );

@@ -13,7 +13,6 @@ use WP_REST_Server;
 use WP_Error;
 use WP_Http;
 
-
 /**
  * Register HM_Stack data routes for the WP REST API.
  *
@@ -49,7 +48,7 @@ function register_routes() {
 	// Fetch all site environmental data for this site.
 	register_rest_route( $namespace, 'environment-data', [
 		'methods'  => WP_REST_Server::READABLE,
-		'callback' => __NAMESPACE__ . '\\get_environment',
+		'callback' => __NAMESPACE__ . '\\get_environment_data',
 		'args'     => [
 			'context' => [
 				'default' => 'view',

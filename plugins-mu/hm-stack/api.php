@@ -10,7 +10,7 @@ namespace HM_Stack\API;
 use WP_Error;
 
 /**
- *
+ * Fetch alerts from the the Hm Stack.
  *
  * Example URL: https://us-east-1.aws.hmn.md/api/stack/applications/encompass-development/alarms
  */
