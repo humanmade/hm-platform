@@ -64,13 +64,13 @@ class Endpoint_Controller extends WP_REST_Controller {
 				'title'                => 'environment-data',
 				'type'                 => 'object',
 				'properties'           => [
-					'environmentData' => [
+					'environment_data' => [
 						'description'  => esc_html__( 'Data about the current server environment', 'my-textdomain' ),
 						'type'         => 'object',
 						'context'      => array( 'view' ),
 						'readonly'     => true,
 					],
-					'gitData' => [
+					'git_data' => [
 						'description'  => esc_html__( 'Data about the current state of git on the site.', 'my-textdomain' ),
 						'type'         => 'object',
 						'context'      => array( 'view' ),
@@ -164,12 +164,12 @@ class Endpoint_Controller extends WP_REST_Controller {
 		}
 
 		$data = [
-			'environmentData' => [
+			'environment_data' => [
 				'elasticsearch' => '', // Awaiting this availability
 				'php'           => substr( phpversion(), 0, 5 ),
-				'mySql'         => '', // Will add this later.
+				'mysql'         => '', // Will add this later.
 			],
-			'gitData' => [
+			'git_data' => [
 				'branch' => $stack_data['git-deployment']['ref'],
 				'commit' => $stack_data['git-deployment']['branch_details']['latest_commit'],
 			],
