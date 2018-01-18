@@ -5,6 +5,7 @@
  * Version: 0.1.0
  * Author: Human Made
  * Author URI: http://hmn.md
+ * Text Domain: hm-stack
  *
  * @package HMStackIntegration
  */

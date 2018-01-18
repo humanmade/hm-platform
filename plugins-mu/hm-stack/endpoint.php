@@ -121,13 +121,17 @@ function get_wp_error_for_hm_stack_return( WP_Error $error ) : WP_Error {
 		case 'Authentication Failed':
 			return new WP_Error(
 				'platform.hmstack.api.could_not_authenticate',
-				'Unable to authenticate to retrieve data.',
+				__( 'Unable to authenticate to retrieve data.', 'hm-stack' ),
 				[ 'status' => WP_Http::INTERNAL_SERVER_ERROR ]
 			);
 		default :
 			return new WP_Error(
 				'platform.hmstack.api.could_not_connect',
-				'Unable to connect with the HM Stack API. Error: ' . $error->get_error_message(),
+				sprintf(
+					/* translators: this is an error return within the REST API. String is an error message. */
+					__( 'Unable to connect with the HM Stack API. Error: %s', 'hm-stack' ),
+					$error->get_error_message()
+				),
 				[ 'status' => WP_Http::INTERNAL_SERVER_ERROR ]
 			);
 	}
