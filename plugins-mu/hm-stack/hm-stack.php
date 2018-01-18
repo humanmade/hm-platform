@@ -11,9 +11,11 @@
 
 namespace HM_Stack;
 
+use HM_Stack\Endpoint;
+
 // Load files.
-require_once 'class-hm-stack-api.php';
-require_once 'class-endpoint-controller.php';
+require_once 'api.php';
+require_once 'endpoint.php';
 
 // Register endpoint controller
-( new Endpoint_Controller() )->register_routes();
+Endpoint\register_routes();
