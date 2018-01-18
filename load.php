@@ -104,6 +104,7 @@ function get_config() {
 		'seo'              => false,
 		'redirects'        => false,
 		'bylines'          => false,
+		'hm-stack'         => true,
 	);
 	return array_merge( $defaults, $hm_platform ?: array() );
 }
@@ -174,6 +175,7 @@ function get_available_plugins() {
 		'seo'             => 'wp-seo/wp-seo.php',
 		'redirects'       => 'hm-redirects/hm-redirects.php',
 		'bylines'         => 'bylines/bylines.php',
+		'hm-stack'        => 'hm-stack/hm-stack.php',
 	);
 }
 
