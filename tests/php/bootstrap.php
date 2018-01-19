@@ -26,32 +26,6 @@ $wp_develop_dir = getenv( 'WP_DEVELOP_DIR' );
 
 require_once $wp_tests_dir . '/includes/functions.php';
 
-/*
-function _register_theme() {
-
-	$theme_dir = dirname( dirname( dirname( __FILE__ ) ) );
-	$current_theme = basename( $theme_dir );
-
-	add_filter( 'pre_option_template', function() use ( $current_theme ) {
-		return $current_theme;
-	});
-	add_filter( 'pre_option_stylesheet', function() use ( $current_theme ) {
-		return $current_theme;
-	});
-
-	// Set our permalink structure to always match production in tests.
-	add_filter( 'pre_option_permalink_structure', function() {
-		return '%year%/%monthnum%/%day%/%postname%';
-	}, 99 );
-}
-tests_add_filter( 'muplugins_loaded', '_register_theme' );
-
-tests_add_filter( 'setup_theme', function () {
-	require __DIR__ . '/includes/class-mockuser.php';
-} );
-*/
-
-
 /**
  * Re-map the default `/uploads` folder with our own `/test-uploads` for tests.
  *
