@@ -2,6 +2,11 @@
 
 namespace HM\Platform;
 
+// The root directory containing all the platform code.
+const ROOT_DIRECTORY = __DIR__;
+
+require_once ROOT_DIRECTORY . '/includes/config.php';
+
 /**
  * Retrieve plugin version from package.json.
  *
