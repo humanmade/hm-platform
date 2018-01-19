@@ -34,6 +34,6 @@
 [submodule "plugins/bylines"]
 	path = plugins/bylines
 	url = https://github.com/humanmade/bylines.git
-[submodule "src/hm-pattern-library"]
-	path = src/hm-pattern-library
-	url = git@github.com:humanmade/hm-pattern-library.git
+[submodule "plugins/hm-platform-ui"]
+	path = plugins/hm-platform-ui
+	url = git@github.com:humanmade/platform-ui.git
