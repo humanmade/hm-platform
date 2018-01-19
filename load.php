@@ -72,6 +72,7 @@ function bootstrap( $wp_debug_enabled ) {
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
 
 	if ( is_admin() ) {
+		require __DIR__ . '/plugins/hm-stack/hm-stack.php';
 		require __DIR__ . '/plugins/hm-platform-ui/admin.php';
 		Admin\bootstrap();
 	}
@@ -104,7 +105,6 @@ function get_config() {
 		'seo'              => false,
 		'redirects'        => false,
 		'bylines'          => false,
-		'hm-stack'         => true,
 	);
 	return array_merge( $defaults, $hm_platform ?: array() );
 }
@@ -175,7 +175,6 @@ function get_available_plugins() {
 		'seo'             => 'wp-seo/wp-seo.php',
 		'redirects'       => 'hm-redirects/hm-redirects.php',
 		'bylines'         => 'bylines/bylines.php',
-		'hm-stack'        => 'hm-stack/hm-stack.php',
 	);
 }
 
