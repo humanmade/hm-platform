@@ -151,7 +151,7 @@ function get_environment_data() {
 	// Check our cache first.
 	$data = wp_cache_get( 'environment', 'hm-stack' );
 	if ( $data !== false ) {
-		return $data;
+		return new WP_REST_Response( $data );
 	}
 
 	$stack_data = API\get_environment_data();
@@ -189,7 +189,7 @@ function get_site_activity() {
 	// Check our cache first.
 	$data = wp_cache_get( 'activity', 'hm-stack' );
 	if ( $data !== false ) {
-		return $data;
+		return new WP_REST_Response( $data );
 	}
 
 	$stack_data = API\get_activity();
@@ -215,7 +215,7 @@ function get_pull_requests() {
 	// Check our cache first.
 	$data = wp_cache_get( 'pull-requests', 'hm-stack' );
 	if ( $data !== false ) {
-		return $data;
+		return new WP_REST_Response( $data );
 	}
 
 	$stack_data = API\get_pull_requests();
