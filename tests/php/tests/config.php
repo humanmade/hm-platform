@@ -7,7 +7,7 @@ use WP_UnitTestCase;
 
 class Config_Test extends WP_UnitTestCase {
 	public function test_get_merged_config_settings() {
-		$config = Config\get_merged_config_settings(
+		$config = Config\get_merged_settings(
 			[
 				'plugins' => [
 					'redirects' => [
