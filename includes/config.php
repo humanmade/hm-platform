@@ -38,33 +38,95 @@ function get_config() {
  * @return array
  */
 function get_merged_defaults_and_customisations() {
-	$config = Platform\get_available_plugins();
+	// Path to config files to merge into the defaults.
+	$files = [];
 
-	// First look for a `hm` section in `package.json`.
-	$custom = get_package_json_contents();
-	if ( is_array( $custom ) && ! empty( $custom['hm'] ) ) {
-		$config = array_merge( $config, $custom['hm'] );
-	}
+	// Look for a `hm` section in `package.json` in the content directory.
+	if ( is_readable( WP_CONTENT_DIR . '/package.json' ) ) {
+		$content = get_json_file_contents_as_array( WP_CONTENT_DIR . '/package.json' );
 
-	// Look for platform and environment specific configuration files.
-	foreach ( [ 'hm.json' ] as $file ) {
-		if ( is_readable( Platform\ROOT_DIRECTORY . '/' . $file ) ) {
-			$custom = json_decode( file_get_contents( Platform\ROOT_DIRECTORY . '/' . $file ), true );
-
-			if ( is_array( $custom ) && ! empty( $custom ) ) {
-				$config = array_merge( $config, $custom );
-			}
+		if ( isset( $content['hm'] ) && is_array( $content['hm'] ) ) {
+			$files[] = WP_CONTENT_DIR . '/package.json';
 		}
 	}
 
-	return $config;
-
-}
-
-function get_package_json_contents() {
-	if ( ! is_readable( Platform\ROOT_DIRECTORY . '/package.json' ) ) {
-		throw new Exception( 'Could not read `package.json` configuration file.' );
+	// Look for a `hm.json` config file.
+	if ( is_readable( WP_CONTENT_DIR . '/hm.json' ) ) {
+		$files[] = WP_CONTENT_DIR . '/hm.json';
 	}
 
-	return json_decode( file_get_contents( Platform\ROOT_DIRECTORY . '/package.json' ), true );
+	// Look for the environment specific `hm.{env}.json`config file.
+	if ( defined( 'HM_ENV_TYPE' ) && is_readable( WP_CONTENT_DIR . '/hm.' . HM_ENV_TYPE . '.json' ) ) {
+		$files[] = WP_CONTENT_DIR . '/hm.' . HM_ENV_TYPE . '.json';
+	}
+
+	$config = get_default_configuration();
+	foreach ( $files as $file ) {
+		$config = get_merged_config_settings( $config, get_json_file_contents_as_array( $file ) );
+	}
+
+	return $config;
+}
+
+/**
+ * Merge customisations into a configuration file. Existing settings will be overwritten.
+ *
+ * @since 0.1.0
+ *
+ * @param array $config        Existing configuration.
+ * @param array $customisation Settings to merge in.
+ *
+ * @return array Consolidated configuration settings.
+ */
+function get_merged_config_settings( array $config, array $customisation ) {
+	$fields = [ 'plugins', 'options' ];
+
+	foreach ( $fields as $field ) {
+		if ( ! isset( $customisation[ $field ] ) || ! is_array( $customisation[ $field ] ) ) {
+			continue;
+		}
+
+		array_merge( $config[ $field ], $customisation[ $field ] );
+	}
+
+	return $config;
+}
+
+/**
+ * Get the default configuration values.
+ *
+ * @since 0.1.0
+ *
+ * @return array Default configuration values.
+ */
+function get_default_configuration() {
+	$config = get_json_file_contents_as_array( Platform\ROOT_DIR . '/package.json' );
+
+	return [
+		'plugins' => $config['plugins'],
+		'options' => $config['options'],
+	];
+}
+
+/**
+ * Get the contents of a JSON file, decode it, and return as an array.
+ *
+ * @since 0.1.0
+ *
+ * @param string $file Path to the JSON file.
+ *
+ * @return array Decoded data in array form, empty array if JSON data could not read.
+ *
+ * @throws Exception
+ */
+function get_json_file_contents_as_array( $file ) {
+	if ( ! strpos( $file, '.json' ) ) {
+		throw new Exception( $file . ' is not a JSON file.' );
+	}
+
+	if ( ! is_readable( $file ) ) {
+		throw new Exception( 'Could not read ' . $file . ' file.' );
+	}
+
+	return json_decode( file_get_contents( $file ), true );
 }
