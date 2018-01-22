@@ -38,31 +38,28 @@ function get_config() {
  * @return array
  */
 function get_merged_defaults_and_customisations() {
+	$config = get_default_configuration();
+
 	// Path to config files to merge into the defaults.
 	$files = [];
 
 	// Look for a `hm` section in `package.json` in the content directory.
 	if ( is_readable( WP_CONTENT_DIR . '/package.json' ) ) {
-		$content = get_json_file_contents_as_array( WP_CONTENT_DIR . '/package.json' );
+		$customisation = get_json_file_contents_as_array( WP_CONTENT_DIR . '/package.json' );
 
-		if ( isset( $content['hm'] ) && is_array( $content['hm'] ) ) {
-			$files[] = WP_CONTENT_DIR . '/package.json';
+		if ( isset( $customisation['hm'] ) && is_array( $customisation['hm'] ) ) {
+			$config = get_merged_config_settings( $config, $customisation['hm'] );
 		}
 	}
 
 	// Look for a `hm.json` config file.
 	if ( is_readable( WP_CONTENT_DIR . '/hm.json' ) ) {
-		$files[] = WP_CONTENT_DIR . '/hm.json';
+		$config = get_merged_config_settings( $config, get_json_file_contents_as_array( WP_CONTENT_DIR . '/hm.json' ) );
 	}
 
 	// Look for the environment specific `hm.{env}.json`config file.
 	if ( defined( 'HM_ENV_TYPE' ) && is_readable( WP_CONTENT_DIR . '/hm.' . HM_ENV_TYPE . '.json' ) ) {
-		$files[] = WP_CONTENT_DIR . '/hm.' . HM_ENV_TYPE . '.json';
-	}
-
-	$config = get_default_configuration();
-	foreach ( $files as $file ) {
-		$config = get_merged_config_settings( $config, get_json_file_contents_as_array( $file ) );
+		$config = get_merged_config_settings( $config, get_json_file_contents_as_array( WP_CONTENT_DIR . '/hm.' . HM_ENV_TYPE . '.json' ) );
 	}
 
 	return $config;
@@ -79,18 +76,37 @@ function get_merged_defaults_and_customisations() {
  * @return array Consolidated configuration settings.
  */
 function get_merged_config_settings( array $config, array $customisation ) {
-	$fields = [ 'plugins', 'options' ];
+	$config['plugins'] = get_merged_plugin_config( $config['plugins'], $customisation['plugins'] );
 
-	foreach ( $fields as $field ) {
-		if ( ! isset( $customisation[ $field ] ) || ! is_array( $customisation[ $field ] ) ) {
-			continue;
+	return $config;
+}
+
+/**
+ * Merge plugins customisations into a configuration file.
+ *
+ * @since 0.1.0
+ *
+ * @param array $config        Existing configuration.
+ * @param array $customisation Settings to merge in.
+ *
+ * @return array Consolidated configuration settings.
+ */
+function get_merged_plugin_config( array $config, array $customisation ) {
+	$keys = [ 'enabled' ];
+
+	foreach ( $customisation as $name => $data ) {
+		foreach ( $keys as $key ) {
+			if ( empty( $data[ $key ] ) ) {
+				continue;
+			}
+
+			$config[ $name ][ $key ] = $data[ $key ];
 		}
-
-		array_merge( $config[ $field ], $customisation[ $field ] );
 	}
 
 	return $config;
 }
+
 
 /**
  * Get the default configuration values.
