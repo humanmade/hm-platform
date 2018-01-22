@@ -72,7 +72,7 @@ function bootstrap( $wp_debug_enabled ) {
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
 
 	if ( is_admin() ) {
-		require __DIR__ . '/admin.php';
+		require __DIR__ . '/plugins/hm-platform-ui/admin.php';
 		Admin\bootstrap();
 	}
 
