@@ -98,6 +98,8 @@ function get_merged_config_settings( array $config, array $customisation ) {
  * @since 0.1.0
  *
  * @return array Default configuration values.
+ *
+ * @throws Exception if the configuration file cannot be read.
  */
 function get_default_configuration() {
 	$config = get_json_file_contents_as_array( Platform\ROOT_DIR . '/package.json' );
@@ -128,5 +130,11 @@ function get_json_file_contents_as_array( $file ) {
 		throw new Exception( 'Could not read ' . $file . ' file.' );
 	}
 
-	return json_decode( file_get_contents( $file ), true );
+	$contents = json_decode( file_get_contents( $file ), true );
+
+	if ( ! is_array( $contents ) ) {
+		throw new Exception( 'Decoding the JSON in ' . $file . ' .' );
+	}
+
+	return $contents;
 }

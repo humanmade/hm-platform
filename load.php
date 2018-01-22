@@ -2,10 +2,13 @@
 
 namespace HM\Platform;
 
-// The root directory containing all the platform code.
-const ROOT_DIRECTORY = __DIR__;
+use HM\Platform\Plugins as Plugins;
 
-require_once ROOT_DIRECTORY . '/includes/config.php';
+// The root directory containing all the platform code.
+const ROOT_DIR = __DIR__;
+
+require_once ROOT_DIR . '/includes/config.php';
+require_once ROOT_DIR . '/includes/plugins.php';
 
 /**
  * Retrieve plugin version from package.json.
@@ -206,12 +209,8 @@ function load_plugins() {
 		define( 'DISABLE_WP_CRON', true );
 	}
 
-	foreach ( get_available_plugins() as $plugin => $file ) {
-		if ( ! $config[ $plugin ] ) {
-			continue;
-		}
-
-		require __DIR__ . '/plugins/' . $file;
+	foreach ( Plugins\get_enabled_plugins() as $plugin => $data ) {
+		require __DIR__ . '/plugins/' . $data['pluginFile'];
 	}
 
 	if ( ! empty( $config['elasticsearch'] ) ) {
