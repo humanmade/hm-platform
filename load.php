@@ -10,6 +10,18 @@ const ROOT_DIR = __DIR__;
 require_once ROOT_DIR . '/includes/config.php';
 require_once ROOT_DIR . '/includes/plugins.php';
 
+/*
+ * Load HM Platform as soon as WordPress is loaded:
+ *
+ * - The Plugin API functions need to be loaded, as actions and filters are no longer stored in plain arrays since
+ *   WordPress 4.7.
+ * - We can't use the `WPINC` constant because it is not yet defined.
+ * - The `enable_wp_debug_mode_checks` filter is used because it is the earliest hook available.
+ */
+require_once ABSPATH . '/wp-includes/plugin.php';
+
+add_filter( 'enable_wp_debug_mode_checks', __NAMESPACE__ . '\\bootstrap' );
+
 /**
  * Retrieve plugin version from package.json.
  *
@@ -40,12 +52,6 @@ function docs_url() {
 if ( ! defined( 'WP_CACHE' ) ) {
 	define( 'WP_CACHE', true );
 }
-
-// Load the platform as soon as WP is loaded.
-$GLOBALS['wp_filter']['enable_wp_debug_mode_checks'][10]['hm_platform'] = array(
-	'function' => __NAMESPACE__ . '\\bootstrap',
-	'accepted_args' => 1,
-);
 
 if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && get_config()['cavalcade'] ) {
 	boostrap_cavalcade_runner();
@@ -112,6 +118,7 @@ function get_config() {
 		'seo'              => false,
 		'redirects'        => false,
 		'bylines'          => false,
+		'performance'      => true,
 	);
 	return array_merge( $defaults, $hm_platform ?: array() );
 }
@@ -182,6 +189,7 @@ function get_available_plugins() {
 		'seo'             => 'wp-seo/wp-seo.php',
 		'redirects'       => 'hm-redirects/hm-redirects.php',
 		'bylines'         => 'bylines/bylines.php',
+		'performance'     => 'performance/performance.php',
 	);
 }
 
@@ -190,11 +198,6 @@ function get_available_plugins() {
  */
 function load_plugins() {
 	$config = get_config();
-
-	// Load hidden platform mu-plugins.
-	foreach ( glob( __DIR__ . '/plugins-mu/*.php' ) as $file ) {
-		require $file;
-	}
 
 	add_filter( 'plugins_url', function ( $url, $path, $plugin ) {
 		if ( strpos( $plugin, __DIR__ ) === false ) {
