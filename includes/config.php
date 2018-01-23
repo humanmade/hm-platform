@@ -95,7 +95,7 @@ function get_merged_settings( array $config, array $overrides ) {
  * @return array Consolidated configuration settings.
  */
 function get_merged_plugin_settings( array $config, array $overrides ) {
-	$keys = [ 'enabled', 'customisationFile' ];
+	$keys = [ 'appendFile', 'enabled', 'prependFile' ];
 
 	foreach ( $overrides as $plugin => $settings ) {
 		foreach ( $keys as $key ) {
