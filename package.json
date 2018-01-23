@@ -12,42 +12,42 @@
       "category": "seo",
       "customisationFile": "",
       "documentationReference": "",
-      "pluginFile": "aws-ses-wp-mail/aws-ses-wp-mail.php"
+      "file": "aws-ses-wp-mail/aws-ses-wp-mail.php"
     },
     "bylines": {
       "enabled": "no",
-      "pluginFile": "bylines/bylines.php"
+      "file": "bylines/bylines.php"
     },
     "cavalcade": {
       "enabled": "yes",
-      "pluginFile": "cavalcade/plugin.php"
+      "file": "cavalcade/plugin.php"
     },
     "redirects": {
       "enabled": "no",
       "category": "seo",
       "customisationFile": "",
       "documentationReference": "",
-      "pluginFile": "hm-redirects/hm-redirects.php"
+      "file": "hm-redirects/hm-redirects.php"
     },
     "related-posts": {
       "enabled": "no",
-      "pluginFile": "hm-related-posts/hm-related-posts.php"
+      "file": "hm-related-posts/hm-related-posts.php"
     },
     "s3-uploads": {
       "enabled": "yes",
-      "pluginFile": "s3-uploads/s3-uploads.php"
+      "file": "s3-uploads/s3-uploads.php"
     },
     "seo": {
       "enabled": "no",
-      "pluginFile": "'wp-seo/wp-seo.php'"
+      "file": "'wp-seo/wp-seo.php'"
     },
     "tachyon": {
       "enabled": "no",
-      "pluginFile": "'tachyon/tachyon.php"
+      "file": "'tachyon/tachyon.php"
     },
     "sitemaps": {
       "enabled": "no",
-      "pluginFile": "msm-sitemap/msm-sitemap.php"
+      "file": "msm-sitemap/msm-sitemap.php"
     }
   },
   "options": {}

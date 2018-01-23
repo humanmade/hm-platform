@@ -213,7 +213,7 @@ function load_plugins() {
 	}
 
 	foreach ( Plugins\get_enabled_plugins() as $plugin => $data ) {
-		require __DIR__ . '/plugins/' . $data['pluginFile'];
+		require __DIR__ . '/plugins/' . $data['file'];
 	}
 
 	if ( ! empty( $config['elasticsearch'] ) ) {

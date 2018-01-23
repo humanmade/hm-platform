@@ -35,7 +35,7 @@ class Package_Json_Test extends WP_UnitTestCase {
 		// Verify the settings of the included plugins.
 		foreach( self::$config['plugins'] as $name => $settings ) {
 			// Verify that the required keys are set.
-			foreach ( [ 'pluginFile', 'enabled' ] as $required ) {
+			foreach ( [ 'file', 'enabled' ] as $required ) {
 				$this->assertArrayHasKey( $required, $settings );
 				$this->assertFalse( empty( $settings[ $required ] ) );
 			}
