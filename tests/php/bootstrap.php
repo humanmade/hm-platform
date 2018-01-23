@@ -4,7 +4,7 @@
 /**
  * If the tests need any kind of setup before running, this should be done in this file.
  *
- * @package techcrunch-2017
+ * @package hm-platform
  */
 
 // On Chassis, tests can silently fail, so introduce a shutdown function to print the last error.
