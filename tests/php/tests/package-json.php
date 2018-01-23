@@ -26,6 +26,16 @@ class Package_Json_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Verify that the configuration has the required basic fields.
+	 */
+	public function test_main_settings() {
+		foreach ( [ 'docsVersion', 'version' ] as $required ) {
+			$this->assertArrayHasKey( $required, self::$config );
+			$this->assertFalse( empty( self::$config[ $required ] ) );
+		}
+	}
+
+	/**
 	 * Test the settings under the `plugins` key.
 	 */
 	public function test_plugin_settings() {
