@@ -104,6 +104,7 @@ function get_config() {
 		'seo'              => false,
 		'redirects'        => false,
 		'bylines'          => false,
+		'performance'      => true,
 	);
 	return array_merge( $defaults, $hm_platform ?: array() );
 }
@@ -174,6 +175,7 @@ function get_available_plugins() {
 		'seo'             => 'wp-seo/wp-seo.php',
 		'redirects'       => 'hm-redirects/hm-redirects.php',
 		'bylines'         => 'bylines/bylines.php',
+		'performance'     => 'performance/performance.php',
 	);
 }
 
@@ -182,11 +184,6 @@ function get_available_plugins() {
  */
 function load_plugins() {
 	$config = get_config();
-
-	// Load hidden platform mu-plugins.
-	foreach ( glob( __DIR__ . '/plugins-mu/*.php' ) as $file ) {
-		require $file;
-	}
 
 	add_filter( 'plugins_url', function ( $url, $path, $plugin ) {
 		if ( strpos( $plugin, __DIR__ ) === false ) {
