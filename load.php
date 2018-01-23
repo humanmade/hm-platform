@@ -175,7 +175,7 @@ function get_available_plugins() {
 		'seo'             => 'wp-seo/wp-seo.php',
 		'redirects'       => 'hm-redirects/hm-redirects.php',
 		'bylines'         => 'bylines/bylines.php',
-		'performance'     => 'perforance/performance.php',
+		'performance'     => 'performance/performance.php',
 	);
 }
 
