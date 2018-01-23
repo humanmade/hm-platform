@@ -9,9 +9,6 @@
   "plugins": {
     "aws-ses-wp-mail": {
       "enabled": "yes",
-      "category": "seo",
-      "customisationFile": "",
-      "documentationReference": "",
       "file": "aws-ses-wp-mail/aws-ses-wp-mail.php"
     },
     "bylines": {
@@ -24,9 +21,6 @@
     },
     "redirects": {
       "enabled": "no",
-      "category": "seo",
-      "customisationFile": "",
-      "documentationReference": "",
       "file": "hm-redirects/hm-redirects.php"
     },
     "related-posts": {
@@ -49,6 +43,5 @@
       "enabled": "no",
       "file": "msm-sitemap/msm-sitemap.php"
     }
-  },
-  "options": {}
+  }
 }
