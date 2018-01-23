@@ -16,8 +16,6 @@ use Exception;
  * The configuration is defined by merging the defaults with the various files that allow to customise a particular
  * installation.
  *
- * @since 0.1.0
- *
  * @return array Configuration data.
  */
 function get_config() {
@@ -52,9 +50,7 @@ function get_config_value( string $key ) {
 /**
  * Merge the defaults and the contents of the various configuration files into a single configuration.
  *
- * @since 0.1.0
- *
- * @return array
+ * @return array Configuration data.
  */
 function get_merged_defaults_and_customisations() {
 	$config = get_default_configuration();
@@ -86,12 +82,10 @@ function get_merged_defaults_and_customisations() {
  *
  * Merge customisations into a configuration file. Existing settings will be overwritten.
  *
- * @since 0.1.0
- *
  * @param array $config    Existing configuration.
  * @param array $overrides Settings to merge in.
  *
- * @return array Consolidated configuration settings.
+ * @return array Configuration data.
  */
 function get_merged_settings( array $config, array $overrides ) {
 	if ( ! isset( $overrides['plugins'] ) || ! is_array( $overrides['plugins'] ) ) {
@@ -106,12 +100,10 @@ function get_merged_settings( array $config, array $overrides ) {
 /**
  * Merge plugins customisations into a configuration file.
  *
- * @since 0.1.0
- *
  * @param array $config    Existing configuration.
  * @param array $overrides Settings to merge in.
  *
- * @return array Consolidated configuration settings.
+ * @return array Configuration data.
  */
 function get_merged_plugin_settings( array $config, array $overrides ) {
 	$keys = [ 'appendFile', 'enabled', 'prependFile' ];
@@ -133,8 +125,6 @@ function get_merged_plugin_settings( array $config, array $overrides ) {
 /**
  * Get the default configuration values.
  *
- * @since 0.1.0
- *
  * @return array Default configuration values.
  *
  * @throws Exception if the configuration file cannot be read.
@@ -150,13 +140,11 @@ function get_default_configuration() {
 /**
  * Get the contents of a JSON file, decode it, and return as an array.
  *
- * @since 0.1.0
- *
  * @param string $file Path to the JSON file.
  *
  * @return array Decoded data in array form, empty array if JSON data could not read.
  *
- * @throws Exception
+ * @throws Exception if the file is not a JSON file, can't be read, or can't be decoded.
  */
 function get_json_file_contents_as_array( $file ) {
 	if ( ! strpos( $file, '.json' ) ) {
