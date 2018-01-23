@@ -31,6 +31,25 @@ function get_config() {
 }
 
 /**
+ * Return the value for a particular setting from the configuration,
+ *
+ * @param string $key Settings key to retrieve the value from.
+ *
+ * @return mixed Settings value.
+ *
+ * @throws Exception if the settings key cannot be found.
+ */
+function get_config_value( string $key ) {
+	$config = get_config();
+
+	if ( ! array_key_exists( $key, $config ) ) {
+		throw new Exception( 'Could not find the ' . $key . ' setting in the configuration.' );
+	}
+
+	return $config[ $key ];
+}
+
+/**
  * Merge the defaults and the contents of the various configuration files into a single configuration.
  *
  * @since 0.1.0
