@@ -207,13 +207,11 @@ function load_plugins() {
 		return str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( $plugin ) ) . $path;
 	}, 10, 3 );
 
+	Plugins\load_enabled_plugins();
+
 	// Force DISABLE_WP_CRON for Cavalcade.
 	if ( $config['cavalcade'] && ! defined( 'DISABLE_WP_CRON' ) ) {
 		define( 'DISABLE_WP_CRON', true );
-	}
-
-	foreach ( Plugins\get_enabled_plugins() as $plugin => $data ) {
-		require __DIR__ . '/plugins/' . $data['file'];
 	}
 
 	if ( ! empty( $config['elasticsearch'] ) ) {
