@@ -47,4 +47,4 @@ tests_add_filter( 'upload_dir', function( $dir ) {
 
 require_once $wp_tests_dir . '/includes/bootstrap.php';
 
-require_once WP_CONTENT_DIR .  '/hm-platform/includes/config.php';
+require_once WP_CONTENT_DIR .  '/hm-platform/load.php';

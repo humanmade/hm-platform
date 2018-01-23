@@ -42,6 +42,7 @@
       "pluginFile": "'wp-seo/wp-seo.php'"
     },
     "tachyon": {
+      "enabled": "no",
       "pluginFile": "'tachyon/tachyon.php"
     },
     "sitemaps": {
