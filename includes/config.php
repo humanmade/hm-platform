@@ -144,7 +144,6 @@ function get_default_configuration() {
 
 	return [
 		'plugins' => $config['plugins'],
-		'options' => $config['options'],
 	];
 }
 
