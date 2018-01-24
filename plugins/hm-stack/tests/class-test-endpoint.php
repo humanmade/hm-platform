@@ -7,7 +7,7 @@
 
 namespace HM_Stack\Tests;
 
-use HM_Stack\Endpoint;
+use HM_Stack\REST_Controller;
 use WP_UnitTest_Factory;
 use WP_UnitTestCase;
 use WP_REST_Server;
@@ -82,7 +82,7 @@ class TestEndpoint extends WP_UnitTestCase {
 	 * Verify that a logged out user will not get access to endpoints.
 	 */
 	public function test_permissions_logged_out() {
-		$this->assertFalse( Endpoint\permissions_check() );
+		$this->assertFalse( REST_Controller\permissions_check() );
 	}
 
 	/*
@@ -92,7 +92,7 @@ class TestEndpoint extends WP_UnitTestCase {
 		// Ensure that our administrator is logged in.
 		wp_set_current_user( self::$user_id, 'test-user' );
 
-		$this->assertTrue( Endpoint\permissions_check() );
+		$this->assertTrue( REST_Controller\permissions_check() );
 	}
 
 	/**

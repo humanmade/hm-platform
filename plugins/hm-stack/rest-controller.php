@@ -5,7 +5,7 @@
  * @package HMStackIntegration
  */
 
-namespace HM_Stack\Endpoint;
+namespace HM_Stack\REST_Controller;
 
 use HM_Stack\API;
 use WP_REST_Response;

@@ -12,13 +12,13 @@
 
 namespace HM_Stack;
 
-use HM_Stack\Endpoint;
+use HM_Stack\REST_Controller;
 
 // Load files.
 require_once 'api.php';
-require_once 'endpoint.php';
+require_once 'rest-controller.php';
 
 // Register endpoint controller
 add_action( 'rest_api_init', function() {
-	Endpoint\register_routes();
+	REST_Controller\register_routes();
 } );
