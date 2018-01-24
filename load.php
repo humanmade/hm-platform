@@ -111,6 +111,7 @@ function get_config() {
 		'redirects'        => false,
 		'bylines'          => false,
 		'performance'      => true,
+		'hm-stack-api'     => false,
 	);
 	return array_merge( $defaults, $hm_platform ?: array() );
 }
@@ -182,6 +183,7 @@ function get_available_plugins() {
 		'redirects'       => 'hm-redirects/hm-redirects.php',
 		'bylines'         => 'bylines/bylines.php',
 		'performance'     => 'performance/performance.php',
+		'hm-stack-api'    => 'hm-stack/hm-stack.php',
 	);
 }
 
