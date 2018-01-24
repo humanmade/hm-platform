@@ -71,8 +71,6 @@ function bootstrap( $wp_debug_enabled ) {
 	add_filter( 'enable_loading_advanced_cache_dropin', __NAMESPACE__ . '\\load_advanced_cache', 10, 1 );
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
 
-	require __DIR__ . '/plugins/hm-stack/hm-stack.php';
-
 	if ( is_admin() ) {
 		require __DIR__ . '/plugins/hm-platform-ui/admin.php';
 		Admin\bootstrap();
@@ -106,6 +104,7 @@ function get_config() {
 		'seo'              => false,
 		'redirects'        => false,
 		'bylines'          => false,
+		'hm-stack-api'     => false,
 	);
 	return array_merge( $defaults, $hm_platform ?: array() );
 }
@@ -176,6 +175,7 @@ function get_available_plugins() {
 		'seo'             => 'wp-seo/wp-seo.php',
 		'redirects'       => 'hm-redirects/hm-redirects.php',
 		'bylines'         => 'bylines/bylines.php',
+		'hm-stack-api'    => 'hm-stack/hm-stack.php',
 	);
 }
 
