@@ -15,8 +15,8 @@ namespace HM_Stack;
 use HM_Stack\REST_Controller;
 
 // Load files.
-require_once 'api.php';
-require_once 'rest-controller.php';
+require_once 'inc/api/namespace.php';
+require_once 'inc/rest-controller/namespace.php';
 
 // Register endpoint controller
 add_action( 'rest_api_init', function() {
