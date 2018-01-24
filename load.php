@@ -71,10 +71,9 @@ function bootstrap( $wp_debug_enabled ) {
 	add_filter( 'enable_loading_advanced_cache_dropin', __NAMESPACE__ . '\\load_advanced_cache', 10, 1 );
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
 
-	if ( is_admin() ) {
-		require __DIR__ . '/plugins/hm-platform-ui/admin.php';
-		Admin\bootstrap();
-	}
+	// Load admin.
+	require __DIR__ . '/plugins/hm-platform-ui/admin.php';
+	Admin\bootstrap();
 
 	return $wp_debug_enabled;
 }
