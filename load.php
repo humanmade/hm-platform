@@ -53,6 +53,10 @@ if ( ! defined( 'WP_CACHE' ) ) {
 	define( 'WP_CACHE', true );
 }
 
+if ( ! defined( 'HM_ENV_TYPE' ) ) {
+	define( 'HM_ENV_TYPE', 'local' );
+}
+
 if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && get_config()['cavalcade'] ) {
 	boostrap_cavalcade_runner();
 }
