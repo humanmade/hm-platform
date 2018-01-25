@@ -64,14 +64,36 @@ function get_merged_defaults_and_customisations() {
 		}
 	}
 
-	// Look for a `hm.json` config file.
+	// Look for a `hm` section in `package.json` in the root directory.
+	if ( is_readable( dirname( ABSPATH ) . '/package.json' ) ) {
+		$customisation = get_json_file_contents_as_array( dirname( ABSPATH ) . '/package.json' );
+
+		if ( isset( $customisation['hm'] ) && is_array( $customisation['hm'] ) ) {
+			$config = get_merged_settings( $config, $customisation['hm'] );
+		}
+	}
+
+	// Look for a `hm.json` config file in the content directory.
 	if ( is_readable( WP_CONTENT_DIR . '/hm.json' ) ) {
 		$config = get_merged_settings( $config, get_json_file_contents_as_array( WP_CONTENT_DIR . '/hm.json' ) );
 	}
 
+	// Look for a `hm.json` config file in the root directory.
+	if ( is_readable( dirname( ABSPATH ) . '/hm.json' ) ) {
+		$config = get_merged_settings( $config, get_json_file_contents_as_array( dirname( ABSPATH ) . '/hm.json' ) );
+	}
+
 	// Look for the environment specific `hm.{env}.json`config file.
-	if ( defined( 'HM_ENV_TYPE' ) && is_readable( WP_CONTENT_DIR . '/hm.' . HM_ENV_TYPE . '.json' ) ) {
-		$config = get_merged_settings( $config, get_json_file_contents_as_array( WP_CONTENT_DIR . '/hm.' . HM_ENV_TYPE . '.json' ) );
+	if ( defined( 'HM_ENV_TYPE' ) ) {
+		// Look into the content directory.
+		if ( is_readable( WP_CONTENT_DIR . '/hm.' . HM_ENV_TYPE . '.json' ) ) {
+			$config = get_merged_settings( $config, get_json_file_contents_as_array( WP_CONTENT_DIR . '/hm.' . HM_ENV_TYPE . '.json' ) );
+		}
+
+		// Look in the root directory.
+		if ( is_readable( dirname( ABSPATH ) . '/hm.' . HM_ENV_TYPE . '.json' ) ) {
+			$config = get_merged_settings( $config, get_json_file_contents_as_array( dirname( ABSPATH ) . '/hm.' . HM_ENV_TYPE . '.json' ) );
+		}
 	}
 
 	return $config;
