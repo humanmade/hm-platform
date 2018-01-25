@@ -2,6 +2,14 @@
 
 namespace HM\Platform;
 
+use HM\Platform\Plugins as Plugins;
+
+// The root directory containing all the platform code.
+const ROOT_DIR = __DIR__;
+
+require_once ROOT_DIR . '/includes/config.php';
+require_once ROOT_DIR . '/includes/plugins.php';
+
 /*
  * Load HM Platform as soon as WordPress is loaded:
  *
@@ -200,17 +208,11 @@ function load_plugins() {
 		return str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( $plugin ) ) . $path;
 	}, 10, 3 );
 
+	Plugins\load_enabled_plugins();
+
 	// Force DISABLE_WP_CRON for Cavalcade.
 	if ( $config['cavalcade'] && ! defined( 'DISABLE_WP_CRON' ) ) {
 		define( 'DISABLE_WP_CRON', true );
-	}
-
-	foreach ( get_available_plugins() as $plugin => $file ) {
-		if ( ! $config[ $plugin ] ) {
-			continue;
-		}
-
-		require __DIR__ . '/plugins/' . $file;
 	}
 
 	if ( ! empty( $config['elasticsearch'] ) ) {

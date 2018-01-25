@@ -5,5 +5,43 @@
   "description": "Core HM Platform Enterprise Kit and UI",
   "repository": "https://github.com/humanmade/hm-platform",
   "author": "Human Made Limited",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "plugins": {
+    "aws-ses-wp-mail": {
+      "enabled": "yes",
+      "file": "aws-ses-wp-mail/aws-ses-wp-mail.php"
+    },
+    "bylines": {
+      "enabled": "no",
+      "file": "bylines/bylines.php"
+    },
+    "cavalcade": {
+      "enabled": "yes",
+      "file": "cavalcade/plugin.php"
+    },
+    "redirects": {
+      "enabled": "no",
+      "file": "hm-redirects/hm-redirects.php"
+    },
+    "related-posts": {
+      "enabled": "no",
+      "file": "hm-related-posts/hm-related-posts.php"
+    },
+    "s3-uploads": {
+      "enabled": "yes",
+      "file": "s3-uploads/s3-uploads.php"
+    },
+    "seo": {
+      "enabled": "no",
+      "file": "'wp-seo/wp-seo.php'"
+    },
+    "tachyon": {
+      "enabled": "no",
+      "file": "'tachyon/tachyon.php"
+    },
+    "sitemaps": {
+      "enabled": "no",
+      "file": "msm-sitemap/msm-sitemap.php"
+    }
+  }
 }
