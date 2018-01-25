@@ -1,0 +1,8 @@
+{
+    "name": "humanmade/hm-platform",
+    "type": "project",
+    "require": {
+        "symfony/config": "^3.4",
+        "symfony/yaml": "^3.4"
+    }
+}
