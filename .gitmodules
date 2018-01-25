@@ -37,3 +37,4 @@
 [submodule "plugins/hm-platform-ui"]
 	path = plugins/hm-platform-ui
 	url = git@github.com:humanmade/platform-ui.git
+	ignore = dirty

@@ -33,15 +33,23 @@
     },
     "seo": {
       "enabled": "no",
-      "file": "'wp-seo/wp-seo.php'"
+      "file": "wp-seo/wp-seo.php"
     },
     "tachyon": {
       "enabled": "no",
-      "file": "'tachyon/tachyon.php"
+      "file": "tachyon/tachyon.php"
     },
     "sitemaps": {
       "enabled": "no",
       "file": "msm-sitemap/msm-sitemap.php"
+    },
+    "performance": {
+      "enabled": "yes",
+      "file": "performance/performance.php"
+    },
+    "hm-stack-api": {
+      "enabled": "yes",
+      "file": "hm-stack/hm-stack.php"
     }
   }
 }

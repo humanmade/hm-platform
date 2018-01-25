@@ -78,8 +78,8 @@ function bootstrap( $wp_debug_enabled ) {
 	load_object_cache();
 
 	global $wp_version;
-	if ( version_compare( '4.6', $wp_version, '>' ) ) {
-		die( 'HM Platform is only supported on WordPress 4.6+.' );
+	if ( version_compare( '4.7', $wp_version, '>' ) ) {
+		die( 'HM Platform is only supported on WordPress 4.7+.' );
 	}
 
 	add_filter( 'enable_loading_advanced_cache_dropin', __NAMESPACE__ . '\\load_advanced_cache', 10, 1 );
