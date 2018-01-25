@@ -1,0 +1,75 @@
+<?php
+/**
+ * The configuration definition for HM Platform.
+ *
+ * @package hm-platform
+ */
+
+namespace HM\Platform\Config;
+
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
+
+/**
+ * Class Configuration
+ *
+ * @package HM\Platform\Config
+ */
+class Configuration implements ConfigurationInterface {
+	public function getConfigTreeBuilder() {
+		$tree_builder = new TreeBuilder();
+		$root_node = $tree_builder->root( 'plugins' );
+		$root_node
+			->children()
+				->arrayNode( 'plugins' )
+					->children()
+						->booleanNode( 'aws-ses-wp-mail' )
+							->defaultTrue()
+						->end()
+						->booleanNode( 'batcache' )
+							->defaultTrue()
+						->end()
+						->booleanNode( 'bylines' )
+							->defaultFalse()
+						->end()
+						->booleanNode( 'cavalcade' )
+							->defaultTrue()
+						->end()
+						->booleanNode( 'hm-stack-api' )
+							->defaultFalse()
+						->end()
+						->booleanNode( 'ludicrousdb' )
+							->defaultTrue()
+						->end()
+						->booleanNode( 'memcached' )
+							->defaultTrue()
+						->end()
+						->booleanNode( 'performance' )
+							->defaultTrue()
+						->end()
+						->booleanNode( 'redirects' )
+							->defaultFalse()
+						->end()
+						->booleanNode( 'related-posts' )
+							->defaultFalse()
+						->end()
+						->booleanNode( 'seo' )
+							->defaultFalse()
+						->end()
+						->booleanNode( 's3-uploads' )
+							->defaultTrue()
+						->end()
+						->booleanNode( 'sitemaps' )
+							->defaultFalse()
+						->end()
+						->booleanNode( 'tachyon' )
+							->defaultTrue()
+						->end()
+					->end()
+				->end()
+			->end()
+		;
+
+		return $tree_builder;
+	}
+}
