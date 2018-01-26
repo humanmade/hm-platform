@@ -2,13 +2,21 @@
 
 namespace HM\Platform;
 
-use HM\Platform\Plugins as Plugins;
+use HM\Platform\Config;
+use HM\Platform\Plugins;
 
 // The root directory containing all the platform code.
 const ROOT_DIR = __DIR__;
 
-require_once ROOT_DIR . '/includes/config.php';
-require_once ROOT_DIR . '/includes/plugins.php';
+const PLUGIN_DIR = __DIR__ . '/plugins';
+
+require_once ROOT_DIR . '/vendor/autoload.php';
+
+require_once ROOT_DIR . '/includes/config/config.php';
+Config\setup();
+
+require_once ROOT_DIR . '/includes/plugins/plugins.php';
+Plugins\setup();
 
 /*
  * Load HM Platform as soon as WordPress is loaded:
