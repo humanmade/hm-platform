@@ -16,7 +16,7 @@ $GLOBALS['wp_filter']['enable_wp_debug_mode_checks'][10]['hm_platform'] = array(
 	'accepted_args' => 1,
 );
 
-if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && get_config()['cavalcade'] ) {
+if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && get_config()['cavalcade'] && HM_ENV_TYPE !== 'local' ) {
 	boostrap_cavalcade_runner();
 }
 
@@ -53,7 +53,9 @@ function bootstrap( $wp_debug_enabled ) {
 		Admin\bootstrap();
 	}
 
-	require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
+	if ( HM_ENV_TYPE !== 'local' ) {
+		require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
+	}
 
 	return $wp_debug_enabled;
 }
