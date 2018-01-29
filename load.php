@@ -6,6 +6,10 @@ if ( ! defined( 'WP_CACHE' ) ) {
 	define( 'WP_CACHE', true );
 }
 
+if ( ! defined( 'HM_ENV_TYPE' ) ) {
+	define( 'HM_ENV_TYPE', 'local' );
+}
+
 // Load the platform as soon as WP is loaded.
 $GLOBALS['wp_filter']['enable_wp_debug_mode_checks'][10]['hm_platform'] = array(
 	'function' => __NAMESPACE__ . '\\bootstrap',
