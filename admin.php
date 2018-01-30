@@ -101,7 +101,7 @@ function show_in_admin() {
 	$GLOBALS['totals']['platform'] = count( $plugins['platform'] );
 
 	// Only apply the rest if we're actually looking at the page
-	if ( $_REQUEST['plugin_status'] !== 'platform' ) {
+	if ( ! isset( $_REQUEST['plugin_status'] ) || $_REQUEST['plugin_status'] !== 'platform' ) {
 		return;
 	}
 
