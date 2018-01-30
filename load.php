@@ -172,7 +172,7 @@ function load_plugins() {
 		require __DIR__ . '/plugins/' . $file;
 	}
 
-	if ( ! empty( $config['elasticsearch'] ) ) {
+	if ( ! empty( $config['elasticsearch'] ) && HM_ENV_TYPE !== 'local' ) {
 		require_once __DIR__ . '/lib/elasticpress-integration.php';
 		ElasticPress_Integration\bootstrap();
 	}
