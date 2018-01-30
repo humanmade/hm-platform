@@ -10,9 +10,6 @@ function bootstrap() {
 	if ( ! defined( 'ELASTICSEARCH_HOST' ) ) {
 		return;
 	}
-	if ( defined( 'HM_ENV_TYPE' ) && HM_ENV_TYPE === 'local' ) {
-		return;
-	}
 	define( 'EP_HOST', ELASTICSEARCH_HOST );
 	add_filter( 'http_request_args', __NAMESPACE__ . '\\on_http_request_args', 10, 2 );
 	add_filter( 'ep_pre_request_url', function( $url ) {
