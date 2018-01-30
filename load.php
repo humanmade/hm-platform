@@ -57,7 +57,7 @@ if ( ! defined( 'HM_ENV_TYPE' ) ) {
 	define( 'HM_ENV_TYPE', 'local' );
 }
 
-if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && get_config()['cavalcade'] ) {
+if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && get_config()['cavalcade'] && HM_ENV_TYPE !== 'local' ) {
 	boostrap_cavalcade_runner();
 }
 
@@ -92,6 +92,10 @@ function bootstrap( $wp_debug_enabled ) {
 	// Load admin.
 	require __DIR__ . '/plugins/hm-platform-ui/admin.php';
 	Admin\bootstrap();
+
+	if ( HM_ENV_TYPE !== 'local' ) {
+		require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
+	}
 
 	return $wp_debug_enabled;
 }
@@ -219,8 +223,32 @@ function load_plugins() {
 		define( 'DISABLE_WP_CRON', true );
 	}
 
-	if ( ! empty( $config['elasticsearch'] ) ) {
+	if ( ! empty( $config['elasticsearch'] ) && HM_ENV_TYPE !== 'local' ) {
 		require_once __DIR__ . '/lib/elasticpress-integration.php';
 		ElasticPress_Integration\bootstrap();
 	}
+}
+
+/**
+ * Get a globally configured instance of the AWS SDK.
+ */
+function get_aws_sdk() {
+	static $sdk;
+	if ( $sdk ) {
+		return $sdk;
+	}
+
+	$params = [
+		'region'   => HM_ENV_REGION,
+		'version'  => 'latest',
+	];
+
+	if ( defined( 'AWS_KEY' ) ) {
+		$params['credentials'] = [
+			'key'    => AWS_KEY,
+			'secret' => AWS_SECRET,
+		];
+	}
+	$sdk = new \Aws\Sdk( $params );
+	return $sdk;
 }
