@@ -69,6 +69,7 @@ function get_config() {
 		'cavalcade'       => true,
 		'batcache'        => true,
 		'memcached'       => true,
+		'redis'           => false,
 		'ludicrousdb'     => true,
 		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
 	);
@@ -81,12 +82,18 @@ function get_config() {
 function load_object_cache() {
 	$config = get_config();
 
-	if ( ! $config['memcached'] ) {
+	if ( ! $config['memcached'] && ! $config['redis'] ) {
 		return;
 	}
 
 	wp_using_ext_object_cache( true );
-	require __DIR__ . '/dropins/wordpress-pecl-memcached-object-cache/object-cache.php';
+	if( $config['memcached'] ) {
+		require __DIR__ . '/dropins/wordpress-pecl-memcached-object-cache/object-cache.php';
+	} else if ( $config['redis'] ) {
+		require __DIR__ . '/dropins/wp-redis-predis-client/vendor/autoload.php';
+		\WP_Predis\add_filters();
+		require __DIR__ . '/plugins/wp-redis/object-cache.php';
+	}
 
 	// cache must be initted once it's included, else we'll get a fatal.
 	wp_cache_init();
@@ -136,6 +143,7 @@ function get_available_plugins() {
 		'aws-ses-wp-mail' => 'aws-ses-wp-mail/aws-ses-wp-mail.php',
 		'tachyon'         => 'tachyon/tachyon.php',
 		'cavalcade'       => 'cavalcade/plugin.php',
+		'redis'           => 'wp-redis/wp-redis.php',
 	);
 }
 
