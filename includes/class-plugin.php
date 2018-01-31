@@ -67,12 +67,21 @@ class Plugin {
 		return $this->enabled;
 	}
 
-	public function set_data( array $data, $merge = true ) {
-		if ( $merge ) {
-			$data = array_merge( $this->data, $data );
+	public function set_data( $data, $merge = true ) {
+		// Defer setting data via a callback so WP functions eg. __() are available.
+		if ( is_callable( $data ) ) {
+			add_action( 'wp_loaded', function () use ( $data, $merge ) {
+				$this->set_data( call_user_func( $data, $this ), $merge );
+			} );
 		}
+		// Simple update.
+		else {
+			if ( $merge ) {
+				$data = array_merge( $this->data, (array) $data );
+			}
 
-		$this->data = $data;
+			$this->data = $data;
+		}
 
 		return $this;
 	}

@@ -28,13 +28,15 @@ Plugin::register( 'cavalcade', 'plugins/cavalcade/plugin.php' )
 	      } );
       } )
       ->enabled( true )
-      ->set_data( [
-	      'title'       => 'Cavalcade',
-	      'description' => 'Scalable background tasks for multi-server hosting setups.',
-	      'repository'  => 'humanmade/cavalcade',
-	      'category'    => 'cloud',
-	      'docsTags'    => [ 'cavalcade' ],
-      ] );
+      ->set_data( function () {
+	      return [
+		      'title'       => __( 'Cavalcade', 'hm-platform' ),
+		      'description' => __( 'Scalable background tasks for multi-server hosting setups.', 'hm-platform' ),
+		      'repository'  => 'humanmade/cavalcade',
+		      'category'    => 'cloud',
+		      'docsTags'    => [ 'cavalcade' ],
+	      ];
+      } );
 
 // Memcached object cache.
 Plugin::register( 'memcached', 'dropins/wordpress-pecl-memcached-object-cache/object-cache.php' )
@@ -55,13 +57,15 @@ Plugin::register( 'memcached', 'dropins/wordpress-pecl-memcached-object-cache/ob
 	      } );
       } )
       ->enabled( true )
-      ->set_data( [
-	      'title'       => 'Memcached',
-	      'description' => 'An absolute must for running WordPress at scale by avoiding database queries.',
-	      'repository'  => 'humanmade/wordpress-pecl-memcached-object-cache',
-	      'category'    => 'cloud',
-	      'docsTags'    => [ 'object-cache' ],
-      ] );
+      ->set_data( function () {
+	      return [
+		      'title'       => __( 'Memcached', 'hm-platform' ),
+		      'description' => __( 'An absolute must for running WordPress at scale by avoiding database queries.', 'hm-platform' ),
+		      'repository'  => 'humanmade/wordpress-pecl-memcached-object-cache',
+		      'category'    => 'cloud',
+		      'docsTags'    => [ 'object-cache' ],
+	      ];
+      } );
 
 // Batcache.
 Plugin::register( 'batcache', 'dropins/batcache/advanced-cache.php' )
@@ -82,13 +86,15 @@ Plugin::register( 'batcache', 'dropins/batcache/advanced-cache.php' )
 	      } );
       } )
       ->enabled( true )
-      ->set_data( [
-	      'title'       => 'Batcache',
-	      'description' => 'Keeps your website running at top speed by caching your most popular pages.',
-	      'repository'  => 'humanmade/batcache',
-	      'category'    => 'cloud',
-	      'docsTags'    => [ 'batcache' ],
-      ] );
+      ->set_data( function () {
+	      return [
+		      'title'       => __( 'Batcache', 'hm-platform' ),
+		      'description' => __( 'Keeps your website running at top speed by caching your most popular pages.', 'hm-platform' ),
+		      'repository'  => 'humanmade/batcache',
+		      'category'    => 'cloud',
+		      'docsTags'    => [ 'batcache' ],
+	      ];
+      } );
 
 // AWS SES.
 Plugin::register( 'aws-ses-wp-mail', 'plugins/aws-ses-wp-mail/aws-ses-wp-mail.php' )
@@ -103,13 +109,15 @@ Plugin::register( 'aws-ses-wp-mail', 'plugins/aws-ses-wp-mail/aws-ses-wp-mail.ph
 	      } );
       } )
       ->enabled( true )
-      ->set_data( [
-	      'title'       => 'AWS Mail',
-	      'description' => 'Keeps the emails flowing from our hosting platform.',
-	      'repository'  => 'humanmade/aws-ses-wp-mail',
-	      'category'    => 'cloud',
-	      'docsTags'    => [ 'aws-wp-mail' ],
-      ] );
+      ->set_data( function () {
+	      return [
+		      'title'       => __( 'AWS Mail', 'hm-platform' ),
+		      'description' => __( 'Keeps the emails flowing from our hosting platform.', 'hm-platform' ),
+		      'repository'  => 'humanmade/aws-ses-wp-mail',
+		      'category'    => 'cloud',
+		      'docsTags'    => [ 'aws-wp-mail' ],
+	      ];
+      } );
 
 // Admin UI.
 Plugin::register( 'platform-ui', 'plugins/hm-platform-ui/admin.php' )
@@ -141,85 +149,101 @@ Plugin::register( 'elasticsearch', 'lib/elasticpress-integration.php' )
 
 // Performance tweaks.
 Plugin::register( 'performance', 'plugins/performance/performance.php' )
-      ->set_data( [
-	      'title'       => 'Performance',
-	      'description' => 'Apply our extensive knowledge of WordPress to get significant performance gains.',
-	      'category'    => 'cloud',
-	      'docsTags'    => [ 'performance' ],
-      ] )
+      ->set_data( function () {
+	      return [
+		      'title'       => __( 'Performance', 'hm-platform' ),
+		      'description' => __( 'Apply our extensive knowledge of WordPress to get significant performance gains.', 'hm-platform' ),
+		      'category'    => 'cloud',
+		      'docsTags'    => [ 'performance' ],
+	      ];
+      } )
       ->enabled( true );
 
 // S3 Uploads.
 Plugin::register( 's3-uploads', 'plugins/s3-uploads/s3-uploads.php' )
-      ->set_data( [
-	      'title'       => 'S3 Uploads',
-	      'description' => 'Offloads your files and images to Amazon S3 for fast delivery.',
-	      'repository'  => 'humanmade/s3-uploads',
-	      'category'    => 'cloud',
-	      'docsTags'    => [ 's3-uploads' ],
-      ] )
+      ->set_data( function () {
+	      return [
+		      'title'       => __( 'S3 Uploads', 'hm-platform' ),
+		      'description' => __( 'Offloads your files and images to Amazon S3 for fast delivery.', 'hm-platform' ),
+		      'repository'  => 'humanmade/s3-uploads',
+		      'category'    => 'cloud',
+		      'docsTags'    => [ 's3-uploads' ],
+	      ];
+      } )
       ->enabled( true );
 
 // Tachyon
 Plugin::register( 'tachyon', 'plugins/tachyon/tachyon.php' )
-      ->set_data( [
-	      'title'       => 'Tachyon',
-	      'description' => 'Dynamic image resizing that gives you complete control across all devices.',
-	      'repository'  => 'humanmade/tachyon-plugin',
-	      'category'    => 'media',
-	      'docsTags'    => [ 'tachyon' ],
-      ] )
+      ->set_data( function () {
+	      return [
+		      'title'       => __( 'Tachyon', 'hm-platform' ),
+		      'description' => __( 'Dynamic image resizing that gives you complete control across all devices.', 'hm-platform' ),
+		      'repository'  => 'humanmade/tachyon-plugin',
+		      'category'    => 'media',
+		      'docsTags'    => [ 'tachyon' ],
+	      ];
+      } )
       ->enabled( true );
 
 // @todo Add elasticpress with elasticsearch as a dep
 
 // Sitemaps.
 Plugin::register( 'sitemaps', 'plugins/msm-sitemap/msm-sitemap.php' )
-      ->set_data( [
-	      'title'       => 'Sitemaps',
-	      'description' => 'Keeps your website running at top speed by caching your most popular pages.',
-	      'repository'  => 'humanmade/msm-sitemap',
-	      'category'    => 'seo',
-	      'docsTags'    => [ 'sitemaps' ],
-      ] );
+      ->set_data( function () {
+	      return [
+		      'title'       => __( 'Sitemaps', 'hm-platform' ),
+		      'description' => __( 'Keeps your website running at top speed by caching your most popular pages.', 'hm-platform' ),
+		      'repository'  => 'humanmade/msm-sitemap',
+		      'category'    => 'seo',
+		      'docsTags'    => [ 'sitemaps' ],
+	      ];
+      } );
 
 // Related posts.
 Plugin::register( 'related-posts', 'plugins/hm-related-posts/hm-related-posts.php' )
-      ->set_data( [
-	      'title'       => 'Related Posts',
-	      'description' => 'Keep users engaged with your content for longer by highlighting more of the content they like.',
-	      'repository'  => 'humanmade/hm-related-posts',
-	      'category'    => 'editorial',
-	      'docsTags'    => [ 'related-posts' ],
-      ] );
+      ->set_data( function () {
+	      return [
+		      'title'       => __( 'Related Posts', 'hm-platform' ),
+		      'description' => __( 'Keep users engaged with your content for longer by highlighting more of the content they like.', 'hm-platform' ),
+		      'repository'  => 'humanmade/hm-related-posts',
+		      'category'    => 'editorial',
+		      'docsTags'    => [ 'related-posts' ],
+	      ];
+      } );
 
 // SEO.
 Plugin::register( 'seo', 'plugins/wp-seo/wp-seo.php' )
-      ->set_data( [
-	      'title'       => 'SEO',
-	      'description' => 'Take control of how your site is represented in search engine result pages.',
-	      'repository'  => 'humanmade/wp-seo',
-	      'category'    => 'seo',
-	      'docsTags'    => [ 'wp-seo' ],
-      ] );
+      ->set_data( function () {
+	      return [
+		      'title'       => __( 'SEO', 'hm-platform' ),
+		      'description' => __( 'Take control of how your site is represented in search engine result pages.', 'hm-platform' ),
+		      'repository'  => 'humanmade/wp-seo',
+		      'category'    => 'seo',
+		      'docsTags'    => [ 'wp-seo' ],
+	      ];
+      } );
 
 // Redirects.
 Plugin::register( 'redirects', 'plugins/hm-redirects/hm-redirects.php' )
-      ->set_data( [
-	      'title'       => 'Redirects',
-	      'description' => 'Help migrations run smoothly and custom links for your marketing campaigns.',
-	      'repository'  => 'humanmade/hm-redirects',
-	      'category'    => 'seo',
-	      'docsTags'    => [ 'redirects' ],
-      ] );
+      ->set_data( function () {
+	      return [
+		      'title'       => __( 'Redirects', 'hm-platform' ),
+		      'description' => __( 'Help migrations run smoothly and custom links for your marketing campaigns.', 'hm-platform' ),
+		      'repository'  => 'humanmade/hm-redirects',
+		      'category'    => 'seo',
+		      'docsTags'    => [ 'redirects' ],
+	      ];
+      } );
 
 // Bylines.
 Plugin::register( 'bylines', 'plugins/bylines/bylines.php' )
-      ->set_data( [
-	      'title'       => 'Bylines',
-	      'description' => 'Easily add and manage multiple authors on your posts.',
-	      'repository'  => 'humanmade/bylines',
-	      'category'    => 'editorial',
-	      'docsTags'    => [ 'bylines' ],
-      ] );
+      ->set_data( function () {
+	      return [
+		      'title'       => __( 'Bylines', 'hm-platform' ),
+		      'description' => __( 'Easily add and manage multiple authors on your posts.', 'hm-platform' ),
+		      'repository'  => 'humanmade/bylines',
+		      'category'    => 'editorial',
+		      'docsTags'    => [ 'bylines' ],
+	      ];
+      } );
 
