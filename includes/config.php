@@ -16,13 +16,24 @@ use Exception;
  * The configuration is defined by merging the defaults with the various files that allow to customise a particular
  * installation.
  *
+ * @throws Exception
  * @return array Configuration data.
  */
 function get_config() {
+	global $hm_platform;
 	static $config;
 
 	if ( ! $config ) {
 		$config = get_merged_defaults_and_customisations();
+
+		// Handle back compat for $hm_platform.
+		if ( ! empty( $hm_platform ) && is_array( $hm_platform ) ) {
+			foreach ( $hm_platform as $plugin => $enabled ) {
+				if ( isset( $config['plugins'][ $plugin ] ) ) {
+					$config['plugins'][ $plugin ]['enabled'] = $enabled;
+				}
+			}
+		}
 	}
 
 	return $config;
@@ -50,6 +61,7 @@ function get_config_value( string $key ) {
 /**
  * Merge the defaults and the contents of the various configuration files into a single configuration.
  *
+ * @throws Exception If a found config file can't be read an Exception is thrown.
  * @return array Configuration data.
  */
 function get_merged_defaults_and_customisations() {
@@ -110,11 +122,16 @@ function get_merged_defaults_and_customisations() {
  * @return array Configuration data.
  */
 function get_merged_settings( array $config, array $overrides ) {
-	if ( ! isset( $overrides['plugins'] ) || ! is_array( $overrides['plugins'] ) ) {
-		return $config;
+	foreach ( $overrides as $key => $value ) {
+		switch ( $key ) {
+			case 'plugins':
+				$config['plugins'] = get_merged_plugin_settings( $config['plugins'], $overrides['plugins'] );
+				break;
+			default:
+				$config[ $key ] = $overrides[ $key ];
+				break;
+		}
 	}
-
-	$config['plugins'] = get_merged_plugin_settings( $config['plugins'], $overrides['plugins'] );
 
 	return $config;
 }
@@ -128,7 +145,7 @@ function get_merged_settings( array $config, array $overrides ) {
  * @return array Configuration data.
  */
 function get_merged_plugin_settings( array $config, array $overrides ) {
-	$keys = [ 'appendFile', 'enabled', 'prependFile' ];
+	$keys = [ 'enabled', 'settings' ];
 
 	foreach ( $overrides as $plugin => $settings ) {
 		foreach ( $keys as $key ) {
@@ -152,11 +169,15 @@ function get_merged_plugin_settings( array $config, array $overrides ) {
  * @throws Exception if the configuration file cannot be read.
  */
 function get_default_configuration() {
-	$config = get_json_file_contents_as_array( Platform\ROOT_DIR . '/package.json' );
+	try {
+		$config = get_json_file_contents_as_array( Platform\ROOT_DIR . '/hm.default.json' );
+	} catch ( Exception $exception ) {
+		$config = [
+			'plugins' => [],
+		];
+	}
 
-	return [
-		'plugins' => $config['plugins'],
-	];
+	return $config;
 }
 
 /**

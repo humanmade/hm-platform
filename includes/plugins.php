@@ -7,26 +7,52 @@
 
 namespace HM\Platform\Plugins;
 
-use HM\Platform as Platform;
 use HM\Platform\Config as Config;
+use HM\Platform\Plugin as Plugin;
+
+/**
+ * Sets up the plugins according to the config.
+ *
+ * @throws \Exception
+ * @param array $plugins Plugins to configure.
+ * @return array
+ */
+function configure_plugins( array $plugins ) {
+	$config = Config\get_config()['plugins'];
+
+	foreach ( $plugins as $name => $plugin ) {
+		if ( ! isset( $config[ $name ] ) ) {
+			continue;
+		}
+
+		$plugin->set_config( $config[ $name ] );
+		if ( isset( $config[ $name ]['enabled'] ) ) {
+			$plugin->enabled( $config[ $name ]['enabled'] );
+		}
+	}
+
+	return $plugins;
+}
 
 /**
  * Get a list of all available plugins.
  *
+ * @throws \Exception
  * @return array Plugins and the associated configuration.
  */
 function get_available_plugins() {
-	return Config\get_config()['plugins'];
+	return configure_plugins( Plugin::$plugins );
 }
 
 /**
  * Get a list of all enabled plugins.
  *
+ * @throws \Exception
  * @return array Plugins and the associated configuration.
  */
 function get_enabled_plugins() {
 	return array_filter( get_available_plugins(), function( $plugin ) {
-		return isset( $plugin['enabled'] ) && $plugin['enabled'] === 'yes';
+		return $plugin->is_enabled();
 	} );
 }
 
@@ -34,15 +60,9 @@ function get_enabled_plugins() {
  * Load all enabled plugins, along with their customisation files.
  */
 function load_enabled_plugins() {
-	foreach ( get_enabled_plugins() as $plugin => $data ) {
-		if ( ! empty( $data['prependFile' ] ) ) {
-			require WP_CONTENT_DIR . '/' . $data['prependFile'];
-		}
-
-		require Platform\ROOT_DIR . '/plugins/' . $data['file'];
-
-		if ( ! empty( $data['appendFile' ] ) ) {
-			require WP_CONTENT_DIR . '/' . $data['appendFile'];
-		}
+	foreach ( get_enabled_plugins() as $plugin ) {
+		$plugin
+			->do_settings()
+			->load();
 	}
 }
