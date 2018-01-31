@@ -221,7 +221,14 @@ Plugin::register( 'seo', 'plugins/wp-seo/wp-seo.php' )
 		      'category'    => 'seo',
 		      'docsTags'    => [ 'wp-seo' ],
 	      ];
-      } );
+      } )
+      ->register_setting( 'hide-settings-page', function ( $value ) {
+	      if ( ! empty( $value ) ) {
+		      add_action( 'admin_menu', function () {
+			      remove_submenu_page( 'options-general.php', 'wp-seo' );
+		      }, 20 );
+	      }
+      }, true );
 
 // Redirects.
 Plugin::register( 'redirects', 'plugins/hm-redirects/hm-redirects.php' )
