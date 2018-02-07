@@ -142,12 +142,30 @@ function get_merged_settings( array $config, array $overrides ) {
  * @param array $config    Existing configuration.
  * @param array $overrides Settings to merge in.
  *
+ * @throws Exception
  * @return array Configuration data.
  */
 function get_merged_plugin_settings( array $config, array $overrides ) {
 	$keys = [ 'enabled', 'settings' ];
 
 	foreach ( $overrides as $plugin => $settings ) {
+		// If plugin value is a bool use that as the enabled value.
+		if ( is_bool( $settings ) ) {
+			$settings = [ 'enabled' => $settings ];
+		}
+
+		// Bail if $settings isn't an array.
+		if ( ! is_array( $settings ) ) {
+			throw new Exception( 'The config setting for ' . $plugin . ' is invalid. It should be a boolean or array.' );
+		}
+
+		// If plugin value is an array check there's an enabled key.
+		// If not set it as the enabled key value.
+		if ( ! isset( $settings['enabled'] ) && ! isset( $settings['settings'] ) ) {
+			$settings = [ 'enabled' => $settings ];
+		}
+
+		// Override defaults.
 		foreach ( $keys as $key ) {
 			if ( empty( $settings[ $key ] ) ) {
 				continue;

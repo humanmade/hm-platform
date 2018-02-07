@@ -76,7 +76,7 @@ add_filter( 'plugins_url', function ( $url, $path, $plugin ) {
 		return $url;
 	}
 
-	return str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( $plugin ) ) . $path;
+	return trailingslashit( str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( $plugin ) ) ) . ltrim( $path, '/' );
 }, 10, 3 );
 
 /**

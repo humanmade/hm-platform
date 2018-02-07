@@ -18,6 +18,12 @@ use HM\Platform\Plugin as Plugin;
  * @return array
  */
 function configure_plugins( array $plugins ) {
+	static $configured_plugins;
+
+	if ( $configured_plugins ) {
+		return $configured_plugins;
+	}
+
 	$config = Config\get_config()['plugins'];
 
 	foreach ( $plugins as $name => $plugin ) {
@@ -30,6 +36,8 @@ function configure_plugins( array $plugins ) {
 			$plugin->enabled( $config[ $name ]['enabled'] );
 		}
 	}
+
+	$configured_plugins = $plugins;
 
 	return $plugins;
 }

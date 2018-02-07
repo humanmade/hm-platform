@@ -34,7 +34,7 @@ Plugin::register( 'cavalcade', 'plugins/cavalcade/plugin.php' )
 		      'description' => __( 'Scalable background tasks for multi-server hosting setups.', 'hm-platform' ),
 		      'repository'  => 'humanmade/cavalcade',
 		      'category'    => 'cloud',
-		      'docsTags'    => [ 'cavalcade' ],
+		      'docsTag'     => 'cavalcade',
 	      ];
       } );
 
@@ -63,7 +63,7 @@ Plugin::register( 'memcached', 'dropins/wordpress-pecl-memcached-object-cache/ob
 		      'description' => __( 'An absolute must for running WordPress at scale by avoiding database queries.', 'hm-platform' ),
 		      'repository'  => 'humanmade/wordpress-pecl-memcached-object-cache',
 		      'category'    => 'cloud',
-		      'docsTags'    => [ 'object-cache' ],
+		      'docsTag'     => 'memcached',
 	      ];
       } );
 
@@ -92,7 +92,7 @@ Plugin::register( 'batcache', 'dropins/batcache/advanced-cache.php' )
 		      'description' => __( 'Keeps your website running at top speed by caching your most popular pages.', 'hm-platform' ),
 		      'repository'  => 'humanmade/batcache',
 		      'category'    => 'cloud',
-		      'docsTags'    => [ 'batcache' ],
+		      'docsTag'     => 'batcache',
 	      ];
       } );
 
@@ -115,7 +115,7 @@ Plugin::register( 'aws-ses-wp-mail', 'plugins/aws-ses-wp-mail/aws-ses-wp-mail.ph
 		      'description' => __( 'Keeps the emails flowing from our hosting platform.', 'hm-platform' ),
 		      'repository'  => 'humanmade/aws-ses-wp-mail',
 		      'category'    => 'cloud',
-		      'docsTags'    => [ 'aws-wp-mail' ],
+		      'docsTag'     => 'aws-mail',
 	      ];
       } );
 
@@ -149,14 +149,6 @@ Plugin::register( 'elasticsearch', 'lib/elasticpress-integration.php' )
 
 // Performance tweaks.
 Plugin::register( 'performance', 'plugins/performance/performance.php' )
-      ->set_data( function () {
-	      return [
-		      'title'       => __( 'Performance', 'hm-platform' ),
-		      'description' => __( 'Apply our extensive knowledge of WordPress to get significant performance gains.', 'hm-platform' ),
-		      'category'    => 'cloud',
-		      'docsTags'    => [ 'performance' ],
-	      ];
-      } )
       ->enabled( true );
 
 // S3 Uploads.
@@ -167,7 +159,7 @@ Plugin::register( 's3-uploads', 'plugins/s3-uploads/s3-uploads.php' )
 		      'description' => __( 'Offloads your files and images to Amazon S3 for fast delivery.', 'hm-platform' ),
 		      'repository'  => 'humanmade/s3-uploads',
 		      'category'    => 'cloud',
-		      'docsTags'    => [ 's3-uploads' ],
+		      'docsTag'     => 's3-uploads',
 	      ];
       } )
       ->enabled( true );
@@ -180,7 +172,7 @@ Plugin::register( 'tachyon', 'plugins/tachyon/tachyon.php' )
 		      'description' => __( 'Dynamic image resizing that gives you complete control across all devices.', 'hm-platform' ),
 		      'repository'  => 'humanmade/tachyon-plugin',
 		      'category'    => 'media',
-		      'docsTags'    => [ 'tachyon' ],
+		      'docsTag'     => 'tachyon',
 	      ];
       } )
       ->enabled( true );
@@ -195,7 +187,7 @@ Plugin::register( 'sitemaps', 'plugins/msm-sitemap/msm-sitemap.php' )
 		      'description' => __( 'Keeps your website running at top speed by caching your most popular pages.', 'hm-platform' ),
 		      'repository'  => 'humanmade/msm-sitemap',
 		      'category'    => 'seo',
-		      'docsTags'    => [ 'sitemaps' ],
+		      'docsTag'     => 'sitemaps',
 	      ];
       } );
 
@@ -207,7 +199,7 @@ Plugin::register( 'related-posts', 'plugins/hm-related-posts/hm-related-posts.ph
 		      'description' => __( 'Keep users engaged with your content for longer by highlighting more of the content they like.', 'hm-platform' ),
 		      'repository'  => 'humanmade/hm-related-posts',
 		      'category'    => 'editorial',
-		      'docsTags'    => [ 'related-posts' ],
+		      'docsTag'     => 'related-posts',
 	      ];
       } );
 
@@ -219,7 +211,7 @@ Plugin::register( 'seo', 'plugins/wp-seo/wp-seo.php' )
 		      'description' => __( 'Take control of how your site is represented in search engine result pages.', 'hm-platform' ),
 		      'repository'  => 'humanmade/wp-seo',
 		      'category'    => 'seo',
-		      'docsTags'    => [ 'wp-seo' ],
+		      'docsTag'     => 'wp-seo',
 	      ];
       } )
       ->register_setting( 'hide-settings-page', function ( $value ) {
@@ -238,7 +230,7 @@ Plugin::register( 'redirects', 'plugins/hm-redirects/hm-redirects.php' )
 		      'description' => __( 'Help migrations run smoothly and custom links for your marketing campaigns.', 'hm-platform' ),
 		      'repository'  => 'humanmade/hm-redirects',
 		      'category'    => 'seo',
-		      'docsTags'    => [ 'redirects' ],
+		      'docsTag'     => 'redirects',
 	      ];
       } );
 
@@ -250,7 +242,7 @@ Plugin::register( 'bylines', 'plugins/bylines/bylines.php' )
 		      'description' => __( 'Easily add and manage multiple authors on your posts.', 'hm-platform' ),
 		      'repository'  => 'humanmade/bylines',
 		      'category'    => 'editorial',
-		      'docsTags'    => [ 'bylines' ],
+		      'docsTag'     => 'bylines',
 	      ];
       } );
 
