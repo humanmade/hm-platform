@@ -11,7 +11,7 @@ function bootstrap() {
 		return;
 	}
 	if ( ! defined( 'EP_HOST' ) ) {
-		define( 'EP_HOST', sprintf( 'http://%s:%s', ELASTICSEARCH_HOST, ELASTICSEARCH_PORT );
+		define( 'EP_HOST', sprintf( 'http://%s:%s', ELASTICSEARCH_HOST, ELASTICSEARCH_PORT ) );
 	}
 	add_filter( 'http_request_args', __NAMESPACE__ . '\\on_http_request_args', 10, 2 );
 	add_filter( 'ep_pre_request_url', function( $url ) {
