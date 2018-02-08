@@ -1,5 +1,12 @@
 ## Changelog
 
+### 1.3.0
+
+- Update core plugin loading logic
+    - [Config file support added](https://github.com/humanmade/platform-docs/blob/beta/en_us/developers/hm-config.md)
+    - Plugins are registered in `includes/manifest.php`
+- Remove deprecated ludicrousdb dropin
+
 ### 1.2.2
 
 - Update batcache
