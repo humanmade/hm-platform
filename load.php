@@ -23,11 +23,13 @@ require_once ROOT_DIR . '/includes/class-plugin.php';
  */
 require_once ABSPATH . '/wp-includes/plugin.php';
 
-add_filter( 'enable_wp_debug_mode_checks', function () {
+add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) {
 	global $wp_version;
 	if ( version_compare( '4.7', $wp_version, '>' ) ) {
 		die( 'HM Platform is only supported on WordPress 4.7+.' );
 	}
+
+	return $wp_debug_enabled;
 } );
 
 if ( ! defined( 'WP_CACHE' ) ) {
