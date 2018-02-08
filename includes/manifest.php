@@ -157,8 +157,7 @@ Plugin::register( 'platform-ui', 'plugins/hm-platform-ui/admin.php' )
 	      require $plugin->get_file();
 	      Admin\bootstrap();
       } )
-      ->enabled( true )
-      ->add_dependency( 'hm-stack-api' );
+      ->enabled( true );
 
 // HM Stack API.
 Plugin::register( 'hm-stack-api', 'plugins/hm-stack/hm-stack.php' );

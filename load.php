@@ -69,7 +69,7 @@ function docs_version() {
  * @return string
  */
 function docs_url() {
-	return defined( 'HM_DOCS_HOME' ) ? HM_DOCS_HOME : 'https://docs.aws.hmn.md/';
+	return defined( 'HM_DOCS_HOME' ) ? HM_DOCS_HOME : 'https://docs.humanmade.com';
 }
 
 // Fix plugins URL for plugins in HM Platform.
