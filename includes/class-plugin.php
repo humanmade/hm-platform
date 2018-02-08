@@ -89,16 +89,6 @@ class Plugin {
 	protected $settings = [];
 
 	/**
-	 * Map of plugin dependencies.
-	 *
-	 * @var array
-	 */
-	protected static $dependency_map = [
-		'requires'    => [],
-		'required_by' => [],
-	];
-
-	/**
 	 * Extra files to load before the main file.
 	 *
 	 * @var array
@@ -166,47 +156,9 @@ class Plugin {
 	 */
 	public function enabled( $enable ) {
 		if ( ! empty( $enable ) && is_array( $enable ) ) {
-			$sites = $enable;
-
-			// Handle only.
-			if ( isset( $sites['only'] ) ) {
-				$this->enable_by_site( $sites['only'], true );
-			}
-
-			// Handle except.
-			if ( isset( $sites['except'] ) ) {
-				// Default enabled if only except provided.
-				if ( ! isset( $sites['only'] ) ) {
-					$this->enabled = true;
-				}
-				$this->enable_by_site( $sites['except'], false );
-			}
-
-			// Handle direct site list & treat same as 'only'.
-			if ( ! isset( $sites['only'], $sites['except'] ) ) {
-				$this->enable_by_site( $sites, true );
-			}
-
+			$this->enable_by_site( $enable, true );
 		} else {
 			$this->enabled = (bool) $enable;
-		}
-
-		// Enable required plugins if disabled.
-		if ( $this->enabled && isset( self::$dependency_map['requires'][ $this->name ] ) ) {
-			foreach ( self::$dependency_map['requires'][ $this->name ] as $dependency ) {
-				if ( isset( self::$plugins[ $dependency ] ) && ! self::$plugins[ $dependency ]->is_enabled() ) {
-					self::$plugins[ $dependency ]->enabled( true );
-				}
-			}
-		}
-
-		// Enable plugin if a dependent is enabled.
-		if ( ! $this->enabled && isset( self::$dependency_map['required_by'][ $this->name ] ) ) {
-			foreach ( self::$dependency_map['required_by'][ $this->name ] as $dependent ) {
-				if ( isset( self::$plugins[ $dependent ] ) && self::$plugins[ $dependent ]->is_enabled() ) {
-					$this->enabled = true;
-				}
-			}
 		}
 
 		return $this;
@@ -332,35 +284,6 @@ class Plugin {
 			// Run the setting callback.
 			call_user_func_array( $setting['callback'], [ $value, $this ] );
 		}
-
-		return $this;
-	}
-
-	/**
-	 * Registers a plugin dependency. Dependencies will be force enabled if
-	 * this plugin is enabled.
-	 *
-	 * @param string $name A plugin identifier.
-	 * @return $this
-	 */
-	public function add_dependency( string $name ) {
-		if ( ! isset( self::$dependency_map['requires'][ $this->name ] ) ) {
-			self::$dependency_map['requires'][ $this->name ] = [];
-		}
-
-		if ( ! isset( self::$dependency_map['required_by'][ $name ] ) ) {
-			self::$dependency_map['required_by'][ $name ] = [];
-		}
-
-		self::$dependency_map['requires'][ $this->name ] = array_merge(
-			self::$dependency_map['requires'][ $this->name ] ?: [],
-			[ $name ]
-		);
-
-		self::$dependency_map['required_by'][ $name ] = array_merge(
-			self::$dependency_map['required_by'][ $name ] ?: [],
-			[ $this->name ]
-		);
 
 		return $this;
 	}
