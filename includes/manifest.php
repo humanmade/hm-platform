@@ -67,6 +67,38 @@ Plugin::register( 'memcached', 'dropins/wordpress-pecl-memcached-object-cache/ob
 	      ];
       } );
 
+// Redis object cache.
+Plugin::register( 'redis', 'plugins/wp-redis/object-cache.php' )
+      ->load_on( true )
+      ->load_with( function ( $plugin ) {
+	      add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) use ( $plugin ) {
+		      // Don't load if memcached is enabled.
+		      if ( Plugin::$plugins['memcached']->is_enabled() ) {
+			      return $wp_debug_enabled;
+		      }
+
+		      wp_using_ext_object_cache( true );
+
+		      require ROOT_DIR . '/dropins/wp-redis-predis-client/vendor/autoload.php';
+		      \WP_Predis\add_filters();
+		      require $plugin->get_file();
+
+		      // Cache must be initted once it's included, else we'll get a fatal.
+		      wp_cache_init();
+
+		      return $wp_debug_enabled;
+	      }, 11 );
+      } )
+      ->set_data( function () {
+	      return [
+		      'title'       => __( 'Redis', 'hm-platform' ),
+		      'description' => __( 'A Redis object cache to make your website fly.', 'hm-platform' ),
+		      'repository'  => 'humanmade/wordpress-pecl-memcached-object-cache',
+		      'category'    => 'cloud',
+		      'docsTag'     => 'redis',
+	      ];
+      } );
+
 // Batcache.
 Plugin::register( 'batcache', 'dropins/batcache/advanced-cache.php' )
       ->load_on( true )
