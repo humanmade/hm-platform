@@ -8,6 +8,7 @@
 namespace HM\Platform\Config;
 
 use HM\Platform as Platform;
+use HM\Platform\Plugin as Plugin;
 use Exception;
 
 /**
@@ -74,6 +75,10 @@ function get_merged_defaults_and_customisations() {
 		if ( isset( $customisation['hm'] ) && is_array( $customisation['hm'] ) ) {
 			$config = get_merged_settings( $config, $customisation['hm'] );
 		}
+
+		if ( isset( $customisation['repository'] ) && is_string( $customisation['repository'] ) ) {
+			$config = get_merged_settings( $config, [ 'repository' => $customisation['repository'] ] );
+		}
 	}
 
 	// Look for a `hm` section in `package.json` in the root directory.
@@ -82,6 +87,10 @@ function get_merged_defaults_and_customisations() {
 
 		if ( isset( $customisation['hm'] ) && is_array( $customisation['hm'] ) ) {
 			$config = get_merged_settings( $config, $customisation['hm'] );
+		}
+
+		if ( isset( $customisation['repository'] ) && is_string( $customisation['repository'] ) ) {
+			$config = get_merged_settings( $config, [ 'repository' => $customisation['repository'] ] );
 		}
 	}
 
@@ -148,6 +157,16 @@ function get_merged_settings( array $config, array $overrides ) {
 function get_merged_plugin_settings( array $config, array $overrides ) {
 	$keys = [ 'enabled', 'settings' ];
 
+	// Get defaults for plugins.
+	foreach ( Plugin::$plugins as $name => $plugin ) {
+		if ( ! isset( $config[ $name ] ) ) {
+			$config[ $name ] = [
+				'enabled'  => $plugin->is_enabled(),
+				'settings' => $plugin->get_config(),
+			];
+		}
+	}
+
 	foreach ( $overrides as $plugin => $settings ) {
 		// If plugin value is a bool use that as the enabled value.
 		if ( is_bool( $settings ) ) {
@@ -167,7 +186,7 @@ function get_merged_plugin_settings( array $config, array $overrides ) {
 
 		// Override defaults.
 		foreach ( $keys as $key ) {
-			if ( empty( $settings[ $key ] ) ) {
+			if ( ! isset( $settings[ $key ] ) ) {
 				continue;
 			}
 
