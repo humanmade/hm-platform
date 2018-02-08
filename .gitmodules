@@ -38,3 +38,6 @@
 	path = plugins/hm-platform-ui
 	url = git@github.com:humanmade/platform-ui.git
 	ignore = dirty
+[submodule "plugins/wp-redis"]
+	path = plugins/wp-redis
+	url = https://github.com/pantheon-systems/wp-redis.git
