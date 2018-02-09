@@ -11,7 +11,6 @@ const ROOT_DIR = __DIR__;
 require_once ROOT_DIR . '/lib/aws-sdk/aws-autoloader.php';
 require_once ROOT_DIR . '/includes/config.php';
 require_once ROOT_DIR . '/includes/plugins.php';
-require_once ROOT_DIR . '/includes/class-plugin.php';
 
 /*
  * Load HM Platform as soon as WordPress is loaded:
@@ -44,6 +43,7 @@ if ( ! defined( 'HM_ENV_TYPE' ) ) {
  * Load plugin manifest.
  */
 require_once ROOT_DIR . '/includes/manifest.php';
+require_once ROOT_DIR . '/includes/settings.php';
 
 /**
  * Retrieve plugin version from package.json.
@@ -69,7 +69,7 @@ function docs_version() {
  * @return string
  */
 function docs_url() {
-	return defined( 'HM_DOCS_HOME' ) ? HM_DOCS_HOME : 'https://docs.aws.hmn.md/';
+	return defined( 'HM_DOCS_HOME' ) ? HM_DOCS_HOME : 'https://docs.humanmade.com';
 }
 
 // Fix plugins URL for plugins in HM Platform.
@@ -87,7 +87,7 @@ add_filter( 'plugins_url', function ( $url, $path, $plugin ) {
 try {
 	Plugins\load_enabled_plugins();
 } catch ( Exception $exception ) {
-	die( $exception->getMessage() );
+	trigger_error( 'There was a problem bootstrapping HM Platform: ' . $exception->getMessage(), E_USER_WARNING );
 }
 
 /**

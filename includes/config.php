@@ -8,7 +8,6 @@
 namespace HM\Platform\Config;
 
 use HM\Platform as Platform;
-use Exception;
 
 /**
  * Retrieve the configuration for HM Platform.
@@ -16,7 +15,6 @@ use Exception;
  * The configuration is defined by merging the defaults with the various files that allow to customise a particular
  * installation.
  *
- * @throws Exception
  * @return array Configuration data.
  */
 function get_config() {
@@ -45,14 +43,13 @@ function get_config() {
  * @param string $key Settings key to retrieve the value from.
  *
  * @return mixed Settings value.
- *
- * @throws Exception if the settings key cannot be found.
  */
 function get_config_value( string $key ) {
 	$config = get_config();
 
 	if ( ! array_key_exists( $key, $config ) ) {
-		throw new Exception( 'Could not find the ' . $key . ' setting in the configuration.' );
+		trigger_error( 'Could not find the ' . $key . ' setting in the configuration.', E_USER_WARNING );
+		return null;
 	}
 
 	return $config[ $key ];
@@ -61,7 +58,6 @@ function get_config_value( string $key ) {
 /**
  * Merge the defaults and the contents of the various configuration files into a single configuration.
  *
- * @throws Exception If a found config file can't be read an Exception is thrown.
  * @return array Configuration data.
  */
 function get_merged_defaults_and_customisations() {
@@ -74,6 +70,10 @@ function get_merged_defaults_and_customisations() {
 		if ( isset( $customisation['hm'] ) && is_array( $customisation['hm'] ) ) {
 			$config = get_merged_settings( $config, $customisation['hm'] );
 		}
+
+		if ( isset( $customisation['repository'] ) && is_string( $customisation['repository'] ) ) {
+			$config = get_merged_settings( $config, [ 'repository' => $customisation['repository'] ] );
+		}
 	}
 
 	// Look for a `hm` section in `package.json` in the root directory.
@@ -82,6 +82,10 @@ function get_merged_defaults_and_customisations() {
 
 		if ( isset( $customisation['hm'] ) && is_array( $customisation['hm'] ) ) {
 			$config = get_merged_settings( $config, $customisation['hm'] );
+		}
+
+		if ( isset( $customisation['repository'] ) && is_string( $customisation['repository'] ) ) {
+			$config = get_merged_settings( $config, [ 'repository' => $customisation['repository'] ] );
 		}
 	}
 
@@ -142,32 +146,31 @@ function get_merged_settings( array $config, array $overrides ) {
  * @param array $config    Existing configuration.
  * @param array $overrides Settings to merge in.
  *
- * @throws Exception
  * @return array Configuration data.
  */
 function get_merged_plugin_settings( array $config, array $overrides ) {
 	$keys = [ 'enabled', 'settings' ];
 
-	foreach ( $overrides as $plugin => $settings ) {
-		// If plugin value is a bool use that as the enabled value.
-		if ( is_bool( $settings ) ) {
-			$settings = [ 'enabled' => $settings ];
+	// Get defaults for plugins.
+	foreach ( Platform\get_plugin_manifest() as $name => $plugin ) {
+		if ( ! isset( $config[ $name ] ) ) {
+			$config[ $name ] = [
+				'enabled'  => isset( $plugin['enabled'] ) ? $plugin['enabled'] : false,
+				'settings' => isset( $plugin['settings'] ) ? $plugin['settings'] : [],
+			];
 		}
+	}
 
+	foreach ( $overrides as $plugin => $settings ) {
 		// Bail if $settings isn't an array.
 		if ( ! is_array( $settings ) ) {
-			throw new Exception( 'The config setting for ' . $plugin . ' is invalid. It should be a boolean or array.' );
-		}
-
-		// If plugin value is an array check there's an enabled key.
-		// If not set it as the enabled key value.
-		if ( ! isset( $settings['enabled'] ) && ! isset( $settings['settings'] ) ) {
-			$settings = [ 'enabled' => $settings ];
+			trigger_error( 'The config setting for ' . $plugin . ' is invalid. It should be a boolean or array.', E_USER_WARNING );
+			continue;
 		}
 
 		// Override defaults.
 		foreach ( $keys as $key ) {
-			if ( empty( $settings[ $key ] ) ) {
+			if ( ! isset( $settings[ $key ] ) ) {
 				continue;
 			}
 
@@ -183,16 +186,15 @@ function get_merged_plugin_settings( array $config, array $overrides ) {
  * Get the default configuration values.
  *
  * @return array Default configuration values.
- *
- * @throws Exception if the configuration file cannot be read.
  */
 function get_default_configuration() {
-	try {
-		$config = get_json_file_contents_as_array( Platform\ROOT_DIR . '/hm.default.json' );
-	} catch ( Exception $exception ) {
-		$config = [
-			'plugins' => [],
-		];
+	$config = [
+		'plugins' => [],
+	];
+
+	if ( is_readable( Platform\ROOT_DIR . '/hm.default.json' ) ) {
+		$default = get_json_file_contents_as_array( Platform\ROOT_DIR . '/hm.default.json' );
+		$config  = array_merge( $config, $default );
 	}
 
 	return $config;
@@ -204,22 +206,23 @@ function get_default_configuration() {
  * @param string $file Path to the JSON file.
  *
  * @return array Decoded data in array form, empty array if JSON data could not read.
- *
- * @throws Exception if the file is not a JSON file, can't be read, or can't be decoded.
  */
 function get_json_file_contents_as_array( $file ) {
 	if ( ! strpos( $file, '.json' ) ) {
-		throw new Exception( $file . ' is not a JSON file.' );
+		trigger_error( $file . ' is not a JSON file.', E_USER_WARNING );
+		return [];
 	}
 
 	if ( ! is_readable( $file ) ) {
-		throw new Exception( 'Could not read ' . $file . ' file.' );
+		trigger_error( 'Could not read ' . $file . ' file.', E_USER_WARNING );
+		return [];
 	}
 
 	$contents = json_decode( file_get_contents( $file ), true );
 
 	if ( ! is_array( $contents ) ) {
-		throw new Exception( 'Decoding the JSON in ' . $file . ' .' );
+		trigger_error( 'Decoding the JSON in ' . $file . ' .', E_USER_WARNING );
+		return [];
 	}
 
 	return $contents;

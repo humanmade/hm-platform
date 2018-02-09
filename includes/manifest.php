@@ -5,190 +5,154 @@
 
 namespace HM\Platform;
 
-// Cavalcade.
-Plugin::register( 'cavalcade', 'plugins/cavalcade/plugin.php' )
-      ->load_on( true )
-      ->load_with( function ( $plugin ) {
-	      // Load the Cavalcade Runner CloudWatch extension.
-	      // This is loaded on the Cavalcade-Runner, not WordPress, crazy I know.
-	      if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && HM_ENV_TYPE !== 'local' ) {
-		      require_once ROOT_DIR . '/lib/aws-sdk/aws-autoloader.php';
-		      require_once ROOT_DIR . '/lib/cavalcade-runner-to-cloudwatch/plugin.php';
-	      }
+/**
+ * HM Platform plugin configuration.
+ *
+ * @return array
+ *  $manifest = [
+ *    '<plugin-name>' => [
+ *      'file'     => (string)   The file to load.
+ *      'enabled'  => (bool)     The default state of the plugin. True for active.
+ *      'title'    => (string)   Optional human readable name, if set plugin will show in UI.
+ *      'loader'   => (callable) Optional custom loading function.
+ *      'settings' => (array)    Optional Key value pairs of settings and their default values.
+ *    ]
+ *  ]
+ *
+ */
+function get_plugin_manifest() {
+	$manifest = [
+		'cavalcade'       => [
+			'file'    => 'plugins/cavalcade/plugin.php',
+			'enabled' => true,
+			'title'   => 'Cavalcade',
+			'loader'  => function ( $plugin ) {
+				// Load the Cavalcade Runner CloudWatch extension.
+				// This is loaded on the Cavalcade-Runner, not WordPress, crazy I know.
+				if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && HM_ENV_TYPE !== 'local' ) {
+					require_once ROOT_DIR . '/lib/aws-sdk/aws-autoloader.php';
+					require_once ROOT_DIR . '/lib/cavalcade-runner-to-cloudwatch/plugin.php';
+				}
 
-	      // Load plugin on normal hook.
-	      add_action( 'muplugins_loaded', function () use ( $plugin ) {
+				// Load plugin on normal hook.
+				add_action( 'muplugins_loaded', function () use ( $plugin ) {
 
-		      // Force DISABLE_WP_CRON for Cavalcade.
-		      if ( ! defined( 'DISABLE_WP_CRON' ) ) {
-			      define( 'DISABLE_WP_CRON', true );
-		      }
+					// Force DISABLE_WP_CRON for Cavalcade.
+					if ( ! defined( 'DISABLE_WP_CRON' ) ) {
+						define( 'DISABLE_WP_CRON', true );
+					}
 
-		      require $plugin->get_file();
-	      } );
-      } )
-      ->enabled( true )
-      ->set_data( function () {
-	      return [
-		      'title'       => __( 'Cavalcade', 'hm-platform' ),
-		      'description' => __( 'Scalable background tasks for multi-server hosting setups.', 'hm-platform' ),
-		      'repository'  => 'humanmade/cavalcade',
-		      'category'    => 'cloud',
-		      'docsTag'     => 'cavalcade',
-	      ];
-      } );
+					require $plugin['file'];
+				} );
+			},
+		],
+		'memcached'       => [
+			'file'    => 'dropins/wordpress-pecl-memcached-object-cache/object-cache.php',
+			'title'   => 'Memcached',
+			'enabled' => true,
+			'loader'  => function ( $plugin ) {
+				add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) use ( $plugin ) {
+					if ( ! class_exists( 'Memcached' ) ) {
+						return $wp_debug_enabled;
+					}
 
-// Memcached object cache.
-Plugin::register( 'memcached', 'dropins/wordpress-pecl-memcached-object-cache/object-cache.php' )
-      ->load_on( true )
-      ->load_with( function ( $plugin ) {
-	      add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) use ( $plugin ) {
-		      if ( ! class_exists( 'Memcached' ) ) {
-			      return $wp_debug_enabled;
-		      }
+					wp_using_ext_object_cache( true );
+					require $plugin['file'];
 
-		      wp_using_ext_object_cache( true );
-		      require $plugin->get_file();
+					// Cache must be initted once it's included, else we'll get a fatal.
+					wp_cache_init();
 
-		      // Cache must be initted once it's included, else we'll get a fatal.
-		      wp_cache_init();
+					return $wp_debug_enabled;
+				} );
+			},
+		],
+		'redis'           => [
+			'file'    => 'plugins/wp-redis/object-cache.php',
+			'title'   => 'Redis',
+			'enabled' => false,
+			'loader'  => function ( $plugin ) {
+				add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) use ( $plugin ) {
+					// Don't load if memcached is enabled.
+					$config = Config\get_config();
+					if ( isset( $config['memcached'] ) && $config['memcached']['enabled'] ) {
+						return $wp_debug_enabled;
+					}
 
-		      return $wp_debug_enabled;
-	      } );
-      } )
-      ->enabled( true )
-      ->set_data( function () {
-	      return [
-		      'title'       => __( 'Memcached', 'hm-platform' ),
-		      'description' => __( 'An absolute must for running WordPress at scale by avoiding database queries.', 'hm-platform' ),
-		      'repository'  => 'humanmade/wordpress-pecl-memcached-object-cache',
-		      'category'    => 'cloud',
-		      'docsTag'     => 'memcached',
-	      ];
-      } );
+					wp_using_ext_object_cache( true );
 
-// Redis object cache.
-Plugin::register( 'redis', 'plugins/wp-redis/object-cache.php' )
-      ->load_on( true )
-      ->load_with( function ( $plugin ) {
-	      add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) use ( $plugin ) {
-		      // Don't load if memcached is enabled.
-		      if ( Plugin::$plugins['memcached']->is_enabled() ) {
-			      return $wp_debug_enabled;
-		      }
+					require ROOT_DIR . '/dropins/wp-redis-predis-client/vendor/autoload.php';
+					\WP_Predis\add_filters();
+					require $plugin['file'];
 
-		      wp_using_ext_object_cache( true );
+					// Cache must be initted once it's included, else we'll get a fatal.
+					wp_cache_init();
 
-		      require ROOT_DIR . '/dropins/wp-redis-predis-client/vendor/autoload.php';
-		      \WP_Predis\add_filters();
-		      require $plugin->get_file();
+					return $wp_debug_enabled;
+				}, 11 );
+			},
+		],
+		'batcache'        => [
+			'title'   => 'Batcache',
+			'file'    => 'dropins/batcache/advanced-cache.php',
+			'enabled' => true,
+			'loader'  => function ( $plugin ) {
+				add_filter( 'enable_wp_debug_mode_checks', function ( $should_load ) use ( $plugin ) {
+					if ( ! class_exists( 'Memcached' ) ) {
+						return $should_load;
+					}
 
-		      // Cache must be initted once it's included, else we'll get a fatal.
-		      wp_cache_init();
+					if ( ! $should_load ) {
+						return $should_load;
+					}
 
-		      return $wp_debug_enabled;
-	      }, 11 );
-      } )
-      ->set_data( function () {
-	      return [
-		      'title'       => __( 'Redis', 'hm-platform' ),
-		      'description' => __( 'A Redis object cache to make your website fly.', 'hm-platform' ),
-		      'repository'  => 'humanmade/wordpress-pecl-memcached-object-cache',
-		      'category'    => 'cloud',
-		      'docsTag'     => 'redis',
-	      ];
-      } );
+					require $plugin['file'];
 
-// Batcache.
-Plugin::register( 'batcache', 'dropins/batcache/advanced-cache.php' )
-      ->load_on( true )
-      ->load_with( function ( $plugin ) {
-	      add_filter( 'enable_wp_debug_mode_checks', function ( $should_load ) use ( $plugin ) {
-		      if ( ! class_exists( 'Memcached' ) ) {
-			      return $should_load;
-		      }
+					return $should_load;
+				} );
+			},
+		],
+		'aws-ses-wp-mail' => [
+			'file'    => 'plugins/aws-ses-wp-mail/aws-ses-wp-mail.php',
+			'title'   => 'AWS Mail',
+			'enabled' => true,
+			'loader'  => function ( $plugin ) {
+				// Load logger on AWS.
+				if ( HM_ENV_TYPE !== 'local' ) {
+					require_once ROOT_DIR . '/lib/ses-to-cloudwatch/plugin.php';
+				}
 
-		      if ( ! $should_load ) {
-			      return $should_load;
-		      }
+				add_action( 'muplugins_loaded', function () use ( $plugin ) {
+					require $plugin['file'];
+				} );
+			},
+		],
+		'elasticsearch'   => [
+			'file'   => 'lib/elasticpress-integration.php',
+			'loader' => function ( $plugin ) {
+				if ( ! defined( 'ELASTICSEARCH_HOST' ) ) {
+					return;
+				}
 
-		      require $plugin->get_file();
+				if ( HM_ENV_TYPE === 'local' ) {
+					return;
+				}
 
-		      return $should_load;
-	      } );
-      } )
-      ->enabled( true )
-      ->set_data( function () {
-	      return [
-		      'title'       => __( 'Batcache', 'hm-platform' ),
-		      'description' => __( 'Keeps your website running at top speed by caching your most popular pages.', 'hm-platform' ),
-		      'repository'  => 'humanmade/batcache',
-		      'category'    => 'cloud',
-		      'docsTag'     => 'batcache',
-	      ];
-      } );
+				require $plugin['file'];
+				ElasticPress_Integration\bootstrap();
+			},
+		],
+		's3-uploads'      => [
+			'file'    => 'plugins/s3-uploads/s3-uploads.php',
+			'enabled' => true,
+			'title'   => 'S3 Uploads',
+		],
+		'tachyon'         => [
+			'file'    => 'plugins/tachyon/tachyon.php',
+			'enabled' => true,
+			'title'   => 'Tachyon',
+		],
+	];
 
-// AWS SES.
-Plugin::register( 'aws-ses-wp-mail', 'plugins/aws-ses-wp-mail/aws-ses-wp-mail.php' )
-      ->load_with( function ( $plugin ) {
-	      // Load logger on AWS.
-	      if ( HM_ENV_TYPE !== 'local' ) {
-		      require_once ROOT_DIR . '/lib/ses-to-cloudwatch/plugin.php';
-	      }
+	return $manifest;
+}
 
-	      add_action( 'muplugins_loaded', function () use ( $plugin ) {
-		      require $plugin->file();
-	      } );
-      } )
-      ->enabled( true )
-      ->set_data( function () {
-	      return [
-		      'title'       => __( 'AWS Mail', 'hm-platform' ),
-		      'description' => __( 'Keeps the emails flowing from our hosting platform.', 'hm-platform' ),
-		      'repository'  => 'humanmade/aws-ses-wp-mail',
-		      'category'    => 'cloud',
-		      'docsTag'     => 'aws-mail',
-	      ];
-      } );
-
-// ElasticSearch AWS Integration.
-Plugin::register( 'elasticsearch', 'lib/elasticpress-integration.php' )
-      ->load_with( function ( $plugin ) {
-	      if ( ! defined( 'ELASTICSEARCH_HOST' ) ) {
-		      return;
-	      }
-
-	      if ( HM_ENV_TYPE === 'local' ) {
-		      return;
-	      }
-
-	      require $plugin->get_file();
-	      ElasticPress_Integration\bootstrap();
-      } )
-      ->enabled( true );
-
-// S3 Uploads.
-Plugin::register( 's3-uploads', 'plugins/s3-uploads/s3-uploads.php' )
-      ->set_data( function () {
-	      return [
-		      'title'       => __( 'S3 Uploads', 'hm-platform' ),
-		      'description' => __( 'Offloads your files and images to Amazon S3 for fast delivery.', 'hm-platform' ),
-		      'repository'  => 'humanmade/s3-uploads',
-		      'category'    => 'cloud',
-		      'docsTag'     => 's3-uploads',
-	      ];
-      } )
-      ->enabled( true );
-
-// Tachyon
-Plugin::register( 'tachyon', 'plugins/tachyon/tachyon.php' )
-      ->set_data( function () {
-	      return [
-		      'title'       => __( 'Tachyon', 'hm-platform' ),
-		      'description' => __( 'Dynamic image resizing that gives you complete control across all devices.', 'hm-platform' ),
-		      'repository'  => 'humanmade/tachyon-plugin',
-		      'category'    => 'media',
-		      'docsTag'     => 'tachyon',
-	      ];
-      } )
-      ->enabled( true );
