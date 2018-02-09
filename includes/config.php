@@ -21,15 +21,17 @@ function get_config() {
 	global $hm_platform;
 	static $config;
 
-	if ( ! $config ) {
-		$config = get_merged_defaults_and_customisations();
+	if ( $config ) {
+		return $config;
+	}
 
-		// Handle back compat for $hm_platform.
-		if ( ! empty( $hm_platform ) && is_array( $hm_platform ) ) {
-			foreach ( $hm_platform as $plugin => $enabled ) {
-				if ( isset( $config['plugins'][ $plugin ] ) ) {
-					$config['plugins'][ $plugin ]['enabled'] = $enabled;
-				}
+	$config = get_merged_defaults_and_customisations();
+
+	// Handle back compat for $hm_platform.
+	if ( ! empty( $hm_platform ) && is_array( $hm_platform ) ) {
+		foreach ( $hm_platform as $plugin => $enabled ) {
+			if ( isset( $config['plugins'][ $plugin ] ) ) {
+				$config['plugins'][ $plugin ]['enabled'] = $enabled;
 			}
 		}
 	}
