@@ -51,16 +51,12 @@ function load_enabled_plugins() {
 		}
 
 		$plugin = array_merge( [
-			'name'             => $name,
-			'title'            => false,
-			'enabled'          => false,
-			'loader'           => function ( $plugin ) {
+			'loader'   => function ( $plugin ) {
 				add_action( 'muplugins_loaded', function () use ( $plugin ) {
 					require $plugin['file'];
 				} );
 			},
-			'settings'         => [],
-			'settings_handler' => null,
+			'settings' => [],
 		], $plugin );
 
 		if ( ! is_callable( $plugin['loader'] ) ) {
