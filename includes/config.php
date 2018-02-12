@@ -153,16 +153,6 @@ function get_merged_settings( array $config, array $overrides ) {
 function get_merged_plugin_settings( array $config, array $overrides ) {
 	$keys = [ 'enabled', 'settings' ];
 
-	// Get defaults for plugins.
-	foreach ( Platform\get_plugin_manifest() as $name => $plugin ) {
-		if ( ! isset( $config[ $name ] ) ) {
-			$config[ $name ] = [
-				'enabled'  => isset( $plugin['enabled'] ) ? $plugin['enabled'] : false,
-				'settings' => isset( $plugin['settings'] ) ? $plugin['settings'] : [],
-			];
-		}
-	}
-
 	foreach ( $overrides as $plugin => $settings ) {
 		// Bail if $settings isn't an array.
 		if ( ! is_array( $settings ) ) {
@@ -194,9 +184,19 @@ function get_default_configuration() {
 		'plugins' => [],
 	];
 
+	// Get defaults for plugins.
+	foreach ( Platform\get_plugin_manifest() as $name => $plugin ) {
+		if ( ! isset( $config['plugins'][ $name ] ) ) {
+			$config['plugins'][ $name ] = [
+				'enabled'  => isset( $plugin['enabled'] ) ? $plugin['enabled'] : false,
+				'settings' => isset( $plugin['settings'] ) ? $plugin['settings'] : [],
+			];
+		}
+	}
+
 	if ( is_readable( Platform\ROOT_DIR . '/hm.default.json' ) ) {
 		$default = get_json_file_contents_as_array( Platform\ROOT_DIR . '/hm.default.json' );
-		$config  = array_merge( $config, $default );
+		$config  = get_merged_settings( $config, $default );
 	}
 
 	return $config;
