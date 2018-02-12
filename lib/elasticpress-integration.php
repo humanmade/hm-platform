@@ -10,7 +10,9 @@ function bootstrap() {
 	if ( ! defined( 'ELASTICSEARCH_HOST' ) ) {
 		return;
 	}
-	define( 'EP_HOST', ELASTICSEARCH_HOST );
+	if ( ! defined( 'EP_HOST' ) ) {
+		define( 'EP_HOST', sprintf( '%s://%s:%d', ELASTICSEARCH_PORT === 443 ? 'https' : 'http', ELASTICSEARCH_HOST, ELASTICSEARCH_PORT ) );
+	}
 	add_filter( 'http_request_args', __NAMESPACE__ . '\\on_http_request_args', 10, 2 );
 	add_filter( 'ep_pre_request_url', function( $url ) {
 		return set_url_scheme( $url, 'https' );
