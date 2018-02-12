@@ -20,7 +20,7 @@ require_once ROOT_DIR . '/includes/plugins.php';
  * - We can't use the `WPINC` constant because it is not yet defined.
  * - The `enable_wp_debug_mode_checks` filter is used because it is the earliest hook available.
  */
-require_once ABSPATH . '/wp-includes/plugin.php';
+require_once ABSPATH . 'wp-includes/plugin.php';
 
 add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) {
 	global $wp_version;
