@@ -15,12 +15,18 @@ require_once ROOT_DIR . '/includes/plugins.php';
 /*
  * Load HM Platform as soon as WordPress is loaded:
  *
- * - The Plugin API functions need to be loaded, as actions and filters are no longer stored in plain arrays since
- *   WordPress 4.7.
+ * - The Plugin API functions need to be loaded, as actions and filters
+ *   are no longer stored in plain arrays since WordPress 4.7.
  * - We can't use the `WPINC` constant because it is not yet defined.
- * - The `enable_wp_debug_mode_checks` filter is used because it is the earliest hook available.
+ * - The `enable_wp_debug_mode_checks` filter is used because it is the
+ *   earliest hook available.
  */
-require_once ABSPATH . 'wp-includes/plugin.php';
+if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) ) {
+	$wp_path = isset( $argv[1] ) ? $argv[1] : '.';
+	require_once $wp_path . '/wp-includes/plugin.php';
+} else {
+	require_once ABSPATH . 'wp-includes/plugin.php';
+}
 
 add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) {
 	global $wp_version;
