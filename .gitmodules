@@ -41,3 +41,6 @@
 [submodule "plugins/wp-redis"]
 	path = plugins/wp-redis
 	url = https://github.com/pantheon-systems/wp-redis.git
+[submodule "plugins/elasticpress"]
+	path = plugins/elasticpress
+	url = https://github.com/humanmade/ElasticPress.git

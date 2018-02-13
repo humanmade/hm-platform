@@ -186,6 +186,10 @@ function get_plugin_manifest() {
 			'file'  => 'plugins/bylines/bylines.php',
 			'title' => 'Bylines',
 		],
+		'elasticpress'    => [
+			'file'  => 'plugins/elasticpress/elasticpress.php',
+			'title' => 'ElasticPress',
+		],
 	];
 
 	return $manifest;
