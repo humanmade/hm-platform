@@ -21,7 +21,16 @@ require_once ROOT_DIR . '/includes/plugins.php';
  * - The `enable_wp_debug_mode_checks` filter is used because it is the earliest hook available.
  */
 if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) ) {
-	$wp_path = isset( $argv[1] ) ? $argv[1] : '.';
+	if ( isset( $argv[1] ) ) {
+		$wp_path = $argv[1];
+	} else {
+		$wp_path = defined( 'WP_CONTENT_DIR' ) ? dirname( WP_CONTENT_DIR ) : dirname( ROOT_DIR, 2 );
+		if ( is_readable( $wp_path . '/wp/wp-includes' ) ) {
+			$wp_path .= '/wp';
+		} elseif ( is_readable( $wp_path . '/wordpress/wp-includes' ) ) {
+			$wp_path .= '/wordpress';
+		}
+	}
 	require_once $wp_path . '/wp-includes/plugin.php';
 } else {
 	require_once ABSPATH . 'wp-includes/plugin.php';
