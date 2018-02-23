@@ -36,7 +36,7 @@
 	url = https://github.com/humanmade/bylines.git
 [submodule "plugins/hm-platform-ui"]
 	path = plugins/hm-platform-ui
-	url = git@github.com:humanmade/platform-ui.git
+	url = https://github.com/humanmade/platform-ui.git
 	ignore = dirty
 [submodule "plugins/wp-redis"]
 	path = plugins/wp-redis
@@ -44,3 +44,27 @@
 [submodule "plugins/elasticpress"]
 	path = plugins/elasticpress
 	url = https://github.com/humanmade/ElasticPress.git
+[submodule "plugins/multilingualpress"]
+	path = plugins/multilingualpress
+	url = https://github.com/humanmade/MultilingualPress.git
+[submodule "plugins/cmb2"]
+	path = plugins/cmb2
+	url = https://github.com/humanmade/CMB2.git
+[submodule "plugins/extended-cpts"]
+	path = plugins/extended-cpts
+	url = https://github.com/humanmade/extended-cpts.git
+[submodule "plugins/query-monitor"]
+	path = plugins/query-monitor
+	url = https://github.com/humanmade/query-monitor.git
+[submodule "plugins/hm-gtm"]
+	path = plugins/hm-gtm
+	url = https://github.com/humanmade/hm-gtm.git
+[submodule "plugins/media-explorer"]
+	path = plugins/media-explorer
+	url = https://github.com/humanmade/media-explorer.git
+[submodule "plugins/gutenberg"]
+	path = plugins/gutenberg
+	url = https://github.com/humanmade/gutenberg.git
+[submodule "plugins/publishing-checklist"]
+	path = plugins/publishing-checklist
+	url = https://github.com/humanmade/publishing-checklist.git

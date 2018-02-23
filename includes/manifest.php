@@ -22,7 +22,7 @@ namespace HM\Platform;
  */
 function get_plugin_manifest() {
 	$manifest = [
-		'cavalcade'       => [
+		'cavalcade'            => [
 			'file'    => 'plugins/cavalcade/plugin.php',
 			'enabled' => true,
 			'title'   => 'Cavalcade',
@@ -46,7 +46,7 @@ function get_plugin_manifest() {
 				} );
 			},
 		],
-		'memcached'       => [
+		'memcached'            => [
 			'file'    => 'dropins/wordpress-pecl-memcached-object-cache/object-cache.php',
 			'title'   => 'Memcached',
 			'enabled' => true,
@@ -66,7 +66,7 @@ function get_plugin_manifest() {
 				} );
 			},
 		],
-		'redis'           => [
+		'redis'                => [
 			'file'    => 'plugins/wp-redis/object-cache.php',
 			'title'   => 'Redis',
 			'enabled' => false,
@@ -91,7 +91,7 @@ function get_plugin_manifest() {
 				}, 11 );
 			},
 		],
-		'batcache'        => [
+		'batcache'             => [
 			'title'   => 'Batcache',
 			'file'    => 'dropins/batcache/advanced-cache.php',
 			'enabled' => true,
@@ -111,7 +111,7 @@ function get_plugin_manifest() {
 				} );
 			},
 		],
-		'aws-ses-wp-mail' => [
+		'aws-ses-wp-mail'      => [
 			'file'    => 'plugins/aws-ses-wp-mail/aws-ses-wp-mail.php',
 			'title'   => 'AWS Mail',
 			'enabled' => true,
@@ -126,15 +126,15 @@ function get_plugin_manifest() {
 				} );
 			},
 		],
-		'platform-ui'     => [
+		'platform-ui'          => [
 			'file'    => 'plugins/hm-platform-ui/admin.php',
 			'enabled' => true,
 		],
-		'hm-stack-api'    => [
+		'hm-stack-api'         => [
 			'enabled' => true,
 			'file'    => 'plugins/hm-stack/hm-stack.php',
 		],
-		'elasticsearch'   => [
+		'elasticsearch'        => [
 			'file'   => 'lib/elasticpress-integration.php',
 			'loader' => function ( $plugin ) {
 				if ( ! defined( 'ELASTICSEARCH_HOST' ) ) {
@@ -149,46 +149,82 @@ function get_plugin_manifest() {
 				ElasticPress_Integration\bootstrap();
 			},
 		],
-		'performance'     => [
+		'performance'          => [
 			'file'    => 'plugins/performance/performance.php',
 			'enabled' => true,
 		],
-		's3-uploads'      => [
+		's3-uploads'           => [
 			'file'    => 'plugins/s3-uploads/s3-uploads.php',
 			'enabled' => true,
 			'title'   => 'S3 Uploads',
 		],
-		'tachyon'         => [
+		'tachyon'              => [
 			'file'    => 'plugins/tachyon/tachyon.php',
 			'enabled' => true,
 			'title'   => 'Tachyon',
 		],
-		'sitemaps'        => [
+		'sitemaps'             => [
 			'file'  => 'plugins/msm-sitemap/msm-sitemap.php',
 			'title' => 'Sitemaps',
 		],
-		'related-posts'   => [
+		'related-posts'        => [
 			'file'  => 'plugins/hm-related-posts/hm-related-posts.php',
 			'title' => 'Related posts',
 		],
-		'seo'             => [
+		'seo'                  => [
 			'file'     => 'plugins/wp-seo/wp-seo.php',
 			'title'    => 'SEO',
 			'settings' => [
 				'hide-settings-page' => true,
 			],
 		],
-		'redirects'       => [
+		'redirects'            => [
 			'file'  => 'plugins/hm-redirects/hm-redirects.php',
 			'title' => 'Redirects',
 		],
-		'bylines'         => [
+		'bylines'              => [
 			'file'  => 'plugins/bylines/bylines.php',
 			'title' => 'Bylines',
 		],
-		'elasticpress'    => [
+		'elasticpress'         => [
 			'file'  => 'plugins/elasticpress/elasticpress.php',
 			'title' => 'ElasticPress',
+		],
+		'multilingualpress'    => [
+			'file'  => 'plugins/multilingualpress/multilingual-press.php',
+			'title' => 'MultilingualPress',
+		],
+		'custom-meta-boxes'    => [
+			'file'  => 'plugins/cmb2/init.php',
+			'title' => 'Custom Meta Boxes',
+		],
+		'extended-cpts'        => [
+			'file'  => 'plugins/extended-cpts/extended-cpts.php',
+			'title' => 'Extended Custom Post Types & Taxonomies',
+		],
+		'query-monitor'        => [
+			'file'  => 'plugins/query-monitor/query-monitor.php',
+			'title' => 'Query Monitor',
+		],
+		'google-tag-manager'   => [
+			'file'     => 'plugins/hm-gtm/hm-gtm.php',
+			'title'    => 'Google Tag Manager',
+			'settings' => [
+				'network-container-id' => null,
+				'container-id'         => null,
+			],
+		],
+		'media-explorer'       => [
+			'file'  => 'plugins/media-explorer/media-explorer.php',
+			'title' => 'Media Explorer',
+		],
+		'gutenberg'            => [
+			'file'  => 'plugins/gutenberg/gutenberg.php',
+			'title' => 'Gutenberg',
+		],
+		'publishing-checklist' => [
+			'file'  => 'plugins/publishing-checklist/publishing-checklist.php',
+			'title' => 'Publishing Checklist',
 		],
 	];
 
