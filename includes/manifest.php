@@ -97,7 +97,7 @@ function get_plugin_manifest() {
 			'enabled' => true,
 			'loader'  => function ( $plugin ) {
 				add_filter( 'enable_wp_debug_mode_checks', function ( $should_load ) use ( $plugin ) {
-					if ( ! class_exists( 'Memcached' ) ) {
+					if ( ! class_exists( 'Memcached' ) || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 						return $should_load;
 					}
 
