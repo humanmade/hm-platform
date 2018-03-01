@@ -105,6 +105,11 @@ function get_plugin_manifest() {
 						return $should_load;
 					}
 
+					// Disable loading advanced-cache.php from content directory.
+					add_filter( 'enable_loading_advanced_cache_dropin', function () {
+						return false;
+					} );
+
 					require $plugin['file'];
 
 					return $should_load;
