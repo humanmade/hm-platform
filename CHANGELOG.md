@@ -1,5 +1,11 @@
 ## Changelog
 
+### 1.2.3
+
+- Update S3 Uploads
+	- Fix deleting original attachments.
+	- Improve memory usage when copying large files.
+
 ### 1.2.2
 
 - Update batcache
