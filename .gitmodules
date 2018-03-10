@@ -36,7 +36,7 @@
 	url = https://github.com/humanmade/bylines.git
 [submodule "plugins/hm-platform-ui"]
 	path = plugins/hm-platform-ui
-	url = https://github.com/humanmade/platform-ui.git
+	url = git@github.com:humanmade/platform-ui.git
 	ignore = dirty
 [submodule "plugins/wp-redis"]
 	path = plugins/wp-redis
