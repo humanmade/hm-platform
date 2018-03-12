@@ -68,3 +68,6 @@
 [submodule "plugins/publishing-checklist"]
 	path = plugins/publishing-checklist
 	url = https://github.com/humanmade/publishing-checklist.git
+[submodule "plugins/workflows"]
+	path = plugins/workflows
+	url = https://github.com/humanmade/Workflows.git

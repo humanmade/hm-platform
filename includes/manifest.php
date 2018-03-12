@@ -231,6 +231,10 @@ function get_plugin_manifest() {
 			'file'  => 'plugins/publishing-checklist/publishing-checklist.php',
 			'title' => 'Publishing Checklist',
 		],
+		'workflows' => [
+			'file'  => 'plugins/workflows/plugin.php',
+			'title' => 'Workflows',
+		],
 	];
 
 	return $manifest;
