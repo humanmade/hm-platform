@@ -1,5 +1,10 @@
 ## Changelog
 
+### 1.2.4
+
+- Update Tachyon
+    - Add support for gravity / crop positions on custom image sizes
+
 ### 1.2.3
 
 - Update S3 Uploads
