@@ -1,5 +1,10 @@
 ## Changelog
 
+### 1.2.5
+
+- Update Tachyon
+    - Fix bug with srcset and custom gravity
+
 ### 1.2.4
 
 - Update Tachyon
