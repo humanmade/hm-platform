@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.2.6
+- Update AWS SES plugin to 0.1.1
+    - Fix escaping in From email address
+
 ### 1.2.5
 
 - Update Tachyon
