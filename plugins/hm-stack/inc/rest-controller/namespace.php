@@ -163,14 +163,14 @@ function get_environment_data() {
 		return get_wp_error_for_hm_stack_return( $stack_data );
 	}
 
-    global $wpdb;
+	global $wpdb;
 
 	$data = [
 		'environment_data' => [
-            'wordpress'     => $stack_data['wordpress-version'],
-            'hmplatform'    => $stack_data['hm-platform-version'],
-            'architecture'  => $stack_data['architecture'],
-            'version'       => $stack_data['version'],
+			'wordpress'     => $stack_data['wordpress-version'],
+			'hmplatform'    => $stack_data['hm-platform-version'],
+			'architecture'  => $stack_data['architecture'],
+			'version'       => $stack_data['version'],
 			'elasticsearch' => '', // Awaiting this availability
 			'php'           => substr( phpversion(), 0, 5 ),
 			'mysql'         => $wpdb->db_version(),
@@ -179,10 +179,10 @@ function get_environment_data() {
 			'branch' => $stack_data['git-deployment']['ref'],
 			'commit' => $stack_data['git-deployment']['branch_details']['latest_commit'],
 		],
-        'contact_data' => [
-            'provider' => $stack_data['contact_provider'],
-            'client'   => $stack_data['contact_client'],
-        ],
+		'contact_data' => [
+			'provider' => $stack_data['contact_provider'],
+			'client'   => $stack_data['contact_client'],
+		],
 	];
 
 	wp_cache_set( 'environment', $data, 'hm-stack', 12 * \HOUR_IN_SECONDS );
