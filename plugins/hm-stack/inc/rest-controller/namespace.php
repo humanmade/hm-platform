@@ -148,6 +148,8 @@ function get_bandwidth_usage() {}
  * @return WP_REST_Response|\WP_Error
  */
 function get_environment_data() {
+	global $wpdb;
+
 	// Check our cache first.
 	$data = wp_cache_get( 'environment', 'hm-stack' );
 	if ( $data !== false ) {
@@ -162,8 +164,6 @@ function get_environment_data() {
 		wp_cache_set( 'activity', $stack_data, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
 		return get_wp_error_for_hm_stack_return( $stack_data );
 	}
-
-	global $wpdb;
 
 	$data = [
 		'environment_data' => [
