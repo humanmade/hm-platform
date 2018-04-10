@@ -148,6 +148,8 @@ function get_bandwidth_usage() {}
  * @return WP_REST_Response|\WP_Error
  */
 function get_environment_data() {
+	global $wpdb;
+
 	// Check our cache first.
 	$data = wp_cache_get( 'environment', 'hm-stack' );
 	if ( $data !== false ) {
@@ -160,18 +162,26 @@ function get_environment_data() {
 	if ( is_wp_error( $stack_data ) ) {
 		// Prevent constant re-fetching in the event of a failure.
 		wp_cache_set( 'activity', $stack_data, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
-		return $this->get_wp_error_for_hm_stack_return( $stack_data );
+		return get_wp_error_for_hm_stack_return( $stack_data );
 	}
 
 	$data = [
 		'environment_data' => [
+			'wordpress'     => $stack_data['wordpress-version'],
+			'hmplatform'    => $stack_data['hm-platform-version'],
+			'architecture'  => $stack_data['architecture'],
+			'version'       => $stack_data['version'],
 			'elasticsearch' => '', // Awaiting this availability
 			'php'           => substr( phpversion(), 0, 5 ),
-			'mysql'         => '', // Will add this later.
+			'mysql'         => $wpdb->db_version(),
 		],
 		'git_data' => [
 			'branch' => $stack_data['git-deployment']['ref'],
 			'commit' => $stack_data['git-deployment']['branch_details']['latest_commit'],
+		],
+		'contact_data' => [
+			'provider' => $stack_data['contact_provider'],
+			'client'   => $stack_data['contact_client'],
 		],
 	];
 
@@ -198,7 +208,7 @@ function get_site_activity() {
 	if ( is_wp_error( $stack_data ) ) {
 		// Prevent constant re-fetching in the event of a failure.
 		wp_cache_set( 'activity', $stack_data, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
-		return $this->get_wp_error_for_hm_stack_return( $stack_data );
+		return get_wp_error_for_hm_stack_return( $stack_data );
 	}
 
 	wp_cache_set( 'activity', $stack_data, 'hm-stack', 12 * \HOUR_IN_SECONDS );
@@ -224,7 +234,7 @@ function get_pull_requests() {
 	if ( is_wp_error( $stack_data ) ) {
 		// Prevent constant re-fetching in the event of a failure.
 		wp_cache_set( 'activity', $stack_data, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
-		return $this->get_wp_error_for_hm_stack_return( $stack_data );
+		return get_wp_error_for_hm_stack_return( $stack_data );
 	}
 
 	wp_cache_set( 'pull-requests', $stack_data, 'hm-stack', 12 * \HOUR_IN_SECONDS );
