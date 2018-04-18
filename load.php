@@ -42,8 +42,12 @@ function bootstrap( $wp_debug_enabled ) {
 	}
 
 	// Disable indexing when not in production
-	// Original source: https://github.com/roots/bedrock/blob/master/web/app/mu-plugins/disallow-indexing.php
-	if ( ( ! defined( 'HM_ENV_TYPE' ) || HM_ENV_TYPE !== 'production' ) && ! is_admin() ) {
+	$disable_indexing = (
+		( ! defined( 'HM_ENV_TYPE' ) || HM_ENV_TYPE !== 'production' )
+		&&
+		( ! defined( 'HM_DISABLE_INDEXING' ) || HM_DISABLE_INDEXING )
+	);
+	if ( $disable_indexing ) {
 		add_action( 'pre_option_blog_public', '__return_zero' );
 	}
 
