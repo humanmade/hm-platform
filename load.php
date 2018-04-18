@@ -41,11 +41,6 @@ function bootstrap( $wp_debug_enabled ) {
 		die( 'HM Platform is only supported on WordPress 4.6+.' );
 	}
 
-	// Let's force disallowing indexing if we're not in production
-	if ( ! defined( 'HM_ENV_TYPE' ) || HM_ENV_TYPE !== 'production' ) {
-		add_action( 'pre_option_blog_public', '__return_zero' );
-	}
-
 	add_filter( 'enable_loading_advanced_cache_dropin', __NAMESPACE__ . '\\load_advanced_cache', 10, 1 );
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
 
