@@ -41,6 +41,16 @@ function bootstrap( $wp_debug_enabled ) {
 		die( 'HM Platform is only supported on WordPress 4.6+.' );
 	}
 
+	// Disable indexing when not in production
+	$disable_indexing = (
+		( ! defined( 'HM_ENV_TYPE' ) || HM_ENV_TYPE !== 'production' )
+		&&
+		( ! defined( 'HM_DISABLE_INDEXING' ) || HM_DISABLE_INDEXING )
+	);
+	if ( $disable_indexing ) {
+		add_action( 'pre_option_blog_public', '__return_zero' );
+	}
+
 	add_filter( 'enable_loading_advanced_cache_dropin', __NAMESPACE__ . '\\load_advanced_cache', 10, 1 );
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
 
