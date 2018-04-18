@@ -42,7 +42,8 @@ function bootstrap( $wp_debug_enabled ) {
 	}
 
 	// Let's force disallowing indexing if we're not in production
-	if ( ! defined( 'HM_ENV_TYPE' ) || HM_ENV_TYPE !== 'production' ) {
+	// Original source: https://github.com/roots/bedrock/blob/master/web/app/mu-plugins/disallow-indexing.php
+	if ( ( ! defined( 'HM_ENV_TYPE' ) || HM_ENV_TYPE !== 'production' ) && ! is_admin() ) {
 		add_action( 'pre_option_blog_public', '__return_zero' );
 	}
 
