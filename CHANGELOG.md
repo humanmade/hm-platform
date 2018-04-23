@@ -1,5 +1,10 @@
 ## Changelog
 
+### 1.2.7
+- Disable search engine indexing by default on non-production environments
+    - This feature can be disabled by setting `HM_DISABLE_INDEXING` to `false`
+
+
 ### 1.2.6
 - Update AWS SES plugin to 0.1.1
     - Fix escaping in From email address

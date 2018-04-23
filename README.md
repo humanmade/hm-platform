@@ -5,7 +5,7 @@
 			Shared library for sites on the Human Made Platform.
 		</td>
 		<td align="right" width="20%">
-			Version 1.2.6
+			Version 1.2.7
 		</td>
 	</tr>
 	<tr>
@@ -51,3 +51,13 @@ $defaults = array(
 	'ludicrousdb'     => true,
 );
 ```
+
+### Search Engine Indexing
+
+By default, hm-platform will force disable indexing by search engines on any non-production environment. If you wish to disable this feature, add the following to your config:
+
+```php
+define( 'HM_DISABLE_INDEXING', false );
+```
+
+This will fall back to whatever the `blog_public` option value is in the database.
