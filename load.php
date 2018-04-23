@@ -6,11 +6,17 @@ if ( ! defined( 'WP_CACHE' ) ) {
 	define( 'WP_CACHE', true );
 }
 
-// Load the platform as soon as WP is loaded.
-$GLOBALS['wp_filter']['enable_wp_debug_mode_checks'][10]['hm_platform'] = array(
-	'function' => __NAMESPACE__ . '\\bootstrap',
-	'accepted_args' => 1,
-);
+/*
+ * Load HM Platform as soon as WordPress is loaded:
+ *
+ * - The Plugin API functions need to be loaded, as actions and filters are no longer stored in plain arrays since
+ *   WordPress 4.7.
+ * - We can't use the `WPINC` constant because it is not yet defined.
+ * - The `enable_wp_debug_mode_checks` filter is used because it is the earliest hook available.
+ */
+require_once ABSPATH . '/wp-includes/plugin.php';
+
+add_filter( 'enable_wp_debug_mode_checks', __NAMESPACE__ . '\\bootstrap' );
 
 if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && get_config()['cavalcade'] ) {
 	boostrap_cavalcade_runner();
@@ -39,8 +45,8 @@ function bootstrap( $wp_debug_enabled ) {
 	load_object_cache();
 
 	global $wp_version;
-	if ( version_compare( '4.6', $wp_version, '>' ) ) {
-		die( 'HM Platform is only supported on WordPress 4.6+.' );
+	if ( version_compare( '4.7', $wp_version, '>' ) ) {
+		die( 'HM Platform is only supported on WordPress 4.7+.' );
 	}
 
 	// Disable indexing when not in production
