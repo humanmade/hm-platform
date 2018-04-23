@@ -6,13 +6,17 @@ if ( ! defined( 'WP_CACHE' ) ) {
 	define( 'WP_CACHE', true );
 }
 
+if ( ! defined( 'HM_ENV_TYPE' ) ) {
+	define( 'HM_ENV_TYPE', 'local' );
+}
+
 // Load the platform as soon as WP is loaded.
 $GLOBALS['wp_filter']['enable_wp_debug_mode_checks'][10]['hm_platform'] = array(
 	'function' => __NAMESPACE__ . '\\bootstrap',
 	'accepted_args' => 1,
 );
 
-if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && get_config()['cavalcade'] ) {
+if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && get_config()['cavalcade'] && HM_ENV_TYPE !== 'local' ) {
 	boostrap_cavalcade_runner();
 }
 
@@ -61,7 +65,9 @@ function bootstrap( $wp_debug_enabled ) {
 		Admin\bootstrap();
 	}
 
-	require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
+	if ( HM_ENV_TYPE !== 'local' ) {
+		require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
+	}
 
 	return $wp_debug_enabled;
 }
@@ -186,7 +192,7 @@ function load_plugins() {
 		require __DIR__ . '/plugins/' . $file;
 	}
 
-	if ( ! empty( $config['elasticsearch'] ) ) {
+	if ( ! empty( $config['elasticsearch'] ) && HM_ENV_TYPE !== 'local' ) {
 		require_once __DIR__ . '/lib/elasticpress-integration.php';
 		ElasticPress_Integration\bootstrap();
 	}
