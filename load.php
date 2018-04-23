@@ -21,7 +21,9 @@ if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && get_config()['cavalcade'
 function boostrap_cavalcade_runner() {
 	// Load the common AWS SDK. bootstrap() is not called in this context.
 	require_once __DIR__ . '/lib/aws-sdk/aws-autoloader.php';
-	require_once __DIR__ . '/lib/cavalcade-runner-to-cloudwatch/plugin.php';
+	if ( defined( 'HM_ENV' ) && HM_ENV ) {
+		require_once __DIR__ . '/lib/cavalcade-runner-to-cloudwatch/plugin.php';
+	}
 }
 
 /**
