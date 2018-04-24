@@ -19,9 +19,36 @@ function get_activity() {
 }
 
 /**
- * Need more information to fetch this data.
+ * Get the total bandwidth consumed per day over the past month.
  */
-function get_bandwidth_usage() {}
+function get_bandwidth_usage() {
+	$metrics_query = [
+		'name'      => 'NetworkIn',
+		'period'    => DAY_IN_SECONDS,
+		'from'      => date( 'Y-m-d H:i:s', strtotime( '30 days ago' ) ),
+		'to'        => time(),
+		'statistic' => 'Sum',
+	];
+
+	return query_metrics_api( 'AWS/EC2', $metrics_query );
+}
+
+/**
+ * Get timeslice data for page generation time over the past 30 days.
+ *
+ * Example URL: https://us-east-1.aws.hmn.md/api/stack/metrics/encompass-development/AWS/ApplicationELB/
+ */
+function get_page_generation_time() {
+	$metrics_query = [
+		'name'      => 'RequestCount',
+		'period'    => HOUR_IN_SECONDS,
+		'from'      => date( 'Y-m-d H:i:s', strtotime( '30 days ago' ) ),
+		'to'        => time(),
+		'statistic' => 'Sum',
+	];
+
+	return query_metrics_api( 'AWS/ApplicationELB', $metrics_query );
+}
 
 /**
  * Fetch what environmental data HM Stack can offer us.
@@ -31,11 +58,6 @@ function get_bandwidth_usage() {}
 function get_environment_data() {
 	return query_api( '' );
 }
-
-/**
- * Need more information to fetch this data.
- */
-function get_page_generation_time() {}
 
 /**
  * Fetch the latest pull requests against this site.
@@ -50,10 +72,12 @@ function get_pull_requests() {
  * Query the HM Stack API for the data that we want.
  *
  * @param string $endpoint
- * @return mixed null for a bad request,
+ * @param string $api_base API base URL, default to the constant HM_STACK_API_URL.
+ * @param string $query Query string parameters, for endpoints that accept them.
+ * @return mixed API response, or null for a bad request,
  */
-function query_api( $endpoint ) {
-	$url = esc_url_raw( HM_STACK_API_URL . $endpoint );
+function query_api( $endpoint, $api_base = HM_STACK_API_URL, $query = [] ) {
+	$url = add_query_arg( $query, esc_url_raw( $api_base . $endpoint ) );
 
 	/**
 	 * If we're proxied on a local environment, then auth is handled for us.
@@ -84,4 +108,17 @@ function query_api( $endpoint ) {
 	}
 
 	return $data;
+}
+
+/**
+ * Query the /metrics/ API for passthrough Cloudwatch metrics queries.
+ *
+ * @param string $endpoint CloudWatch namespace to query.
+ * @param array $query Query to pass to AWS Cloudwatch API.
+ * @return mixed API response, or null for a bad request,
+ */
+function query_metrics_api( $endpoint, $query ) {
+	$api_base = str_replace( '/applications/', '/metrics/', HM_STACK_API_URL );
+
+	return query_api( $endpoint, $api_base, $query );
 }
