@@ -40,11 +40,11 @@ function get_bandwidth_usage() {
  */
 function get_page_generation_time() {
 	$metrics_query = [
-		'name'      => 'RequestCount',
+		'name'      => 'TargetResponseTime',
 		'period'    => HOUR_IN_SECONDS,
 		'from'      => date( 'Y-m-d H:i:s', strtotime( '30 days ago' ) ),
 		'to'        => time(),
-		'statistic' => 'Sum',
+		'statistic' => 'Average', // requires hm-stack updated to enable this statistic.
 	];
 
 	return query_metrics_api( 'AWS/ApplicationELB', $metrics_query );
