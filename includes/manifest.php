@@ -206,6 +206,13 @@ function get_plugin_manifest() {
 				'disable-recruitment-notice' => true,
 			],
 		],
+		'polylang'             => [
+			'file'     => 'plugins/polylang/polylang.php',
+			'title'    => 'Polylang',
+			'activate' => function ( $plugin ) {
+				do_action( 'activate_' . ltrim( $plugin['file'], '/' ), true );
+			},
+		],
 		'custom-meta-boxes'    => [
 			'file'  => 'plugins/cmb2/init.php',
 			'title' => 'Custom Meta Boxes',
@@ -238,7 +245,7 @@ function get_plugin_manifest() {
 			'file'  => 'plugins/publishing-checklist/publishing-checklist.php',
 			'title' => 'Publishing Checklist',
 		],
-		'workflows' => [
+		'workflows'            => [
 			'file'  => 'plugins/workflows/plugin.php',
 			'title' => 'Workflows',
 		],

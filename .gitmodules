@@ -71,3 +71,6 @@
 [submodule "plugins/workflows"]
 	path = plugins/workflows
 	url = https://github.com/humanmade/Workflows.git
+[submodule "plugins/polylang"]
+	path = plugins/polylang
+	url = https://github.com/humanmade/polylang.git
