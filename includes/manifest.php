@@ -196,8 +196,15 @@ function get_plugin_manifest() {
 			'title' => 'ElasticPress',
 		],
 		'multilingualpress'    => [
-			'file'  => 'plugins/multilingualpress/multilingual-press.php',
-			'title' => 'MultilingualPress',
+			'file'     => 'plugins/multilingualpress/multilingual-press.php',
+			'title'    => 'MultilingualPress',
+			'activate' => function () {
+				add_filter( 'multilingualpress.force_system_check', '__return_true' );
+				add_filter( 'multilingualpress.force_install', '__return_true' );
+			},
+			'settings' => [
+				'disable-recruitment-notice' => true,
+			],
 		],
 		'custom-meta-boxes'    => [
 			'file'  => 'plugins/cmb2/init.php',
@@ -239,4 +246,3 @@ function get_plugin_manifest() {
 
 	return $manifest;
 }
-

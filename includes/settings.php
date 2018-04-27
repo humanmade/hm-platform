@@ -48,3 +48,8 @@ add_action( 'hm.platform.google-tag-manager.settings', function ( $settings = []
 		}
 	}
 } );
+
+// MLP Settings.
+add_action( 'hm.platform.multilingualpress.settings', function () {
+	remove_action( 'inpsyde_mlp_loaded', 'mlp_register_become_inpsyder_admin_notice' );
+} );

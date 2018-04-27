@@ -51,8 +51,8 @@ function load_enabled_plugins() {
 		}
 
 		$plugin = array_merge( [
-			'loader'   => function ( $plugin ) {
-				add_action( 'muplugins_loaded', function () use ( $plugin ) {
+			'loader'   => function ( $plugin, $name ) {
+				add_action( 'muplugins_loaded', function () use ( $name, $plugin ) {
 					require $plugin['file'];
 				} );
 			},
@@ -66,6 +66,18 @@ function load_enabled_plugins() {
 
 		// Load plugin.
 		$plugin['loader']( $plugin, $name );
+
+		// Run an activation callback if not run before.
+		add_action( 'muplugins_loaded', function () use ( $plugin, $name ) {
+			if (
+				isset( $plugin['activate'] ) &&
+				is_callable( $plugin['activate'] ) &&
+				empty( get_site_option( "hm.platform.activated.{$name}" ) )
+			) {
+				update_site_option( "hm.platform.activated.{$name}", true );
+				call_user_func( $plugin['activate'], $plugin, $name );
+			}
+		} );
 
 		// Do settings.
 		if ( empty( $plugin['settings'] ) ) {
