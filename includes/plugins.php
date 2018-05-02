@@ -84,6 +84,14 @@ function load_enabled_plugins() {
 			continue;
 		}
 
+		/**
+		 * Called during config for early settings processing. Useful
+		 * if you want to define constants based on settings.
+		 *
+		 * @param array $settings The plugin's settings.
+		 */
+		do_action( "hm.platform.{$name}.settings.early", $plugin['settings'] );
+
 		add_action( 'muplugins_loaded', function () use ( $name, $plugin ) {
 			/**
 			 * Called after all platform plugins have loaded, allows

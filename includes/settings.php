@@ -30,7 +30,7 @@ add_action( 'hm.platform.google-tag-manager.settings', function ( $settings = []
 	}
 
 	if ( $settings['container-id'] ) {
-		// Per site conatainers.
+		// Per site containers.
 		if ( is_array( $settings['container-id'] ) ) {
 			foreach ( $settings['container-id'] as $url => $id ) {
 				if ( strpos( get_home_url(), $url ) === false ) {
@@ -53,3 +53,112 @@ add_action( 'hm.platform.google-tag-manager.settings', function ( $settings = []
 add_action( 'hm.platform.multilingualpress.settings', function () {
 	remove_action( 'inpsyde_mlp_loaded', 'mlp_register_become_inpsyder_admin_notice' );
 } );
+
+// ElasticPress.
+add_action( 'hm.platform.elasticpress.settings.early', function ( $settings = [] ) {
+
+	// Disable elasticpress.io warnings.
+	add_filter( 'ep_feature_requirements_status', function ( $status, $feature ) {
+		$status->message = array_filter( (array) $status->message, function ( $message ) {
+			return ! preg_match( '#elasticpress\.io#i', $message );
+		} );
+
+		// Prevent documents being auto enabled.
+		if ( 'documents' === $feature ) {
+			$plugins = ep_get_elasticsearch_plugins();
+
+			$status->code = 2;
+
+			// Ingest attachment plugin is required for this feature.
+			if ( empty( $plugins ) || empty( $plugins['ingest-attachment'] ) ) {
+				$status->message[] = __( 'The <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/master/ingest-attachment.html">Ingest Attachment plugin</a> for Elasticsearch is not installed.', 'hm-platform' );
+			}
+		}
+
+		return $status;
+	}, 10, 2 );
+
+	// Put EP in network mode.
+	if ( isset( $settings['network'] ) && $settings['network'] ) {
+		add_action( 'muplugins_loaded', function () {
+			if ( is_multisite() ) {
+				defined( 'EP_IS_NETWORK' ) or define( 'EP_IS_NETWORK', true );
+			}
+		}, 9 );
+	}
+
+	// Preconfigure and handle autosuggest endpoint.
+	if ( isset( $settings['autosuggest'] ) && $settings['autosuggest'] ) {
+
+		// Filter EP settings.
+		add_action( 'ep_feature_setup', function ( $slug ) {
+			if ( 'autosuggest' !== $slug ) {
+				return;
+			}
+
+			$option_filter = function ( $settings ) use ( $slug ) {
+				if ( ! isset( $settings[ $slug ] ) ) {
+					return $settings;
+				}
+
+				$settings[ $slug ]['endpoint_url'] = get_home_url( null, '/autosuggest/' );
+
+				return $settings;
+			};
+
+			if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+				add_filter( 'site_option_ep_feature_settings', $option_filter );
+			} else {
+				add_filter( 'option_ep_feature_settings', $option_filter );
+			}
+		}, 10 );
+
+		// Handle request forwarding to ES.
+		add_action( 'template_redirect', function () {
+			if ( '/autosuggest' !== $_SERVER['REQUEST_URI'] ) {
+				return;
+			}
+
+			// if ( parse_url( $_SERVER['HTTP_ORIGIN'], PHP_URL_HOST ) !== parse_url( get_home_url(), PHP_URL_HOST ) ) {
+			// 	wp_send_json( [] );
+			// }
+
+			// Validate data.
+			$json = json_decode( file_get_contents( 'php://input' ), true );
+			if ( ! $json ) {
+				wp_send_json( [] );
+			}
+
+			// Force post filter value.
+			$json['post_filter'] = [
+				"bool" => [
+					"must" => [
+						[
+							"term" => [
+								"post_status" => "publish",
+							],
+						],
+						[
+							"terms" => [
+								"post_type.raw" => array_values( ep_get_searchable_post_types() ),
+							],
+						],
+					],
+				],
+			];
+
+			// Pass to EP.
+			$response = ep_remote_request( ep_get_index_name() . '/post/_search', [
+				'body'   => json_encode( $json ),
+				'method' => 'POST',
+			] );
+
+			$body = wp_remote_retrieve_body( $response );
+			$data = json_decode( $body, true );
+
+			// Return JSON response.
+			wp_send_json( $data );
+		} );
+	}
+} );
+

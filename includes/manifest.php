@@ -194,6 +194,10 @@ function get_plugin_manifest() {
 		'elasticpress'         => [
 			'file'  => 'plugins/elasticpress/elasticpress.php',
 			'title' => 'ElasticPress',
+			'settings' => [
+				'network'     => true,
+				'autosuggest' => true,
+			],
 		],
 		'multilingualpress'    => [
 			'file'     => 'plugins/multilingualpress/multilingual-press.php',
