@@ -6,6 +6,13 @@ if ( ! defined( 'WP_CACHE' ) ) {
 	define( 'WP_CACHE', true );
 }
 
+if ( get_config()['xray'] && function_exists( 'xhprof_sample_enable' ) && ( ! defined( 'WP_CLI' ) || ! WP_CLI ) ) {
+	global $hm_platform_xray_start_time;
+	$hm_platform_xray_start_time = microtime( true );
+	ini_set( 'xhprof.sampling_interval', 5000 );
+	xhprof_sample_enable();
+}
+
 // Load the platform as soon as WP is loaded.
 $GLOBALS['wp_filter']['enable_wp_debug_mode_checks'][10]['hm_platform'] = array(
 	'function' => __NAMESPACE__ . '\\bootstrap',
@@ -83,6 +90,7 @@ function get_config() {
 		'memcached'       => true,
 		'redis'           => false,
 		'ludicrousdb'     => true,
+		'xray'            => false,
 		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
@@ -156,6 +164,7 @@ function get_available_plugins() {
 		'tachyon'         => 'tachyon/tachyon.php',
 		'cavalcade'       => 'cavalcade/plugin.php',
 		'redis'           => 'wp-redis/wp-redis.php',
+		'xray'            => 'aws-xray/plugin.php',
 	);
 }
 

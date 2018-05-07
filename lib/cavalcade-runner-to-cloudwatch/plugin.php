@@ -91,6 +91,7 @@ function on_end_job( Worker $worker, Job $job, string $status ) {
 				'status'   => $status,
 				'stdout'   => $output,
 				'stderr'   => $error_output,
+				'duration' => $duration,
 			] ),
 		],
 		HM_ENV . '/cavalcade',

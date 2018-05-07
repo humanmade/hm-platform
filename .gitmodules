@@ -22,3 +22,6 @@
 [submodule "plugins/wp-redis"]
 	path = plugins/wp-redis
 	url = https://github.com/pantheon-systems/wp-redis.git
+[submodule "plugins/aws-xray"]
+	path = plugins/aws-xray
+	url = git@github.com:humanmade/aws-xray.git
