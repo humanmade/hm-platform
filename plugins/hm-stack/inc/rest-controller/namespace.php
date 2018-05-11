@@ -36,7 +36,7 @@ function register_routes() {
 	// Fetch bandwidth usage for this site.
 	register_rest_route( $namespace, 'bandwidth-usage', [
 		'methods'  => WP_REST_Server::READABLE,
-		'callback' => __NAMESPACE__ . '\\get_bandwidth',
+		'callback' => __NAMESPACE__ . '\\get_bandwidth_usage',
 		'args'     => [
 			'context' => [
 				'default' => 'view',
@@ -140,7 +140,33 @@ function get_wp_error_for_hm_stack_return( WP_Error $error ) : WP_Error {
 /**
  * @todo:: Need more information to fetch this data.
  */
-function get_bandwidth_usage() {}
+function get_bandwidth_usage() {
+	// Check our cache first.
+	$data = wp_cache_get( 'bandwidth', 'hm-stack' );
+	if ( $data !== false ) {
+		return new WP_REST_Response( $data );
+	}
+
+	$bandwidth_usage = API\get_bandwidth_usage();
+
+	// If we've errored out, return a human-friendly message and code.
+	if ( is_wp_error( $bandwidth_usage ) ) {
+		// Prevent constant re-fetching in the event of a failure.
+		wp_cache_set( 'activity', $bandwidth_usage, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
+		return get_wp_error_for_hm_stack_return( $bandwidth_usage );
+	}
+
+	$bandwidth_usage = array_map( function( $item ) {
+		return [
+			'date' => $item['date'],
+			'usage' => $item['value']
+		];
+	}, $bandwidth_usage );
+
+	wp_cache_set( 'bandwidth', $bandwidth_usage, 'hm-stack', 12 * \HOUR_IN_SECONDS );
+
+	return new WP_REST_Response( $bandwidth_usage );
+}
 
 /**
  * Send off environmental data about the site such as current git branch and PHP version.
@@ -243,6 +269,39 @@ function get_pull_requests() {
 }
 
 /**
- * @todo:: Need more information to fetch this data.
+ * Gets the page generation timeslice data from the past 30 days.
+ *
+ *
  */
-function get_page_generation_time() {}
+function get_page_generation_time() {
+	// Check our cache first.
+	$data = wp_cache_get( 'page-generation', 'hm-stack' );
+	if ( $data !== false ) {
+		return new WP_REST_Response( $data );
+	}
+
+	$metrics = API\get_page_generation_time();
+
+	// If we've errored out, return a human-friendly message and code.
+	if ( is_wp_error( $metrics ) ) {
+		// Prevent constant re-fetching in the event of a failure.
+		wp_cache_set( 'activity', $metrics, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
+		return get_wp_error_for_hm_stack_return( $metrics );
+	}
+
+	return $metrics;
+
+	$page_generation_time = array_map(
+		function( $item ) {
+			return [
+				'date' => $item['from'],
+				'time' => $item['values']['average_response_time'],
+			];
+		},
+		$metrics['page-generation-graph']
+	);
+
+	wp_cache_set( 'page-generation', $page_generation_time, 'hm-stack', 12 * \HOUR_IN_SECONDS );
+
+	return new WP_REST_Response( $page_generation_time );
+}
