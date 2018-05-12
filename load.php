@@ -6,6 +6,13 @@ if ( ! defined( 'WP_CACHE' ) ) {
 	define( 'WP_CACHE', true );
 }
 
+if ( get_config()['xray'] && function_exists( 'xhprof_sample_enable' ) && ( ! defined( 'WP_CLI' ) || ! WP_CLI ) ) {
+	global $hm_platform_xray_start_time;
+	$hm_platform_xray_start_time = microtime( true );
+	ini_set( 'xhprof.sampling_interval', 5000 );
+	xhprof_sample_enable();
+}
+
 // Load the platform as soon as WP is loaded.
 $GLOBALS['wp_filter']['enable_wp_debug_mode_checks'][10]['hm_platform'] = array(
 	'function' => __NAMESPACE__ . '\\bootstrap',
@@ -21,13 +28,18 @@ if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && get_config()['cavalcade'
 function boostrap_cavalcade_runner() {
 	// Load the common AWS SDK. bootstrap() is not called in this context.
 	require_once __DIR__ . '/lib/aws-sdk/aws-autoloader.php';
-	require_once __DIR__ . '/lib/cavalcade-runner-to-cloudwatch/plugin.php';
+	if ( defined( 'HM_ENV' ) && HM_ENV ) {
+		require_once __DIR__ . '/lib/cavalcade-runner-to-cloudwatch/plugin.php';
+	}
 }
 
 /**
  * Bootstrap the platform pieces.
+ *
+ * This function is hooked into to enable_wp_debug_mode_checks so we have to return the value
+ * that was passed in at the end of the function.
  */
-function bootstrap() {
+function bootstrap( $wp_debug_enabled ) {
 	// Load the common AWS SDK.
 	require __DIR__ . '/lib/aws-sdk/aws-autoloader.php';
 
@@ -40,6 +52,16 @@ function bootstrap() {
 		die( 'HM Platform is only supported on WordPress 4.6+.' );
 	}
 
+	// Disable indexing when not in production
+	$disable_indexing = (
+		( ! defined( 'HM_ENV_TYPE' ) || HM_ENV_TYPE !== 'production' )
+		&&
+		( ! defined( 'HM_DISABLE_INDEXING' ) || HM_DISABLE_INDEXING )
+	);
+	if ( $disable_indexing ) {
+		add_action( 'pre_option_blog_public', '__return_zero' );
+	}
+
 	add_filter( 'enable_loading_advanced_cache_dropin', __NAMESPACE__ . '\\load_advanced_cache', 10, 1 );
 	add_action( 'muplugins_loaded', __NAMESPACE__ . '\\load_plugins' );
 
@@ -47,6 +69,10 @@ function bootstrap() {
 		require __DIR__ . '/admin.php';
 		Admin\bootstrap();
 	}
+
+	require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
+
+	return $wp_debug_enabled;
 }
 
 /**
@@ -64,7 +90,10 @@ function get_config() {
 		'cavalcade'       => true,
 		'batcache'        => true,
 		'memcached'       => true,
+		'redis'           => false,
 		'ludicrousdb'     => true,
+		'xray'            => false,
+		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
@@ -75,12 +104,18 @@ function get_config() {
 function load_object_cache() {
 	$config = get_config();
 
-	if ( ! $config['memcached'] ) {
+	if ( ! $config['memcached'] && ! $config['redis'] ) {
 		return;
 	}
 
 	wp_using_ext_object_cache( true );
-	require __DIR__ . '/dropins/wordpress-pecl-memcached-object-cache/object-cache.php';
+	if( $config['memcached'] ) {
+		require __DIR__ . '/dropins/wordpress-pecl-memcached-object-cache/object-cache.php';
+	} else if ( $config['redis'] ) {
+		require __DIR__ . '/dropins/wp-redis-predis-client/vendor/autoload.php';
+		\WP_Predis\add_filters();
+		require __DIR__ . '/plugins/wp-redis/object-cache.php';
+	}
 
 	// cache must be initted once it's included, else we'll get a fatal.
 	wp_cache_init();
@@ -130,6 +165,8 @@ function get_available_plugins() {
 		'aws-ses-wp-mail' => 'aws-ses-wp-mail/aws-ses-wp-mail.php',
 		'tachyon'         => 'tachyon/tachyon.php',
 		'cavalcade'       => 'cavalcade/plugin.php',
+		'redis'           => 'wp-redis/wp-redis.php',
+		'xray'            => 'aws-xray/plugin.php',
 	);
 }
 
@@ -138,6 +175,14 @@ function get_available_plugins() {
  */
 function load_plugins() {
 	$config = get_config();
+
+	add_filter( 'plugins_url', function ( $url, $path, $plugin ) {
+		if ( strpos( $plugin, __DIR__ ) === false ) {
+			return $url;
+		}
+
+		return str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( $plugin ) ) . $path;
+	}, 10, 3 );
 
 	// Force DISABLE_WP_CRON for Cavalcade.
 	if ( $config['cavalcade'] && ! defined( 'DISABLE_WP_CRON' ) ) {
@@ -151,4 +196,33 @@ function load_plugins() {
 
 		require __DIR__ . '/plugins/' . $file;
 	}
+
+	if ( ! empty( $config['elasticsearch'] ) ) {
+		require_once __DIR__ . '/lib/elasticpress-integration.php';
+		ElasticPress_Integration\bootstrap();
+	}
+}
+
+/**
+ * Get a globally configured instance of the AWS SDK.
+ */
+function get_aws_sdk() {
+	static $sdk;
+	if ( $sdk ) {
+		return $sdk;
+	}
+
+	$params = [
+		'region'   => HM_ENV_REGION,
+		'version'  => 'latest',
+	];
+
+	if ( defined( 'AWS_KEY' ) ) {
+		$params['credentials'] = [
+			'key'    => AWS_KEY,
+			'secret' => AWS_SECRET,
+		];
+	}
+	$sdk = new \Aws\Sdk( $params );
+	return $sdk;
 }

@@ -19,3 +19,9 @@
 [submodule "plugins/tachyon"]
 	path = plugins/tachyon
 	url = https://github.com/humanmade/tachyon-plugin.git
+[submodule "plugins/wp-redis"]
+	path = plugins/wp-redis
+	url = https://github.com/pantheon-systems/wp-redis.git
+[submodule "plugins/aws-xray"]
+	path = plugins/aws-xray
+	url = git@github.com:humanmade/aws-xray.git
