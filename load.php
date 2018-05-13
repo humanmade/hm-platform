@@ -45,8 +45,6 @@ function bootstrap( $wp_debug_enabled ) {
 
 	load_object_cache();
 
-	require __DIR__ . '/lib/healthcheck.php';
-
 	global $wp_version;
 	if ( version_compare( '4.6', $wp_version, '>' ) ) {
 		die( 'HM Platform is only supported on WordPress 4.6+.' );
@@ -94,6 +92,7 @@ function get_config() {
 		'ludicrousdb'     => true,
 		'xray'            => false,
 		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
+		'healthcheck'     => true,
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
@@ -167,6 +166,7 @@ function get_available_plugins() {
 		'cavalcade'       => 'cavalcade/plugin.php',
 		'redis'           => 'wp-redis/wp-redis.php',
 		'xray'            => 'aws-xray/plugin.php',
+		'healthcheck'     => 'healthcheck/plugin.php',
 	);
 }
 
