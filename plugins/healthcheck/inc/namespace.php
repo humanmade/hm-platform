@@ -28,6 +28,8 @@ function output_page( array $checks ) {
 	if ( ! $passed ) {
 		http_response_code( 500 );
 	}
+	nocache_headers();
+
 	if ( ! empty( $_SERVER['HTTP_ACCEPT'] ) && $_SERVER['HTTP_ACCEPT'] === 'application/json' ) {
 		echo json_encode( $checks );
 		exit;
