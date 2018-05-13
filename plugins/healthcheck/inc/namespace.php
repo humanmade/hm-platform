@@ -69,6 +69,8 @@ function run_checks() : array {
 		$checks['elasticsearch'] = run_elasticsearch_healthcheck();
 	}
 
+	$checks = apply_filters( 'hm_platform_healthchecks', $healtchecks );
+
 	return $checks;
 }
 
