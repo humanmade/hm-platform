@@ -92,6 +92,7 @@ function get_config() {
 		'ludicrousdb'     => true,
 		'xray'            => false,
 		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
+		'healthcheck'     => true,
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
@@ -165,6 +166,7 @@ function get_available_plugins() {
 		'cavalcade'       => 'cavalcade/plugin.php',
 		'redis'           => 'wp-redis/wp-redis.php',
 		'xray'            => 'aws-xray/plugin.php',
+		'healthcheck'     => 'healthcheck/plugin.php',
 	);
 }
 
