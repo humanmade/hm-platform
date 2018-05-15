@@ -1,5 +1,8 @@
 ## Changelog
 
+### 1.2.8
+- Add `/healthcheck/` endpoint
+
 ### 1.2.7
 - Disable search engine indexing by default on non-production environments
     - This feature can be disabled by setting `HM_DISABLE_INDEXING` to `false`
