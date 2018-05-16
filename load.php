@@ -44,6 +44,7 @@ function bootstrap( $wp_debug_enabled ) {
 	require __DIR__ . '/lib/aws-sdk/aws-autoloader.php';
 
 	load_object_cache();
+	load_db();
 
 	global $wp_version;
 	if ( version_compare( '4.6', $wp_version, '>' ) ) {
@@ -142,15 +143,14 @@ function load_advanced_cache( $should_load ) {
 function load_db() {
 	$config = get_config();
 
-	if ( ! $config['ludicrousdb'] ) {
+	if ( ! $config['xray'] ) {
 		return;
 	}
 
-	if ( ! defined( 'DB_CONFIG_FILE' ) ) {
-		define( 'DB_CONFIG_FILE', __DIR__ . '/dropins/db-config.php' );
-	}
-
-	require __DIR__ . '/dropins/ludicrousdb/ludicrousdb.php';
+	require_once ABSPATH . WPINC . '/wp-db.php';
+	require __DIR__ . '/plugins/aws-xray/inc/class-db.php';
+	global $wpdb;
+	$wpdb = new XRay\DB( DB_USER, DB_PASSWORD, DB_NAME, DB_HOST );
 }
 
 /**
