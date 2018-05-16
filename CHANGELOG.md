@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.2.9
+- Update AWS Xray plugin to 1.0.0
+    - Split up segments into chunks to avoid socket_sento error.
+
 ### 1.2.8
 - Add `/healthcheck/` endpoint
 
