@@ -1,5 +1,10 @@
 ## Changelog
 
+### 1.2.10
+- Include DB dropin for Xray
+- Update S3 Uploads
+    - Includes getID3 library fixes
+
 ### 1.2.9
 - Update AWS Xray plugin to 1.0.0
     - Split up segments into chunks to avoid socket_sento error.
