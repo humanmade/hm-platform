@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.2.11
+- Update S3 Uploads
+    - Fix for processing images in PDFs
+
 ### 1.2.10
 - Include DB dropin for Xray
 - Update S3 Uploads
