@@ -65,7 +65,7 @@ function get_environment_data() {
  * Example URL: https://us-east-1.aws.hmn.md/api/stack/applications/encompass-development/pull-requests
  */
 function get_pull_requests() {
-	return query_api( 'pull-requests' );
+	return (array) query_api( 'pull-requests' );
 }
 
 /**

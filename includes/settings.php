@@ -6,12 +6,24 @@
 namespace HM\Platform\Settings;
 
 // WP SEO settings.
+use const HM\Platform\ROOT_DIR;
+
 add_action( 'hm.platform.seo.settings', function ( $settings ) {
 	// Hide the admin settings page.
 	if ( ! empty( $settings['hide-settings-page'] ) ) {
 		add_action( 'admin_menu', function () {
 			remove_submenu_page( 'options-general.php', 'wp-seo' );
 		}, 20 );
+	}
+} );
+
+add_action( 'hm.platform.seo.settings.early', function ( $settings ) {
+	// Fake premium.
+	if ( isset( $settings['fake-premium'] ) && $settings['fake-premium'] ) {
+		require_once ROOT_DIR . '/lib/wordpress-seo/bootstrap.php';
+		
+		defined( 'WPSEO_PREMIUM_FILE' ) or define( 'WPSEO_PREMIUM_FILE', true );
+		defined( 'WPSEO_PREMIUM_PLUGIN_FILE' ) or define( 'WPSEO_PREMIUM_PLUGIN_FILE', true );
 	}
 } );
 

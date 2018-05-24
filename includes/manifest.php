@@ -177,11 +177,19 @@ function get_plugin_manifest() {
 			'title' => 'Related posts',
 		],
 		'seo'                  => [
-			'file'     => 'plugins/wp-seo/wp-seo.php',
+			'file'     => 'plugins/wordpress-seo/wp-seo.php',
 			'title'    => 'SEO',
 			'settings' => [
+				'fake-premium'       => true,
 				'hide-settings-page' => true,
 			],
+			'activate' => function () {
+				if ( ! is_multisite() ) {
+					_wpseo_activate();
+				} else {
+					wpseo_network_activate_deactivate( true );
+				}
+			}
 		],
 		'redirects'            => [
 			'file'  => 'plugins/hm-redirects/hm-redirects.php',
@@ -252,7 +260,7 @@ function get_plugin_manifest() {
 		'workflows'            => [
 			'file'  => 'plugins/workflows/plugin.php',
 			'title' => 'Workflows',
-		],
+		]
 	];
 
 	return $manifest;
