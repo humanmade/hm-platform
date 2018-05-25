@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.2.12
+- Update XRay to 1.0.1
+    - Only add Trace ID to non-SELECT MySQL queries
+
 ### 1.2.11
 - Update S3 Uploads
     - Fix for processing images in PDFs
