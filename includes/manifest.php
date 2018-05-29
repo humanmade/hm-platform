@@ -16,6 +16,7 @@ namespace HM\Platform;
  *      'title'    => (string)   Optional human readable name, if set plugin will show in UI.
  *      'loader'   => (callable) Optional custom loading function.
  *      'settings' => (array)    Optional Key value pairs of settings and their default values.
+ *      'activate' => (callable) Optional function to be run once on first activation.
  *    ]
  *  ]
  *
@@ -116,6 +117,40 @@ function get_plugin_manifest() {
 				} );
 			},
 		],
+		'xray'                 => [
+			'file'    => 'plugins/aws-xray/plugin.php',
+			'title'   => 'X-Ray',
+			'enabled' => false,
+			'loader'  => function ( $plugin ) {
+				if ( function_exists( 'xhprof_sample_enable' ) && ( ! defined( 'WP_CLI' ) || ! WP_CLI ) ) {
+					// Start sampling.
+					global $hm_platform_xray_start_time;
+					$hm_platform_xray_start_time = microtime( true );
+					ini_set( 'xhprof.sampling_interval', 5000 );
+					xhprof_sample_enable();
+
+					// Load DB replacement.
+					add_filter( 'enable_wp_debug_mode_checks', function ( $enable_wp_debug_mode ) {
+						require_once ABSPATH . WPINC . '/wp-db.php';
+						require ROOT_DIR . '/plugins/aws-xray/inc/class-db.php';
+
+						global $wpdb;
+						$wpdb = new XRay\DB( DB_USER, DB_PASSWORD, DB_NAME, DB_HOST );
+
+						return $enable_wp_debug_mode;
+					} );
+
+					// Load main plugin.
+					add_action( 'muplugins_loaded', function () use ( $plugin ) {
+						require_once $plugin['file'];
+					} );
+				}
+			},
+		],
+		'healthcheck'          => [
+			'file'    => 'plugins/healthcheck/plugin.php',
+			'enabled' => true,
+		],
 		'aws-ses-wp-mail'      => [
 			'file'    => 'plugins/aws-ses-wp-mail/aws-ses-wp-mail.php',
 			'title'   => 'AWS Mail',
@@ -133,7 +168,7 @@ function get_plugin_manifest() {
 		],
 		'platform-ui'          => [
 			'file'    => 'plugins/hm-platform-ui/admin.php',
-			'enabled' => true,
+			'enabled' => false,
 		],
 		'hm-stack-api'         => [
 			'enabled' => true,
@@ -189,7 +224,7 @@ function get_plugin_manifest() {
 				} else {
 					wpseo_network_activate_deactivate( true );
 				}
-			}
+			},
 		],
 		'redirects'            => [
 			'file'  => 'plugins/hm-redirects/hm-redirects.php',
@@ -200,8 +235,8 @@ function get_plugin_manifest() {
 			'title' => 'Bylines',
 		],
 		'elasticpress'         => [
-			'file'  => 'plugins/elasticpress/elasticpress.php',
-			'title' => 'ElasticPress',
+			'file'     => 'plugins/elasticpress/elasticpress.php',
+			'title'    => 'ElasticPress',
 			'settings' => [
 				'network'     => true,
 				'autosuggest' => true,
@@ -209,7 +244,6 @@ function get_plugin_manifest() {
 		],
 		'multilingualpress'    => [
 			'file'     => 'plugins/multilingualpress/multilingual-press.php',
-			'title'    => 'MultilingualPress',
 			'activate' => function () {
 				add_filter( 'multilingualpress.force_system_check', '__return_true' );
 				add_filter( 'multilingualpress.force_install', '__return_true' );
@@ -260,7 +294,7 @@ function get_plugin_manifest() {
 		'workflows'            => [
 			'file'  => 'plugins/workflows/plugin.php',
 			'title' => 'Workflows',
-		]
+		],
 	];
 
 	return $manifest;

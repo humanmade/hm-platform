@@ -1,5 +1,70 @@
 ## Changelog
 
+### 2.0.0
+- `hm.json` configuration support
+    - New config handler, backwards compatible with `$hm_platform` global
+    - New plugin loader
+    - New plugin manifest file, defines names, default enabled value, file to load, and optional loader function
+    - New settings file, certain plugins can be configured via `hm.json`
+- Enterprise Kit
+    - Added Bylines
+    - Added CMB2
+    - Added ElasticPress
+    - Added Extended CPTs
+    - Added Gutenberg
+    - Added HM GTM
+    - Added Platform UI
+    - Added HM Redirects
+    - Added HM Related Posts
+    - Added HM Stack
+    - Added Media Explorer
+    - Added MSM Sitemap
+    - Added Performance plugin (platform wide defaults eg. hiding custom fields metabox)
+    - Added Polylang
+    - Added Publishing Checklist
+    - Added Query Monitor
+    - Added WordPress SEO & bootstrap code
+    - Added Workflows
+
+### 1.2.12
+- Update XRay to 1.0.1
+    - Only add Trace ID to non-SELECT MySQL queries
+
+### 1.2.11
+- Update S3 Uploads
+    - Fix for processing images in PDFs
+
+### 1.2.10
+- Include DB dropin for Xray
+- Update S3 Uploads
+    - Includes getID3 library fixes
+
+### 1.2.9
+- Update AWS Xray plugin to 1.0.0
+    - Split up segments into chunks to avoid socket_sento error.
+
+### 1.2.8
+- Add `/healthcheck/` endpoint
+
+### 1.2.7
+- Disable search engine indexing by default on non-production environments
+    - This feature can be disabled by setting `HM_DISABLE_INDEXING` to `false`
+
+
+### 1.2.6
+- Update AWS SES plugin to 0.1.1
+    - Fix escaping in From email address
+
+### 1.2.5
+
+- Update Tachyon
+    - Fix bug with srcset and custom gravity
+
+### 1.2.4
+
+- Update Tachyon
+    - Add support for gravity / crop positions on custom image sizes
+
 ### 1.2.3
 
 - Update S3 Uploads

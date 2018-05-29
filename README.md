@@ -5,7 +5,7 @@
 			Shared library for sites on the Human Made Platform.
 		</td>
 		<td align="right" width="20%">
-			Version 1.2.3
+			Version 2.0.0
 		</td>
 	</tr>
 	<tr>
@@ -36,12 +36,20 @@ it as a git submodule.
 
 ### Configuring Activated Modules
 
-To optionally disable any of the platform modules, you can define the `global $hm_platform`
-variable setting any of the following to false:
+To optionally enable or disable any of the platform modules you can create a file called `hm.json`
+and place it in your root directory or content directory. You can also override the settings depending
+on your environment, for example `hm.local.json` will override settings when working locally.
 
+#### Legacy Configuration 
+
+Previously you could define the `global $hm_platform` variable. This is still supported but we recommend
+updating to use `hm.json`.
+
+You can set any of the following to false:
 
 ```php
-$defaults = array(
+global $hm_platform;
+$hm_platform = array_merge( $hm_platform, array(
 	's3-uploads'      => true,
 	'aws-ses-wp-mail' => true,
 	'tachyon'         => true,
@@ -49,5 +57,15 @@ $defaults = array(
 	'batcache'        => true,
 	'memcached'       => true,
 	'ludicrousdb'     => true,
-);
+) );
 ```
+
+### Search Engine Indexing
+
+By default, hm-platform will force disable indexing by search engines on any non-production environment. If you wish to disable this feature, add the following to your config:
+
+```php
+define( 'HM_DISABLE_INDEXING', false );
+```
+
+This will fall back to whatever the `blog_public` option value is in the database.
