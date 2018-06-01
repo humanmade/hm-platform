@@ -42,3 +42,9 @@ add_action( 'admin_enqueue_scripts', function () {
 	.wpseo-tab-add-keyword { display: none !important; }
 	' );
 }, 11 );
+
+// Remove premium item from admin bar menu.
+add_action( 'admin_bar_menu', function () {
+	global $wp_admin_bar;
+	$wp_admin_bar->remove_menu( 'wpseo-licenses' );
+}, 200 );
