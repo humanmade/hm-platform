@@ -80,9 +80,6 @@ function load_enabled_plugins() {
 		} );
 
 		// Do settings.
-		if ( empty( $plugin['settings'] ) ) {
-			continue;
-		}
 
 		/**
 		 * Called during config for early settings processing. Useful
