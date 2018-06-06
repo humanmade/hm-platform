@@ -38,7 +38,7 @@ add_filter( 'wpseo_help_center_items', function ( $help_center_items ) {
 
 // Hide the add keyword tab.
 add_action( 'admin_enqueue_scripts', function () {
-	wp_add_inline_style( WPSEO_Admin_Asset_Manager::PREFIX . 'metabox-css', '
+	wp_add_inline_style( 'yoast-seo-metabox-css', '
 	.wpseo-tab-add-keyword { display: none !important; }
 	' );
 }, 11 );
@@ -48,3 +48,8 @@ add_action( 'admin_bar_menu', function () {
 	global $wp_admin_bar;
 	$wp_admin_bar->remove_menu( 'wpseo-licenses' );
 }, 200 );
+
+// Remove network extensions page.
+add_action( 'network_admin_menu', function () {
+	remove_submenu_page( 'wpseo_dashboard', 'wpseo_licenses' );
+} );
