@@ -89,7 +89,7 @@ function get_plugin_manifest() {
 					wp_cache_init();
 
 					return $wp_debug_enabled;
-				}, 11 );
+				} );
 			},
 		],
 		'batcache'             => [
