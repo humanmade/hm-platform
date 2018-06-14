@@ -23,7 +23,7 @@ function bootstrap() {
  */
 function alter_columns( $columns ) {
 	global $status;
-	if ( $_REQUEST['plugin_status'] !== 'platform' ) {
+	if ( empty( $_REQUEST['plugin_status'] ) || $_REQUEST['plugin_status'] !== 'platform' ) {
 		return $columns;
 	}
 
