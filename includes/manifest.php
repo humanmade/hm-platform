@@ -82,6 +82,7 @@ function get_plugin_manifest() {
 					wp_using_ext_object_cache( true );
 
 					require ROOT_DIR . '/dropins/wp-redis-predis-client/vendor/autoload.php';
+					require ROOT_DIR . '/plugins/wp-redis/wp-redis.php';
 					\WP_Predis\add_filters();
 					require $plugin['file'];
 
