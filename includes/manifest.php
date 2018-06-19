@@ -115,7 +115,7 @@ function get_plugin_manifest() {
 					require $plugin['file'];
 
 					return $should_load;
-				} );
+				}, 11 ); // Priority 11 to load after object cache.
 			},
 		],
 		'xray'                 => [
