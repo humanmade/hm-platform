@@ -6,6 +6,7 @@
     - New plugin loader
     - New plugin manifest file, defines names, default enabled value, file to load, and optional loader function
     - New settings file, certain plugins can be configured via `hm.json`
+	- Ensure Batcache is loaded after cache providers
 - Enterprise Kit
     - Added Bylines
     - Added CMB2
