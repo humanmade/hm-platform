@@ -64,7 +64,7 @@ function get_plugin_manifest() {
 					wp_cache_init();
 
 					return $wp_debug_enabled;
-				} );
+				}, 0 ); // Make sure this is run before everything else
 			},
 		],
 		'redis'                => [
@@ -90,7 +90,7 @@ function get_plugin_manifest() {
 					wp_cache_init();
 
 					return $wp_debug_enabled;
-				} );
+				}, 0 ); // Make sure this is run before everything else
 			},
 		],
 		'batcache'             => [
@@ -115,7 +115,7 @@ function get_plugin_manifest() {
 					require $plugin['file'];
 
 					return $should_load;
-				}, 11 ); // Priority 11 to load after object cache.
+				}, 5 ); // Load after Memcached/Redis, before everything else
 			},
 		],
 		'xray'                 => [
