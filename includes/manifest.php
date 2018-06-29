@@ -64,7 +64,7 @@ function get_plugin_manifest() {
 					wp_cache_init();
 
 					return $wp_debug_enabled;
-				} );
+				}, 0 ); // Make sure this is run before everything else
 			},
 		],
 		'redis'                => [
@@ -82,6 +82,7 @@ function get_plugin_manifest() {
 					wp_using_ext_object_cache( true );
 
 					require ROOT_DIR . '/dropins/wp-redis-predis-client/vendor/autoload.php';
+					require ROOT_DIR . '/plugins/wp-redis/wp-redis.php';
 					\WP_Predis\add_filters();
 					require $plugin['file'];
 
@@ -89,7 +90,7 @@ function get_plugin_manifest() {
 					wp_cache_init();
 
 					return $wp_debug_enabled;
-				}, 11 );
+				}, 0 ); // Make sure this is run before everything else
 			},
 		],
 		'batcache'             => [
@@ -114,7 +115,7 @@ function get_plugin_manifest() {
 					require $plugin['file'];
 
 					return $should_load;
-				} );
+				}, 5 ); // Load after Memcached/Redis, before everything else
 			},
 		],
 		'xray'                 => [
