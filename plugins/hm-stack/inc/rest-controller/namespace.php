@@ -138,7 +138,9 @@ function get_wp_error_for_hm_stack_return( WP_Error $error ) : WP_Error {
 }
 
 /**
- * @todo:: Need more information to fetch this data.
+ * Retrieve bandwidth usage data from hm-stack.
+ *
+ *
  */
 function get_bandwidth_usage() {
 	// Check our cache first.
