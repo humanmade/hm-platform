@@ -19,18 +19,21 @@ function get_activity() {
 }
 
 /**
- * Get the total bandwidth consumed per day over the past month.
+ * Get timeslice date for total bandwidth consumed per day over the past month.
+ *
+ * Example URL: https://us-east-1.aws.hmn.md/api/stack/metrics/encompass-development/AWS/ApplicationELB/
  */
 function get_bandwidth_usage() {
 	$metrics_query = [
-		'name'      => 'NetworkIn',
+		'name'      => 'ProcessedBytes',
 		'period'    => DAY_IN_SECONDS,
 		'from'      => date( 'Y-m-d H:i:s', strtotime( '30 days ago' ) ),
-		'to'        => time(),
+		'to'        => date( 'Y-m-d H:i:s', time() ),
 		'statistic' => 'Sum',
+		'dimensions' => [ '%current_load_balancer%' ],
 	];
 
-	return query_metrics_api( 'AWS/EC2', $metrics_query );
+	return query_metrics_api( 'AWS/ApplicationELB', $metrics_query );
 }
 
 /**
@@ -40,11 +43,12 @@ function get_bandwidth_usage() {
  */
 function get_page_generation_time() {
 	$metrics_query = [
-		'name'      => 'TargetResponseTime',
-		'period'    => HOUR_IN_SECONDS,
-		'from'      => date( 'Y-m-d H:i:s', strtotime( '30 days ago' ) ),
-		'to'        => time(),
-		'statistic' => 'Average', // requires hm-stack updated to enable this statistic.
+		'name'       => 'TargetResponseTime',
+		'period'     => HOUR_IN_SECONDS,
+		'from'       => date( 'Y-m-d H:i:s', strtotime( '7 days ago' ) ),
+		'to'         => date( 'Y-m-d H:i:s', time() ),
+		'statistic'  => 'Average', // requires hm-stack updated to enable this statistic.
+		'dimensions' => [ '%current_load_balancer%' ],
 	];
 
 	return query_metrics_api( 'AWS/ApplicationELB', $metrics_query );
