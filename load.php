@@ -6,7 +6,12 @@ if ( ! defined( 'WP_CACHE' ) ) {
 	define( 'WP_CACHE', true );
 }
 
-if ( get_config()['xray'] && function_exists( 'xhprof_sample_enable' ) && ( ! defined( 'WP_CLI' ) || ! WP_CLI ) ) {
+if (
+	get_config()['xray']
+	&& function_exists( 'xhprof_sample_enable' )
+	&& ( ! defined( 'WP_CLI' ) || ! WP_CLI )
+	&& ! class_exists( 'HM\\Cavalcade\\Runner\\Runner' )
+) {
 	global $hm_platform_xray_start_time;
 	$hm_platform_xray_start_time = microtime( true );
 	ini_set( 'xhprof.sampling_interval', 5000 );
