@@ -200,9 +200,12 @@ function get_plugin_manifest() {
 			'title'   => 'S3 Uploads',
 		],
 		'tachyon'              => [
-			'file'    => 'plugins/tachyon/tachyon.php',
-			'enabled' => true,
-			'title'   => 'Tachyon',
+			'file'     => 'plugins/tachyon/tachyon.php',
+			'enabled'  => true,
+			'title'    => 'Tachyon',
+			'settings' => [
+				'smart-cropping' => true,
+			],
 		],
 		'sitemaps'             => [
 			'file'  => 'plugins/msm-sitemap/msm-sitemap.php',
@@ -312,6 +315,17 @@ function get_plugin_manifest() {
 		'workflows'            => [
 			'file'  => 'plugins/workflows/plugin.php',
 			'title' => 'Workflows',
+		],
+		'rekognition' => [
+			'file'     => 'plugins/aws-rekognition/plugin.php',
+			'title'    => 'Rekognition',
+			'settings' => [
+				'labels'      => true,
+				'moderation'  => false,
+				'faces'       => false,
+				'celebrities' => false,
+				'text'        => false,
+			],
 		],
 	];
 

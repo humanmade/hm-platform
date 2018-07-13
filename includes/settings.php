@@ -21,7 +21,7 @@ add_action( 'hm.platform.seo.settings.early', function ( $settings ) {
 	// Fake premium.
 	if ( isset( $settings['fake-premium'] ) && $settings['fake-premium'] ) {
 		require_once ROOT_DIR . '/lib/wordpress-seo/bootstrap.php';
-		
+
 		defined( 'WPSEO_PREMIUM_FILE' ) or define( 'WPSEO_PREMIUM_FILE', true );
 		defined( 'WPSEO_PREMIUM_PLUGIN_FILE' ) or define( 'WPSEO_PREMIUM_PLUGIN_FILE', true );
 	}
@@ -174,3 +174,39 @@ add_action( 'hm.platform.elasticpress.settings.early', function ( $settings = []
 	}
 } );
 
+// Tachyon.
+add_action( 'hm.platform.tachyon.settings', function ( $settings = [] ) {
+	// Enable smart cropping.
+	if ( $settings['smart-cropping'] ) {
+		add_filter( 'tachyon_pre_args', function ( $args ) {
+			if ( isset( $args['resize'] ) ) {
+				$args['crop_strategy'] = 'smart';
+			}
+			return $args;
+		} );
+	}
+} );
+
+// Rekognition.
+add_action( 'hm.platform.rekognition.settings', function ( $settings = [] ) {
+	// Toggle label detection.
+	if ( $settings['labels'] ) {
+		add_filter( 'hm.aws.rekognition.labels', $settings['labels'] ? '__return_true' : '__return_false' );
+	}
+	// Toggle moderation label detection.
+	if ( $settings['moderation'] ) {
+		add_filter( 'hm.aws.rekognition.labels', $settings['labels'] ? '__return_true' : '__return_false' );
+	}
+	// Toggle face detection.
+	if ( $settings['faces'] ) {
+		add_filter( 'hm.aws.rekognition.labels', $settings['labels'] ? '__return_true' : '__return_false' );
+	}
+	// Toggle celebrity detection.
+	if ( $settings['celebrities'] ) {
+		add_filter( 'hm.aws.rekognition.labels', $settings['labels'] ? '__return_true' : '__return_false' );
+	}
+	// Toggle text detection.
+	if ( $settings['text'] ) {
+		add_filter( 'hm.aws.rekognition.labels', $settings['labels'] ? '__return_true' : '__return_false' );
+	}
+} );

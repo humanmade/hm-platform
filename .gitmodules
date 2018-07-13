@@ -80,3 +80,6 @@
 [submodule "plugins/aws-xray"]
 	path = plugins/aws-xray
 	url = https://github.com/humanmade/aws-xray.git
+[submodule "plugins/aws-rekognition"]
+	path = plugins/aws-rekognition
+	url = git@github.com:humanmade/aws-rekognition.git
