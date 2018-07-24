@@ -316,7 +316,7 @@ function get_plugin_manifest() {
 			'file'  => 'plugins/workflows/plugin.php',
 			'title' => 'Workflows',
 		],
-		'rekognition' => [
+		'rekognition'          => [
 			'file'     => 'plugins/aws-rekognition/plugin.php',
 			'title'    => 'Rekognition',
 			'settings' => [
@@ -326,6 +326,10 @@ function get_plugin_manifest() {
 				'celebrities' => false,
 				'text'        => false,
 			],
+		],
+		'smart-media'          => [
+			'file'  => 'plugins/smart-media/plugin.php',
+			'title' => 'Smart Media',
 		],
 	];
 

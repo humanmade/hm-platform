@@ -83,3 +83,6 @@
 [submodule "plugins/aws-rekognition"]
 	path = plugins/aws-rekognition
 	url = git@github.com:humanmade/aws-rekognition.git
+[submodule "plugins/smart-media"]
+	path = plugins/smart-media
+	url = git@github.com:humanmade/smart-media.git
