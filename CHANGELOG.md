@@ -1,5 +1,14 @@
 ## Changelog
 
+### 1.2.13
+- Fix a PHP Warning in the plugins list table.
+- Update memcached to latest:
+    - Ensure cache servers keys and values match up when using multiple nodes.
+- Disable XHProf for Cavalcade-Runner.
+- Add composer.json for Composer compatibility.
+- Update Batcache to latest:
+    - Fix version check logic for cached documents.
+
 ### 1.2.12
 - Update XRay to 1.0.1
     - Only add Trace ID to non-SELECT MySQL queries
