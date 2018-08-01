@@ -210,3 +210,15 @@ add_action( 'hm.platform.rekognition.settings', function ( $settings = [] ) {
 		add_filter( 'hm.aws.rekognition.labels', $settings['labels'] ? '__return_true' : '__return_false' );
 	}
 } );
+
+// CMB2 fixes.
+add_action( 'hm.platform.cmb2.settings', function () {
+	// Fix asset URLs.
+	add_filter( 'cmb2_meta_box_url', function ( $url ) {
+		if ( false === strpos( $url, 'http' ) ) {
+			$url = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $url );
+		}
+
+		return $url;
+	} );
+} );

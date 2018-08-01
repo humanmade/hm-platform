@@ -222,18 +222,6 @@ function get_plugin_manifest() {
 				'fake-premium'       => true,
 				'hide-settings-page' => true,
 			],
-			'loader'   => function ( $plugin ) {
-				add_action( 'muplugins_loaded', function () use ( $plugin ) {
-					// Don't load SEO for a private site on a network.
-					if ( is_multisite() && get_option( 'blog_public' ) ) {
-						require_once $plugin['file'];
-					}
-
-					if ( ! is_multisite() ) {
-						require_once $plugin['file'];
-					}
-				} );
-			},
 			'activate' => function ( $plugin ) {
 				// Always load if we're activating.
 				if ( ! function_exists( '_wpseo_activate' ) ) {
@@ -280,7 +268,7 @@ function get_plugin_manifest() {
 				do_action( 'activate_' . ltrim( $plugin['file'], '/' ), true );
 			},
 		],
-		'custom-meta-boxes'    => [
+		'cmb2'                 => [
 			'file'  => 'plugins/cmb2/init.php',
 			'title' => 'Custom Meta Boxes',
 		],
