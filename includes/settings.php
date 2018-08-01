@@ -190,24 +190,24 @@ add_action( 'hm.platform.tachyon.settings', function ( $settings = [] ) {
 // Rekognition.
 add_action( 'hm.platform.rekognition.settings', function ( $settings = [] ) {
 	// Toggle label detection.
-	if ( $settings['labels'] ) {
+	if ( isset( $settings['labels'] ) ) {
 		add_filter( 'hm.aws.rekognition.labels', $settings['labels'] ? '__return_true' : '__return_false' );
 	}
 	// Toggle moderation label detection.
-	if ( $settings['moderation'] ) {
-		add_filter( 'hm.aws.rekognition.labels', $settings['labels'] ? '__return_true' : '__return_false' );
+	if ( isset( $settings['moderation'] ) ) {
+		add_filter( 'hm.aws.rekognition.moderation', $settings['moderation'] ? '__return_true' : '__return_false' );
 	}
 	// Toggle face detection.
-	if ( $settings['faces'] ) {
-		add_filter( 'hm.aws.rekognition.labels', $settings['labels'] ? '__return_true' : '__return_false' );
+	if ( isset( $settings['faces'] ) ) {
+		add_filter( 'hm.aws.rekognition.faces', $settings['faces'] ? '__return_true' : '__return_false' );
 	}
 	// Toggle celebrity detection.
-	if ( $settings['celebrities'] ) {
-		add_filter( 'hm.aws.rekognition.labels', $settings['labels'] ? '__return_true' : '__return_false' );
+	if ( isset( $settings['celebrities'] ) ) {
+		add_filter( 'hm.aws.rekognition.celebrities', $settings['celebrities'] ? '__return_true' : '__return_false' );
 	}
 	// Toggle text detection.
-	if ( $settings['text'] ) {
-		add_filter( 'hm.aws.rekognition.labels', $settings['labels'] ? '__return_true' : '__return_false' );
+	if ( isset( $settings['text'] ) ) {
+		add_filter( 'hm.aws.rekognition.text', $settings['text'] ? '__return_true' : '__return_false' );
 	}
 } );
 
