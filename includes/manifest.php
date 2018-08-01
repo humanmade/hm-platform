@@ -265,7 +265,7 @@ function get_plugin_manifest() {
 				do_action( 'activate_' . ltrim( $plugin['file'], '/' ), true );
 			},
 		],
-		'custom-meta-boxes'    => [
+		'cmb2'                 => [
 			'file'  => 'plugins/cmb2/init.php',
 			'title' => 'Custom Meta Boxes',
 		],

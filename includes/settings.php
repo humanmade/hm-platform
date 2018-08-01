@@ -21,7 +21,7 @@ add_action( 'hm.platform.seo.settings.early', function ( $settings ) {
 	// Fake premium.
 	if ( isset( $settings['fake-premium'] ) && $settings['fake-premium'] ) {
 		require_once ROOT_DIR . '/lib/wordpress-seo/bootstrap.php';
-		
+
 		defined( 'WPSEO_PREMIUM_FILE' ) or define( 'WPSEO_PREMIUM_FILE', true );
 		defined( 'WPSEO_PREMIUM_PLUGIN_FILE' ) or define( 'WPSEO_PREMIUM_PLUGIN_FILE', true );
 	}
@@ -174,3 +174,16 @@ add_action( 'hm.platform.elasticpress.settings.early', function ( $settings = []
 	}
 } );
 
+// CMB2 fixes.
+add_action( 'hm.platform.cmb2.settings', function () {
+
+	// Fix asset URLs.
+	add_filter( 'cmb2_meta_box_url', function ( $url ) {
+		if ( false === strpos( $url, 'http' ) ) {
+			$url = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $url );
+		}
+
+		return $url;
+	} );
+
+} );
