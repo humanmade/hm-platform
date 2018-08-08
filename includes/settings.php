@@ -177,13 +177,34 @@ add_action( 'hm.platform.elasticpress.settings.early', function ( $settings = []
 // Tachyon.
 add_action( 'hm.platform.tachyon.settings', function ( $settings = [] ) {
 	// Enable smart cropping.
-	if ( $settings['smart-cropping'] ) {
+	if ( isset( $settings['smart-cropping'] ) && $settings['smart-cropping'] ) {
 		add_filter( 'tachyon_pre_args', function ( $args ) {
 			if ( isset( $args['resize'] ) ) {
 				$args['crop_strategy'] = 'smart';
 			}
 			return $args;
 		} );
+	}
+
+	// Add zoom.
+	if ( isset( $settings['retina'] ) && $settings['retina'] ) {
+		add_filter( 'tachyon_pre_args', function ( $args ) {
+			$args['zoom'] = 2;
+			return $args;
+		} );
+	}
+} );
+
+// Smart media.
+add_action( 'hm.platform.smart-media.settings', function ( $settings = [] ) {
+	// Enable smart cropping.
+	if ( isset( $settings['cropper'] ) ) {
+		add_filter( 'hm.smart-media.cropper', $settings['cropper'] ? '__return_true' : '__return_false' );
+	}
+
+	// Enable justified media library.
+	if ( isset( $settings['justified-library'] ) ) {
+		add_filter( 'hm.smart-media.justified-library', $settings['justified-library'] ? '__return_true' : '__return_false' );
 	}
 } );
 

@@ -205,6 +205,7 @@ function get_plugin_manifest() {
 			'title'    => 'Tachyon',
 			'settings' => [
 				'smart-cropping' => true,
+				'retina'         => false,
 			],
 		],
 		'sitemaps'             => [
@@ -318,6 +319,10 @@ function get_plugin_manifest() {
 		'smart-media'          => [
 			'file'  => 'plugins/smart-media/plugin.php',
 			'title' => 'Smart Media',
+			'settings' => [
+				'justified-library' => true,
+				'cropper'           => true,
+			],
 		],
 	];
 
