@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.2.14
+- Change AWS Xray submodule to `https` instead of `git` protocol.
+  - Fix occassional provisioning error due to SSH's `known_hosts` not accepting the Github public key.
+
 ### 1.2.13
 - Fix a PHP Warning in the plugins list table.
 - Update memcached to latest:
