@@ -1,6 +1,6 @@
 ## Changelog
 
-### HEAD
+### 1.2.15
 - Update S3 Uploads to latest
 	- Fixes wp_tempnam not being defined
 
