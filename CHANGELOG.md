@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.2.15
+- Update S3 Uploads to latest
+	- Fixes wp_tempnam not being defined
+
 ### 1.2.14
 - Change AWS Xray submodule to `https` instead of `git` protocol.
   - Fix occassional provisioning error due to SSH's `known_hosts` not accepting the Github public key.
