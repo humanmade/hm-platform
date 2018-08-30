@@ -179,7 +179,7 @@ add_action( 'hm.platform.tachyon.settings', function ( $settings = [] ) {
 	// Enable smart cropping.
 	if ( isset( $settings['smart-cropping'] ) && $settings['smart-cropping'] ) {
 		add_filter( 'tachyon_pre_args', function ( $args ) {
-			if ( isset( $args['resize'] ) ) {
+			if ( isset( $args['resize'] ) && ! isset( $args['crop'] ) ) {
 				$args['crop_strategy'] = 'smart';
 			}
 			return $args;
@@ -242,4 +242,18 @@ add_action( 'hm.platform.cmb2.settings', function () {
 
 		return $url;
 	} );
+} );
+
+// Gutenberg.
+add_action( 'hm.platform.gutenberg', function () {
+
+	// Remove try gutenberg callout.
+	add_filter( 'get_user_meta_data', function ( $value, $object_id, $meta_key ) {
+		if ( $meta_key !== 'show_try_gutenberg_panel' ) {
+			return $value;
+		}
+
+		return 0;
+	}, 10, 3 );
+
 } );

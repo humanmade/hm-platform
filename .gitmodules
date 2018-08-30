@@ -86,3 +86,4 @@
 [submodule "plugins/smart-media"]
 	path = plugins/smart-media
 	url = git@github.com:humanmade/smart-media.git
+	ignore = dirty
