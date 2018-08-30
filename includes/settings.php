@@ -177,7 +177,7 @@ add_action( 'hm.platform.elasticpress.settings.early', function ( $settings = []
 // Tachyon.
 add_action( 'hm.platform.tachyon.settings.early', function () {
 	// Set tachyon URL.
-	defined( 'TACHYON_URL' ) or define( 'TACHYON_URL', WP_HOME . '/tachyon/' );
+	defined( 'TACHYON_URL' ) or define( 'TACHYON_URL', WP_HOME . '/tachyon' );
 } );
 
 add_action( 'hm.platform.tachyon.settings', function ( $settings = [] ) {
