@@ -214,6 +214,13 @@ add_action( 'hm.platform.smart-media.settings', function ( $settings = [] ) {
 } );
 
 // Rekognition.
+add_action( 'hm.platform.rekognition.settings.early', function () {
+	// Define the region constant from the environment.
+	if ( defined( 'HM_ENV_REGION' ) ) {
+		define( 'AWS_REKOGNITION_REGION', HM_ENV_REGION );
+	}
+} );
+
 add_action( 'hm.platform.rekognition.settings', function ( $settings = [] ) {
 	// Toggle label detection.
 	if ( isset( $settings['labels'] ) ) {
