@@ -258,15 +258,20 @@ add_action( 'hm.platform.cmb2.settings', function () {
 } );
 
 // Gutenberg.
-add_action( 'hm.platform.gutenberg', function () {
+add_action( 'hm.platform.gutenberg.settings', function () {
 
 	// Remove try gutenberg callout.
-	add_filter( 'get_user_meta_data', function ( $value, $object_id, $meta_key ) {
+	add_filter( 'get_user_metadata', function ( $value, $object_id, $meta_key ) {
 		if ( $meta_key !== 'show_try_gutenberg_panel' ) {
 			return $value;
 		}
 
-		return 0;
+		return '0';
 	}, 10, 3 );
+
+	// Remove admin menu page.
+	add_action( 'admin_menu', function () {
+		remove_menu_page( 'gutenberg' );
+	}, 100 );
 
 } );
