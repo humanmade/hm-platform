@@ -131,14 +131,15 @@ add_action( 'hm.platform.elasticpress.settings.early', function ( $settings = []
 				return;
 			}
 
-			// if ( parse_url( $_SERVER['HTTP_ORIGIN'], PHP_URL_HOST ) !== parse_url( get_home_url(), PHP_URL_HOST ) ) {
-			// 	wp_send_json( [] );
-			// }
+			// Check request is from same origin.
+			if ( parse_url( $_SERVER['HTTP_ORIGIN'], PHP_URL_HOST ) !== parse_url( get_home_url(), PHP_URL_HOST ) ) {
+				wp_send_json( [], 200 );
+			}
 
 			// Validate data.
 			$json = json_decode( file_get_contents( 'php://input' ), true );
 			if ( ! $json ) {
-				wp_send_json( [] );
+				wp_send_json( [], 200 );
 			}
 
 			// Force post filter value.
@@ -169,7 +170,7 @@ add_action( 'hm.platform.elasticpress.settings.early', function ( $settings = []
 			$data = json_decode( $body, true );
 
 			// Return JSON response.
-			wp_send_json( $data );
+			wp_send_json( $data, 200 );
 		} );
 	}
 } );
