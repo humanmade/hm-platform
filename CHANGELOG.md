@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.2.16
+- Log errors from ElasticPress communication with Elasticsearch
+- Don't fallback to MySQL search when Elasticsearch reqeusts fail
+
 ### 1.2.15
 - Update S3 Uploads to latest
 	- Fixes wp_tempnam not being defined
