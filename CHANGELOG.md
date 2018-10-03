@@ -1,7 +1,7 @@
 ## Changelog
 
 ### 1.2.17
-- Update Tachyon plugin
+- Update Tachyon plugin to v0.9.2
     - Latest version allows for enabling Tachyon in the WP Admin
 
 ### 1.2.16
