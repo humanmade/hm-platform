@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.2.17
+- Update Tachyon plugin
+    - Latest version allows for enabling Tachyon in the WP Admin
+
 ### 1.2.16
 - Log errors from ElasticPress communication with Elasticsearch
 - Don't fallback to MySQL search when Elasticsearch reqeusts fail
