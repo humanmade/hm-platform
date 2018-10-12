@@ -5,6 +5,10 @@
 - Update S3 Uploads to latest
   - Fix warning when using local streamwrapper
 
+### 1.2.17
+- Update Tachyon plugin to v0.9.2
+    - Latest version allows for enabling Tachyon in the WP Admin
+
 ### 1.2.16
 - Log errors from ElasticPress communication with Elasticsearch
 - Don't fallback to MySQL search when Elasticsearch reqeusts fail
