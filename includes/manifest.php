@@ -176,7 +176,7 @@ function get_plugin_manifest() {
 			'file'    => 'plugins/hm-stack/hm-stack.php',
 		],
 		'elasticsearch'        => [
-			'file'   => 'lib/elasticpress-integration.php',
+			'file'   => 'lib/elasticsearch-integration.php',
 			'loader' => function ( $plugin ) {
 				if ( ! defined( 'ELASTICSEARCH_HOST' ) ) {
 					return;
@@ -187,7 +187,7 @@ function get_plugin_manifest() {
 				}
 
 				require $plugin['file'];
-				ElasticPress_Integration\bootstrap();
+				ElasticSearch_Integration\bootstrap();
 			},
 		],
 		'performance'          => [

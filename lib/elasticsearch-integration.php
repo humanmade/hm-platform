@@ -1,6 +1,6 @@
 <?php
 
-namespace HM\Platform\ElasticPress_Integration;
+namespace HM\Platform\ElasticSearch_Integration;
 
 use GuzzleHttp\Psr7\Request;
 use Aws\Signature\SignatureV4;
