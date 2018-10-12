@@ -3,6 +3,8 @@
 ### 1.2.18
 - Update XRay plugin to 1.0.2
   - Track Remote Requests made via the WordPress HTTP API.
+- Update S3 Uploads to latest
+  - Fix warning when using local streamwrapper
 
 ### 1.2.17
 - Update Tachyon plugin to v0.9.2
