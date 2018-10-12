@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.2.18
+- Update XRay plugin to 1.0.2
+  - Track Remote Requests made via the WordPress HTTP API.
+
 ### 1.2.17
 - Update Tachyon plugin to v0.9.2
     - Latest version allows for enabling Tachyon in the WP Admin
