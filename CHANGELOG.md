@@ -1,5 +1,10 @@
 ## Changelog
 
+### Next
+
+- Update S3 Uploads to latest
+  - Fix warning when using local streamwrapper
+
 ### 1.2.17
 - Update Tachyon plugin to v0.9.2
     - Latest version allows for enabling Tachyon in the WP Admin
