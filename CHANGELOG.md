@@ -1,7 +1,8 @@
 ## Changelog
 
-### Next
-
+### 1.2.18
+- Update XRay plugin to 1.0.2
+  - Track Remote Requests made via the WordPress HTTP API.
 - Update S3 Uploads to latest
   - Fix warning when using local streamwrapper
 
