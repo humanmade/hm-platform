@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.2.16
+- Update XRay plugin to 1.0.2
+  - Track Remote Requests made via the WordPress HTTP API.
+
 ### 1.2.15
 - Update S3 Uploads to latest
 	- Fixes wp_tempnam not being defined
