@@ -1,0 +1,9 @@
+{
+  "name": "humanmade/hm-platform",
+  "description": "HM Hosting platform required plugins",
+  "type": "wordpress-dropin",
+  "require": {
+    "php": "~7.0",
+    "composer/installers": "~1.0"
+  }
+}

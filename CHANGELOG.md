@@ -27,6 +27,37 @@
     - Added WordPress SEO & bootstrap code
     - Added Workflows
 
+### 1.2.18
+- Update XRay plugin to 1.0.2
+  - Track Remote Requests made via the WordPress HTTP API.
+- Update S3 Uploads to latest
+  - Fix warning when using local streamwrapper
+
+### 1.2.17
+- Update Tachyon plugin to v0.9.2
+    - Latest version allows for enabling Tachyon in the WP Admin
+
+### 1.2.16
+- Log errors from ElasticPress communication with Elasticsearch
+- Don't fallback to MySQL search when Elasticsearch reqeusts fail
+
+### 1.2.15
+- Update S3 Uploads to latest
+	- Fixes wp_tempnam not being defined
+
+### 1.2.14
+- Change AWS Xray submodule to `https` instead of `git` protocol.
+  - Fix occassional provisioning error due to SSH's `known_hosts` not accepting the Github public key.
+
+### 1.2.13
+- Fix a PHP Warning in the plugins list table.
+- Update memcached to latest:
+    - Ensure cache servers keys and values match up when using multiple nodes.
+- Disable XHProf for Cavalcade-Runner.
+- Add composer.json for Composer compatibility.
+- Update Batcache to latest:
+    - Fix version check logic for cached documents.
+
 ### 1.2.12
 - Update XRay to 1.0.1
     - Only add Trace ID to non-SELECT MySQL queries

@@ -9,7 +9,7 @@ use Exception;
 const ROOT_DIR = __DIR__;
 
 // Don't load anything during an install.
-if ( defined( 'WP_INSTALLING') && WP_INSTALLING ) {
+if ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) {
 	return;
 }
 

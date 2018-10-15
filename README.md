@@ -40,7 +40,7 @@ To optionally enable or disable any of the platform modules you can create a fil
 and place it in your root directory or content directory. You can also override the settings depending
 on your environment, for example `hm.local.json` will override settings when working locally.
 
-#### Legacy Configuration 
+#### Legacy Configuration
 
 Previously you could define the `global $hm_platform` variable. This is still supported but we recommend
 updating to use `hm.json`.
