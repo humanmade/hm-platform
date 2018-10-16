@@ -13,7 +13,7 @@ if ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) {
 	return;
 }
 
-require_once ROOT_DIR . '/lib/aws-sdk/aws-autoloader.php';
+require_once ROOT_DIR . '/vendor/autoload.php';
 require_once ROOT_DIR . '/includes/config.php';
 require_once ROOT_DIR . '/includes/plugins.php';
 
