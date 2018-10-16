@@ -186,7 +186,7 @@ function get_plugin_manifest() {
 					return;
 				}
 
-				require $plugin['file'];
+				require_once $plugin['file'];
 				ElasticSearch_Integration\bootstrap();
 			},
 		],

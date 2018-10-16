@@ -5,9 +5,10 @@
 
 namespace HM\Platform\Settings;
 
-// WP SEO settings.
 use const HM\Platform\ROOT_DIR;
+use function HM\Platform\get_plugin_manifest;
 
+// WP SEO settings.
 add_action( 'hm.platform.seo.settings', function ( $settings ) {
 	// Hide the admin settings page.
 	if ( ! empty( $settings['hide-settings-page'] ) ) {
@@ -68,6 +69,9 @@ add_action( 'hm.platform.multilingualpress.settings', function () {
 
 // ElasticPress.
 add_action( 'hm.platform.elasticpress.settings.early', function ( $settings = [] ) {
+
+	// Make sure ES integration is loaded.
+	get_plugin_manifest()['elasticsearch']['loader']( [ 'file' => ROOT_DIR . '/lib/elasticsearch-integration.php' ] );
 
 	// Disable elasticpress.io warnings.
 	add_filter( 'ep_feature_requirements_status', function ( $status, $feature ) {
@@ -220,6 +224,9 @@ add_action( 'hm.platform.rekognition.settings.early', function () {
 	if ( defined( 'HM_ENV_REGION' ) ) {
 		define( 'AWS_REKOGNITION_REGION', HM_ENV_REGION );
 	}
+
+	// Load additions.
+	require_once ROOT_DIR . '/lib/aws-rekognition/translations.php';
 } );
 
 add_action( 'hm.platform.rekognition.settings', function ( $settings = [] ) {
