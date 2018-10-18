@@ -75,6 +75,9 @@ function bootstrap( $wp_debug_enabled ) {
 	}
 
 	require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
+	require_once __DIR__ . '/inc/performance_optimizations/namespace.php';
+
+	Performance_Optimizations\bootstrap();
 
 	return $wp_debug_enabled;
 }
