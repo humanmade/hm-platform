@@ -1,5 +1,8 @@
 ## Changelog
 
+### 1.2.19
+- Increase execution timeout for async-upload.php.
+
 ### 1.2.18
 - Update XRay plugin to 1.0.2
   - Track Remote Requests made via the WordPress HTTP API.
