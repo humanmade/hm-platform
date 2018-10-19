@@ -81,6 +81,8 @@ function get_pull_requests() {
  * @return mixed API response, or null for a bad request,
  */
 function query_api( $endpoint, $api_base = HM_STACK_API_URL, $query = [] ) {
+	$endpoint = trim( $endpoint, '/' );
+	$api_base = trailingslashit( untrailingslashit( $api_base ) );
 	$url = add_query_arg( $query, esc_url_raw( $api_base . $endpoint ) );
 
 	/**
