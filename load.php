@@ -102,6 +102,7 @@ function get_config() {
 		'xray'            => false,
 		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
 		'healthcheck'     => true,
+		'require-login'   => false,
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
@@ -175,6 +176,7 @@ function get_available_plugins() {
 		'redis'           => 'wp-redis/wp-redis.php',
 		'xray'            => 'aws-xray/plugin.php',
 		'healthcheck'     => 'healthcheck/plugin.php',
+		'require-login'   => 'hm-require-login/plugin.php',
 	);
 }
 
