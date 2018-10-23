@@ -4,8 +4,8 @@ namespace HM\Platform\Rekognition;
 
 use Google\Cloud\Translate\TranslateClient;
 
-add_filter( 'hm.aws.rekognition.alt_text', function ( $alt_text, $data ) {
-	$translation = translate( $alt_text );
+add_filter( 'hm.aws.rekognition.alt_text', function ( $alt_text, $data, $id ) {
+	$translation = get_translation( $alt_text );
 
 	if ( ! $translation ) {
 		return $alt_text;
@@ -14,8 +14,8 @@ add_filter( 'hm.aws.rekognition.alt_text', function ( $alt_text, $data ) {
 	return $translation;
 }, 10, 2 );
 
-add_filter( 'hm.aws.rekognition.keywords', function ( $keywords, $data ) {
-	$translation = translate( implode( ", ", $keywords ) );
+add_filter( 'hm.aws.rekognition.keywords', function ( $keywords, $data, $id ) {
+	$translation = get_translation( implode( ', ', $keywords ) );
 
 	if ( ! $translation ) {
 		return $keywords;
@@ -62,7 +62,7 @@ function get_language() {
  * @param string $string
  * @return false|string
  */
-function translate( string $string ) {
+function get_translation( string $string ) {
 	$translate     = get_client();
 	$site_language = get_language();
 
@@ -81,7 +81,7 @@ function translate( string $string ) {
 
 		return $result['text'];
 	} catch ( \Exception $e ) {
-		trigger_error( $e->getMessage() );
+		trigger_error( $e->getMessage() ); // phpcs:ignore
 	}
 
 	return false;
