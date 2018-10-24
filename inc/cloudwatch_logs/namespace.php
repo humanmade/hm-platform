@@ -47,10 +47,8 @@ function send_events_to_stream( array $events, string $group, string $stream ) {
 	}
 	try {
 		$result = cloudwatch_logs_client()->putLogEvents( $params );
-		var_dump( $result );
 		wp_cache_set( $group . $stream, $result['nextSequenceToken'], OBJECT_CACHE_GROUP );
 	} catch ( Exception $e ) {
-		var_dump( $e->getMessage() );
 		trigger_error( $e->getMessage(), E_USER_WARNING );
 		wp_cache_delete( $group . $stream, OBJECT_CACHE_GROUP );
 	}
