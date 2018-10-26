@@ -4,6 +4,10 @@
   "type": "wordpress-dropin",
   "require": {
     "php": "~7.0",
-    "composer/installers": "~1.0"
+    "composer/installers": "~1.0",
+    "aws/aws-sdk-php": "3.67.7"
+  },
+  "archive": {
+    "exclude": ["/vendor"]
   }
 }
