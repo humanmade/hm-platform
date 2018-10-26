@@ -96,8 +96,8 @@ function get_config() {
 		'tachyon'         => true,
 		'cavalcade'       => true,
 		'batcache'        => true,
-		'memcached'       => true,
-		'redis'           => false,
+		'memcached'       => get_environment_architecture() === 'ec2',
+		'redis'           => get_environment_architecture() === 'ecs',
 		'ludicrousdb'     => true,
 		'xray'            => false,
 		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
@@ -233,4 +233,17 @@ function get_aws_sdk() {
 	}
 	$sdk = new \Aws\Sdk( $params );
 	return $sdk;
+}
+
+/**
+ * Get the application architecture for the current site.
+ *
+ * @return string
+ */
+function get_environment_architecture() : string {
+	if ( defined( 'HM_ENV_ARCHITECTURE' ) ) {
+		return HM_ENV_ARCHITECTURE;
+	}
+
+	return 'ec2';
 }
