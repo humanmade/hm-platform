@@ -1,5 +1,10 @@
 ## Changelog
 
+### 1.2.20
+- Use Redis by default on ECS architecture
+- Update XRay plugin to 1.0.3
+	- Use local declaration of wp_debug_backtrace_summary.
+
 ### 1.2.19
 - Increase execution timeout for async-upload.php.
 
