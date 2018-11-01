@@ -73,6 +73,15 @@ function get_pull_requests() {
 }
 
 /**
+ * Fetch deploys history of this site.
+ *
+ * Example URL: https://us-east-1.aws.hmn.md/api/stack/applications/encompass-development/deploys
+ */
+function get_deploys() {
+	return query_api( 'deploys' );
+}
+
+/**
  * Query the HM Stack API for the data that we want.
  *
  * @param string $endpoint
