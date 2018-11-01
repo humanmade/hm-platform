@@ -103,7 +103,6 @@ function query_api( $endpoint, $api_base = HM_STACK_API_URL, $query = [] ) {
 		$request = wp_remote_get( $url );
 	} else if ( defined( 'HM_STACK_API_USER' ) && defined( 'HM_STACK_API_PASSWORD' ) ) {
 		$request = wp_remote_get( $url, [
-			'timeout' => 600,
 			'headers' => [
 				'Authorization' => 'Basic ' . base64_encode( HM_STACK_API_USER . ':' . HM_STACK_API_PASSWORD ),
 			],
