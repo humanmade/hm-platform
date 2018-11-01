@@ -99,6 +99,18 @@ function register_routes() {
 		],
 		'permission_callback' => __NAMESPACE__ . '\\permissions_check',
 	] );
+
+	// Fetch deploys history of this site.
+	register_rest_route( $namespace, 'deploys', [
+		'methods'  => WP_REST_Server::READABLE,
+		'callback' => __NAMESPACE__ . '\\get_deploys',
+		'args'     => [
+			'context' => [
+				'default' => 'view',
+			],
+		],
+		'permission_callback' => __NAMESPACE__ . '\\permissions_check',
+	] );
 }
 
 /**
@@ -306,4 +318,28 @@ function get_page_generation_time() {
 	wp_cache_set( 'page-generation', $page_generation_time, 'hm-stack', 12 * \HOUR_IN_SECONDS );
 
 	return new WP_REST_Response( $page_generation_time );
+}
+
+/**
+ * Get deploys history of this site.
+ */
+function get_deploys() {
+	// Check our cache first.
+	$data = wp_cache_get( 'deploys', 'hm-stack' );
+	if ( $data !== false ) {
+		return new WP_REST_Response( $data );
+	}
+
+	$stack_data = API\get_deploys();
+
+	// If we've errored out, return a human-friendly message and code.
+	if ( is_wp_error( $stack_data ) ) {
+		// Prevent constant re-fetching in the event of a failure.
+		wp_cache_set( 'deploys', $stack_data, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
+		return get_wp_error_for_hm_stack_return( $stack_data );
+	}
+
+	wp_cache_set( 'deploys', $stack_data, 'hm-stack', 12 * \HOUR_IN_SECONDS );
+
+	return new WP_REST_Response( $stack_data );
 }
