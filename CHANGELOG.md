@@ -1,5 +1,8 @@
 ## Changelog
 
+### 1.2.22
+- Update Elasticsearch request signing to support ECS
+
 ### 1.2.21
 - Update Cavalcade
     - Updates the Cavalcade documentation

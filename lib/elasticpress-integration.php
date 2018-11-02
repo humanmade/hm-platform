@@ -4,6 +4,7 @@ namespace HM\Platform\ElasticPress_Integration;
 
 use Aws\Signature\SignatureV4;
 use Aws\Credentials;
+use Aws\Credentials\CredentialProvider;
 use GuzzleHttp\Psr7\Request;
 use WP_Query;
 
@@ -42,7 +43,7 @@ function sign_wp_request( array $args, string $url ) : array {
 	if ( defined( 'ELASTICSEARCH_AWS_KEY' ) ) {
 		$credentials = new Credentials\Credentials( ELASTICSEARCH_AWS_KEY, ELASTICSEARCH_AWS_SECRET );
 	} else {
-		$provider = new Credentials\InstanceProfileProvider();
+		$provider = CredentialProvider::defaultProvider();
 		$credentials = call_user_func( $provider )->wait();
 	}
 	$signed_request = $signer->signRequest( $request, $credentials );
