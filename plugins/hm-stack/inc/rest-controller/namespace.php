@@ -335,11 +335,11 @@ function get_deploys() {
 	// If we've errored out, return a human-friendly message and code.
 	if ( is_wp_error( $stack_data ) ) {
 		// Prevent constant re-fetching in the event of a failure.
-		wp_cache_set( 'deploys', $stack_data, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
+		wp_cache_set( 'deploys', $stack_data, 'hm-stack', MINUTE_IN_SECONDS );
 		return get_wp_error_for_hm_stack_return( $stack_data );
 	}
 
-	wp_cache_set( 'deploys', $stack_data, 'hm-stack', 12 * \HOUR_IN_SECONDS );
+	wp_cache_set( 'deploys', $stack_data, 'hm-stack', MINUTE_IN_SECONDS );
 
 	return new WP_REST_Response( $stack_data );
 }
