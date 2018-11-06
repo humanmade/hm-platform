@@ -58,6 +58,11 @@ function get_plugin_manifest() {
 						return;
 					}
 
+					// Skip local.
+					if ( HM_ENV_TYPE === 'local' ) {
+						return;
+					}
+
 					require $plugin['file'];
 					Cavalcade_Cronitor\bootstrap();
 				} );
