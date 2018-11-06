@@ -31,7 +31,7 @@ function get_plugin_manifest() {
 				// Load the Cavalcade Runner CloudWatch extension.
 				// This is loaded on the Cavalcade-Runner, not WordPress, crazy I know.
 				if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && HM_ENV_TYPE !== 'local' ) {
-					require_once ROOT_DIR . '/lib/aws-sdk/aws-autoloader.php';
+					require_once ROOT_DIR . '/vendor/autoloader.php';
 					require_once ROOT_DIR . '/lib/cavalcade-runner-to-cloudwatch/plugin.php';
 				}
 
