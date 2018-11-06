@@ -55,5 +55,5 @@ function check_health() {
 		return true;
 	}
 
-	return new WP_Error( 'hm-platform.healthcheck.cavalcade.not_running', sprintf( 'Last job was run %d seconds ago, threshold is %d', $last_run, HEALTHY_THRESHOLD ) );
+	return new WP_Error( 'hm-platform.healthcheck.cavalcade.not_running', sprintf( 'Last job was run %d seconds ago, threshold is %d', time() - $last_run, HEALTHY_THRESHOLD ) );
 }
