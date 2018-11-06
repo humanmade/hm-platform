@@ -25,3 +25,6 @@
 [submodule "plugins/aws-xray"]
 	path = plugins/aws-xray
 	url = https://github.com/humanmade/aws-xray.git
+[submodule "plugins/hm-require-login"]
+	path = plugins/hm-require-login
+	url = git@github.com:humanmade/hm-require-login.git

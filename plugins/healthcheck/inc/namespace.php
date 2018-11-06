@@ -18,6 +18,7 @@ function bootstrap() {
 
 function output_page( array $checks ) {
 	global $wpdb, $wp_object_cache;
+	$passed = true;
 	foreach ( $checks as $check ) {
 		if ( is_wp_error( $check ) ) {
 			$passed = false;
@@ -64,7 +65,8 @@ function run_checks() : array {
 	$checks = [
 		'mysql'        => run_mysql_healthcheck(),
 		'object-cache' => run_object_cache_healthcheck(),
-		'cron'         => run_cron_healthcheck(),
+		'cron-waiting' => run_cron_healthcheck(),
+		'cron-canary'  => Cavalcade\check_health(),
 	];
 
 	if ( defined( 'ELASTICSEARCH_HOST' ) ) {
@@ -131,14 +133,18 @@ function run_object_cache_healthcheck() {
 		if ( ! array_key_exists( $option, $alloptions_cache ) ) {
 			return new WP_Error( 'object-cache-alloptions-out-of-sync', sprintf( '%s option not found in cache', $option ) );
 		}
-		if ( $alloptions_cache[ $option ] !== $value ) {
+		// Values that are stored in the cache can be any scalar type, but scalar values retrieved from the database will always be string.
+		// When a cache value is populated via update / add option, it will be stored in the cache as a scalar type, but then a string in the
+		// database. We convert all non-string scalars to strings to be able to do the appropriate comparison.
+		$cache_value = $alloptions_cache[ $option ];
+		if ( is_scalar( $cache_value ) && ! is_string( $cache_value ) ) {
+			$cache_value = (string) $cache_value;
+		}
+		if ( $cache_value !== $value ) {
 			return new WP_Error( 'object-cache-alloptions-out-of-sync', sprintf( '%s option not the same in the cache and DB', $option ) );
 		}
 	}
 
-	if ( serialize( $alloptions ) !== serialize( $alloptions_cache ) ) {
-		return new WP_Error( 'object-cache-alloptions-out-of-sync', 'Alloptions are out of sync with the DB values.' );
-	}
 	return true;
 }
 
