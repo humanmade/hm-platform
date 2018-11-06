@@ -18,6 +18,7 @@ function bootstrap() {
 
 function output_page( array $checks ) {
 	global $wpdb, $wp_object_cache;
+	$passed = true;
 	foreach ( $checks as $check ) {
 		if ( is_wp_error( $check ) ) {
 			$passed = false;
