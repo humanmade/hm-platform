@@ -51,7 +51,6 @@ function set_last_run() {
  */
 function check_health() {
 	$last_run = get_option( LAST_RUN_OPTION, 0 );
-	var_dump( time() - $last_run );
 	if ( $last_run > ( time() - HEALTHY_THRESHOLD ) ) {
 		return true;
 	}
