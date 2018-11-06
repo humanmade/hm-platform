@@ -65,6 +65,7 @@ function run_checks() : array {
 		'mysql'        => run_mysql_healthcheck(),
 		'object-cache' => run_object_cache_healthcheck(),
 		'cron'         => run_cron_healthcheck(),
+		'cavalcade'    => Cavalcade\check_health(),
 	];
 
 	if ( defined( 'ELASTICSEARCH_HOST' ) ) {
