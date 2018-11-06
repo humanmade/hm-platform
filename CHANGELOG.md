@@ -1,8 +1,9 @@
 ## Changelog
 
-### HEAD
+### 1.2.23
 - Fix healthcheck status code
 - Add Cavalcade / Cron healthcheck
+- Added require-login feature and plugin
 
 ### 1.2.22
 - Update Elasticsearch request signing to support ECS
