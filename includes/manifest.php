@@ -47,6 +47,22 @@ function get_plugin_manifest() {
 				} );
 			},
 		],
+		'cavalcade-cronitor'   => [
+			'file'    => 'lib/cavalcade-cronitor.php',
+			'enabled' => true,
+			'title'   => 'Cavalcade Cronitor',
+			'loader'  => function ( $plugin ) {
+				add_action( 'muplugins_loaded', function () use ( $plugin ) {
+					// Only load if Cavalcade is loaded.
+					if ( ! function_exists( 'HM\\Cavalcade\\Plugin\\bootstrap' ) ) {
+						return;
+					}
+
+					require $plugin['file'];
+					Cavalcade_Cronitor\bootstrap();
+				} );
+			}
+		],
 		'memcached'            => [
 			'file'    => 'dropins/wordpress-pecl-memcached-object-cache/object-cache.php',
 			'title'   => 'Memcached',
