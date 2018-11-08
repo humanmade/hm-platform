@@ -189,10 +189,6 @@ function get_plugin_manifest() {
 				ElasticSearch_Integration\bootstrap();
 			},
 		],
-		'performance'          => [
-			'file'    => 'plugins/performance/performance.php',
-			'enabled' => true,
-		],
 		's3-uploads'           => [
 			'file'    => 'plugins/s3-uploads/s3-uploads.php',
 			'enabled' => true,
@@ -249,16 +245,6 @@ function get_plugin_manifest() {
 			'settings' => [
 				'network'     => true,
 				'autosuggest' => true,
-			],
-		],
-		'multilingualpress'    => [
-			'file'     => 'plugins/multilingualpress/multilingual-press.php',
-			'activate' => function () {
-				add_filter( 'multilingualpress.force_system_check', '__return_true' );
-				add_filter( 'multilingualpress.force_install', '__return_true' );
-			},
-			'settings' => [
-				'disable-recruitment-notice' => true,
 			],
 		],
 		'polylang'             => [
