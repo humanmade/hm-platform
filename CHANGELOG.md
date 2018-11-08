@@ -27,6 +27,28 @@
     - Added WordPress SEO & bootstrap code
     - Added Workflows
 
+### 1.2.23
+- Fix healthcheck status code
+- Add Cavalcade / Cron healthcheck
+- Added require-login feature and plugin
+
+### 1.2.22
+- Update Elasticsearch request signing to support ECS
+
+### 1.2.21
+- Update Cavalcade
+    - Updates the Cavalcade documentation
+    - Adds support for the WP Cron API's named schedules.
+    - Includes the interval when generating keys for comparing old and new values of the cron array so events with a changed recurrence are re-saved.
+
+### 1.2.20
+- Use Redis by default on ECS architecture
+- Update XRay plugin to 1.0.3
+	- Use local declaration of wp_debug_backtrace_summary.
+
+### 1.2.19
+- Increase execution timeout for async-upload.php.
+
 ### 1.2.18
 - Update XRay plugin to 1.0.2
   - Track Remote Requests made via the WordPress HTTP API.

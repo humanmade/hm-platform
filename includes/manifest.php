@@ -49,7 +49,7 @@ function get_plugin_manifest() {
 		'memcached'            => [
 			'file'    => 'dropins/wordpress-pecl-memcached-object-cache/object-cache.php',
 			'title'   => 'Memcached',
-			'enabled' => true,
+			'enabled' => get_environment_architecture() === 'ec2',
 			'loader'  => function ( $plugin ) {
 				add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) use ( $plugin ) {
 					if ( ! class_exists( 'Memcached' ) ) {
@@ -69,7 +69,7 @@ function get_plugin_manifest() {
 		'redis'                => [
 			'file'    => 'plugins/wp-redis/object-cache.php',
 			'title'   => 'Redis',
-			'enabled' => false,
+			'enabled' => get_environment_architecture() === 'ecs',
 			'loader'  => function ( $plugin ) {
 				add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) use ( $plugin ) {
 					// Don't load if memcached is enabled.
@@ -322,6 +322,11 @@ function get_plugin_manifest() {
 				'justified-library' => true,
 				'cropper'           => true,
 			],
+		],
+		'require-login'        => [
+			'file'    => 'plugins/hm-require-login/plugin.php',
+			'title'   => 'Require Login',
+			'enabled' => ! in_array( HM_ENV_TYPE, [ 'local', 'production' ], true ),
 		],
 	];
 

@@ -82,8 +82,11 @@
 	url = https://github.com/humanmade/aws-xray.git
 [submodule "plugins/aws-rekognition"]
 	path = plugins/aws-rekognition
-	url = git@github.com:humanmade/aws-rekognition.git
+	url = https://github.com/humanmade/aws-rekognition.git
 [submodule "plugins/smart-media"]
 	path = plugins/smart-media
-	url = git@github.com:humanmade/smart-media.git
+	url = https://github.com/humanmade/smart-media.git
 	ignore = dirty
+[submodule "plugins/hm-require-login"]
+	path = plugins/hm-require-login
+	url = https://github.com/humanmade/hm-require-login.git

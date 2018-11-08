@@ -71,6 +71,12 @@ if ( ! defined( 'HM_ENV_TYPE' ) ) {
 }
 
 /*
+ * Load includes.
+ */
+require_once ROOT_DIR . '/inc/performance_optimizations/namespace.php';
+Performance_Optimizations\bootstrap();
+
+/*
  * Load plugin manifest.
  */
 require_once ROOT_DIR . '/includes/manifest.php';
@@ -143,4 +149,17 @@ function get_aws_sdk() {
 	}
 	$sdk = new \Aws\Sdk( $params );
 	return $sdk;
+}
+
+/**
+ * Get the application architecture for the current site.
+ *
+ * @return string
+ */
+function get_environment_architecture() : string {
+	if ( defined( 'HM_ENV_ARCHITECTURE' ) ) {
+		return HM_ENV_ARCHITECTURE;
+	}
+
+	return 'ec2';
 }
