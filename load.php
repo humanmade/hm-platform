@@ -152,14 +152,36 @@ function load_advanced_cache( $should_load ) {
 function load_db() {
 	$config = get_config();
 
-	if ( ! $config['xray'] ) {
-		return;
-	}
-
 	require_once ABSPATH . WPINC . '/wp-db.php';
-	require __DIR__ . '/plugins/aws-xray/inc/class-db.php';
+	require_once __DIR__ . '/dropins/ludicrousdb/ludicrousdb/includes/class-ludicrousdb.php';
+	require_once __DIR__ . '/inc/class-db.php';
+	if ( ! defined( 'DB_CHARSET' ) ) {
+		define( 'DB_CHARSET', 'utf8mb4' );
+	}
+	if ( ! defined( 'DB_COLLATE' ) ) {
+		define( 'DB_COLLATE', 'utf8mb4_unicode_520_ci' );
+	}
 	global $wpdb;
-	$wpdb = new XRay\DB( DB_USER, DB_PASSWORD, DB_NAME, DB_HOST );
+	$wpdb = new DB();
+	$wpdb->add_database( [
+		'read' => 2,
+		'write' => true,
+		'host' => DB_HOST,
+		'name' => DB_NAME,
+		'user' => DB_USER,
+		'password' => DB_PASSWORD,
+	] );
+
+	if ( defined( 'DB_READ_REPLICA_HOST' ) && DB_READ_REPLICA_HOST ) {
+		$wpdb->add_database( [
+			'read' => 1,
+			'write' => false,
+			'host' => DB_READ_REPLICA_HOST,
+			'name' => DB_NAME,
+			'user' => DB_USER,
+			'password' => DB_PASSWORD,
+		] );
+	}
 }
 
 /**
