@@ -77,12 +77,16 @@ function bootstrap( $wp_debug_enabled ) {
 	require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
 	require_once __DIR__ . '/inc/performance_optimizations/namespace.php';
 	require_once __DIR__ . '/inc/cloudwatch_logs/namespace.php';
-	require_once __DIR__ . '/inc/cloudwatch_error_handler/namespace.php';
 
 	CloudWatch_Logs\bootstrap();
 	Performance_Optimizations\bootstrap();
-	CloudWatch_Error_Handler\bootstrap();
 
+	// Only load the CloudWatch PHP Logs error handler on ECS,
+	// as the log group only exists there.
+	if ( get_environment_architecture() === 'ecs' ) {
+		require_once __DIR__ . '/inc/cloudwatch_error_handler/namespace.php';
+		CloudWatch_Error_Handler\bootstrap();
+	}
 	return $wp_debug_enabled;
 }
 
