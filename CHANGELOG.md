@@ -1,5 +1,10 @@
 ## Changelog
 
+### HEAD
+
+- Add new db.php to support multi mysql server via `DB_READ_REPLICA_HOST`
+- Add new PHP Error Handler to send PHP logs to CloudWatch in ECS infrastructure
+
 ### 1.2.23
 - Fix healthcheck status code
 - Add Cavalcade / Cron healthcheck
