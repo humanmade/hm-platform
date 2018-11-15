@@ -111,6 +111,18 @@ function register_routes() {
 		],
 		'permission_callback' => __NAMESPACE__ . '\\permissions_check',
 	] );
+
+	// Fetch backups of this site.
+	register_rest_route( $namespace, 'backups', [
+		'methods'  => WP_REST_Server::READABLE,
+		'callback' => __NAMESPACE__ . '\\get_backups',
+		'args'     => [
+			'context' => [
+				'default' => 'view',
+			],
+		],
+		'permission_callback' => __NAMESPACE__ . '\\permissions_check',
+	] );
 }
 
 /**
@@ -340,6 +352,30 @@ function get_deploys() {
 	}
 
 	wp_cache_set( 'deploys', $stack_data, 'hm-stack', MINUTE_IN_SECONDS );
+
+	return new WP_REST_Response( $stack_data );
+}
+
+/**
+ * Get backups of this site.
+ */
+function get_backups() {
+	// Check our cache first.
+	$data = wp_cache_get( 'backups', 'hm-stack' );
+	if ( $data !== false ) {
+		return new WP_REST_Response( $data );
+	}
+
+	$stack_data = API\get_backups();
+
+	// If we've errored out, return a human-friendly message and code.
+	if ( is_wp_error( $stack_data ) ) {
+		// Prevent constant re-fetching in the event of a failure.
+		wp_cache_set( 'backups', $stack_data, 'hm-stack', 5 * \MINUTE_IN_SECONDS );
+		return get_wp_error_for_hm_stack_return( $stack_data );
+	}
+
+	wp_cache_set( 'backups', $stack_data, 'hm-stack', 12 * \HOUR_IN_SECONDS );
 
 	return new WP_REST_Response( $stack_data );
 }
