@@ -126,11 +126,15 @@ function load_object_cache() {
 	}
 
 	wp_using_ext_object_cache( true );
-	if( $config['memcached'] ) {
+	if ( $config['memcached'] ) {
 		require __DIR__ . '/dropins/wordpress-pecl-memcached-object-cache/object-cache.php';
-	} else if ( $config['redis'] ) {
+	} elseif ( $config['redis'] ) {
+		require __DIR__ . '/inc/redis_alloptions/namespace.php';
 		require __DIR__ . '/dropins/wp-redis-predis-client/vendor/autoload.php';
+
+		Redis_Alloptions\bootstrap();
 		\WP_Predis\add_filters();
+
 		require __DIR__ . '/plugins/wp-redis/object-cache.php';
 	}
 
