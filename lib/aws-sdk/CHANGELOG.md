@@ -1,5 +1,324 @@
 # CHANGELOG
 
+## 3.73.0 - 2018-11-20
+
+* `Aws\Batch` - Adding multinode parallel jobs, placement group support for compute environments.
+* `Aws\CloudFormation` - Use the CAPABILITY_AUTO_EXPAND capability to create or update a stack directly from a stack template that contains macros, without first reviewing the resulting changes in a change set first.
+* `Aws\CloudTrail` - This release supports creating a trail in CloudTrail that logs events for all AWS accounts in an organization in AWS Organizations. This helps enable you to define a uniform event logging strategy for your organization. An organization trail is applied automatically to each account in the organization and cannot be modified by member accounts. To learn more, please see the AWS CloudTrail User Guide https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html
+* `Aws\ConfigService` - In this release, AWS Config adds support for aggregating the configuration data of AWS resources into multi-account and multi-region aggregators. AWS Config adds four APIs to query and retrieve aggregated resource configurations. 1) BatchGetAggregateResourceConfig, returns the current configuration items for resources that are present in your AWS Config aggregator. 2) GetAggregateDiscoveredResourceCounts, returns the resource counts across accounts and regions that are present in your AWS Config aggregator. 3) GetAggregateResourceConfig, returns current configuration item that is aggregated for your specific resource in a specific source account and region. 4) ListAggregateDiscoveredResources, accepts a resource type and returns a list of resource identifiers that are aggregated for a specific resource type across accounts and regions.
+* `Aws\DeviceFarm` - Customers can now schedule runs without a need to create a Device Pool. They also get realtime information on public device availability.
+* `Aws\EC2` - Adding AvailabilityZoneId to DescribeAvailabilityZones
+* `Aws\EndpointParameterMiddleware` - Adds support for services using modeled endpoint prefixes, both static and user-defined.
+* `Aws\IoT` - IoT now supports resource tagging and tag based access control for Billing Groups, Thing Groups, Thing Types, Jobs, and Security Profiles. IoT Billing Groups help you group devices to categorize and track your costs. AWS IoT Device Management also introduces three new features: 1. Dynamic thing groups. 2. Jobs dynamic rollouts. 3. Device connectivity indexing. Dynamic thing groups lets you to create a group of devices using a Fleet Indexing query. The devices in your group will be automatically added or removed when they match your specified query criteria. Jobs dynamic rollout allows you to configure an exponentially increasing rate of deployment for device updates and define failure criteria to cancel your job. Device connectivity indexing allows you to index your devices' lifecycle events to discover whether devices are connected or disconnected to AWS IoT.
+* `Aws\Lambda` - AWS Lambda now supports python3.7 and the Kinesis Data Streams (KDS) enhanced fan-out and HTTP/2 data retrieval features for Kinesis event sources.
+* `Aws\Lightsail` - Add Managed Database operations to OperationType enum.
+* `Aws\MediaConvert` - AWS Elemental MediaConvert SDK has added several features including support for: SPEKE full document encryption, up to 150 elements for input stitching, input and motion image insertion, AWS CLI path arguments in S3 links including special characters, AFD signaling, additional caption types, and client-side encrypted input files.
+* `Aws\RDS` - This release adds a new parameter to specify VPC security groups for restore from DB snapshot, restore to point int time and create read replica operations. For more information, see Amazon RDS Documentation.
+* `Aws\WorkDocs` - With this release, clients can now use the GetResources API to fetch files and folders from the user's SharedWithMe collection. And also through this release, the existing DescribeActivities API has been enhanced to support additional filters such as the ActivityType and the ResourceId.
+* `Aws\WorkSpaces` - Added new APIs to Modify and Describe WorkSpaces client properties for users in a directory. With the new APIs, you can enable/disable remember me option in WorkSpaces client for users in a directory.
+
+## 3.72.1 - 2018-11-16
+
+* `Aws\Comprehend` - Amazon Comprehend Custom Entities automatically trains entity recognition models using your entities and noun-based phrases. 
+* `Aws\CostExplorer` - This release introduces a new operation called GetCostForecast operation, which allows you to programmatically access AWS Cost Explorer's forecasting engine and is now generally available.
+* `Aws\ECS` - This release of Amazon Elastic Container Service (Amazon ECS) introduces support for additional Docker flags as Task Definition parameters. Customers can now configure their ECS Tasks to use pidMode (pid) and ipcMode (ipc) Docker flags.
+* `Aws\SSM` - AWS Systems Manager Automation now allows you to execute and manage Automation workflows across multiple accounts and regions. 
+* `Aws\WorkSpaces` - Added new Bring Your Own License (BYOL) automation APIs. With the new APIs, you can list available management CIDR ranges for dedicated tenancy, enable your account for BYOL, describe BYOL status of your account, and import BYOL images. Added new APIs to also describe and delete WorkSpaces images. 
+
+## 3.72.0 - 2018-11-15
+
+* `Aws\CodeBuild` - Adding queue phase and configurable queue timeout to CodeBuild.
+* `Aws\Comprehend` - Amazon Comprehend Custom Classification automatically trains classification models using your text and custom labels.
+* `Aws\DatabaseMigrationService` - Settings structures have been added to our DMS endpoint APIs to support Kinesis and Elasticsearch as targets. We are introducing the ability to configure custom DNS name servers on a replication instance as a beta feature. 
+* `Aws\DirectConnect` - This release enables DirectConnect customers to have logical redundancy on virtual interfaces within supported DirectConnect locations.
+* `Aws\ECS` - In this release, Amazon ECS introduces multiple features. First, ECS now supports integration with Systems Manager Parameter Store for injecting runtime secrets. Second, ECS introduces support for resources tagging. Finally, ECS introduces a new ARN and ID Format for its resources, and provides new APIs for opt-in to the new formats. 
+* `Aws\IAM` - We are making it easier for you to manage your AWS Identity and Access Management (IAM) resources by enabling you to add tags to your IAM principals (users and roles). Adding tags on IAM principals will enable you to write fewer policies for permissions management and make policies easier to comprehend. Additionally, tags will also make it easier for you to grant access to AWS resources.
+* `Aws\Pinpoint` - 1. With Amazon Pinpoint Voice, you can use text-to-speech technology to deliver personalized voice messages to your customers. Amazon Pinpoint Voice is a great way to deliver transactional messages -- such as one-time passwords and identity confirmations -- to customers. 2. Adding support for Campaign Event Triggers. With Campaign Event Triggers you can now schedule campaigns to execute based on incoming event data and target just the source of the event.
+* `Aws\PinpointSMSVoice` - With Amazon Pinpoint Voice, you can use text-to-speech technology to deliver personalized voice messages to your customers. Amazon Pinpoint Voice is a way to deliver transactional messages -- such as one-time passwords and appointment confirmations to customers.
+* `Aws\RAM` - This is the initial release of AWS Resource Access Manager (RAM) which provides you the ability to share your resources across AWS accounts or within your AWS Organization. You can now create resources centrally and use AWS RAM to share those resources with other accounts, eliminating the need to provision and manage resources in every account. When you share a resource with another account, that account is granted access. Any policies and permissions in that account apply to the shared resource. 
+* `Aws\RDS` - Introduces DB Instance Automated Backups for the MySQL, MariaDB, PostgreSQL, Oracle and Microsoft SQL Server database engines. You can now retain Amazon RDS automated backups (system snapshots and transaction logs) when you delete a database instance. This allows you to restore a deleted database instance to a specified point in time within the backup retention period even after it has been deleted, protecting you against accidental deletion of data. For more information, see Amazon RDS Documentation.
+* `Aws\Redshift` - With this release, Redshift is providing API's for better snapshot management by supporting user defined automated snapshot schedules, retention periods for manual snapshots, and aggregate snapshot actions including batch deleting user snapshots, viewing account level snapshot storage metrics, and better filtering and sorting on the describe-cluster-snapshots API. Automated snapshots can be scheduled to be taken at a custom interval and the schedule created can be reused across clusters. Manual snapshot retention periods can be set at the cluster, snapshot, and cross-region-copy level. The retention period set on a manual snapshot indicates how many days the snapshot will be retained before being automatically deleted.
+* `Aws\Route53Resolver` - This is the first release of the Amazon Route 53 Resolver API. Customers now have the ability to create and manage Amazon Route 53 Resolver endpoints and Amazon Route 53 Resolver rules. 
+* `Aws\S3` - Add support for new S3 Block Public Access bucket-level APIs. The new Block Public Access settings allow bucket owners to prevent public access to S3 data via bucket/object ACLs or bucket policies.
+* `Aws\S3Control` - Add support for new S3 Block Public Access account-level APIs. The Block Public Access settings allow account owners to prevent public access to S3 data via bucket/object ACLs or bucket policies.
+* `Aws\TranscribeService` - With this release, Amazon Transcribe now publicly supports transcriptions from audio sources in British English (en-GB), Australian English (en-AU), and Canadian French (fr-CA). Amazon Transcribe now also supports the following languages in Private beta: Germany German (de-DE), Brazil Portuguese (pt-BR), France French (fr-FR).
+
+## 3.71.6 - 2018-11-14
+
+* `Aws\AutoScaling` - EC2 Auto Scaling now allows users to provision and automatically scale instances across purchase options (Spot, On-Demand, and RIs) and instance types in a single Auto Scaling group (ASG).
+* `Aws\EC2` - Amazon EC2 Fleet now supports a new request type "Instant" that you can use to provision capacity synchronously across instance types & purchase models and CreateFleet will return the instances launched in the API response.
+* `Aws\MediaTailor` - AWS Elemental MediaTailor SDK now returns a manifest endpoint prefix for clients to initiate a DASH playback session.
+* `Aws\ResourceGroups` - The AWS Resource Groups service added support for AWS CloudFormation stack-based groups.
+* `Aws\SNS` - Added an optional request parameter, named Attributes, to the Amazon SNS CreateTopic API action. For more information, see the Amazon SNS API Reference (https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html).
+* `Aws\SageMaker` - SageMaker now makes the final set of metrics published from training jobs available in the DescribeTrainingJob results. Automatic Model Tuning now supports warm start of hyperparameter tuning jobs. Notebook instances now support a larger number of instance types to include instances from the ml.t3, ml.m5, ml.c4, ml.c5 families.
+* `Aws\ServiceCatalog` - Adds support for Cloudformation StackSets in Service Catalog
+
+## 3.71.5 - 2018-11-13
+
+* `Aws\Budgets` - Doc Update: 1. Available monthly-budgets maximal history data points from 12 to 13. 2. Added 'Amazon Elasticsearch' costfilters support.
+* `Aws\Chime` - This release adds support in ListUsers API to filter the list by an email address.
+* `Aws\Redshift` - Amazon Redshift provides the option to defer non-mandatory maintenance updates to a later date.
+
+## 3.71.4 - 2018-11-12
+
+* `Aws\Batch` - Adding EC2 Launch Template support in AWS Batch Compute Environments.
+* `Aws\Budgets` - 1. Added budget performance history, enabling you to see how well your budgets matched your actual costs and usage. 2. Added budget performance history, notification state, and last updated time, enabling you to see how well your budgets matched your actual costs and usage, how often your budget alerts triggered, and when your budget was last updated.
+* `Aws\CloudFormation` - The Drift Detection feature enables customers to detect whether a stack's actual configuration differs, or has drifted, from its expected configuration as defined within AWS CloudFormation.
+* `Aws\CodePipeline` - Add support for cross-region pipeline with accompanying definitions as needed in the AWS CodePipeline API Guide.
+* `Aws\Firehose` - With this release, Amazon Kinesis Data Firehose allows you to enable/disable server-side encryption(SSE) for your delivery streams ensuring encryption of data at rest. For technical documentation, look at https://docs.aws.amazon.com/firehose/latest/dev/encryption.html
+* `Aws\Polly` - Amazon Polly adds new female voices: Italian - Bianca, Castilian Spanish - Lucia and new language: Mexican Spanish with new female voice - Mia.
+* `Aws\RDS` - API Update for RDS: this update enables Custom Endpoints, a new feature compatible with Aurora Mysql, Aurora PostgreSQL and Neptune that allows users to configure a customizable endpoint that will provide access to their instances in a cluster. 
+
+## 3.71.3 - 2018-11-09
+
+* `Aws\MediaPackage` - As a part of SPEKE DRM encryption, MediaPackage now supports encrypted content keys. You can enable this enhanced content protection in an OriginEndpoint's encryption settings. When this is enabled, MediaPackage indicates to the key server that it requires an encrypted response. To use this, your DRM key provider must support content key encryption. For details on this feature, see the AWS MediaPackage User Guide at https://docs.aws.amazon.com/mediapackage/latest/ug/what-is.html.
+
+## 3.71.2 - 2018-11-08
+
+* `Aws\CloudWatchEvents` - Documentation updates for events
+* `Aws\DLM` - Amazon Data Lifecycle Manager adds support for copying EBS volume tags to EBS snapshots. AWS resource tags allow customers to add metadata and apply access policies to your Amazon Elastic Block Store (Amazon EBS) resources. Starting today, customers can use Amazon Data Lifecycle Manager (DLM) to copy tags on EBS volumes to EBS snapshots. This allows customers to easily set snapshot metadata, such as access policies, to match the parent volume. Customers can enable this functionality on new or existing lifecycle policies. They can also choose to disable it at a future date. 
+* `Aws\MediaLive` - You can now switch a live channel between preconfigured inputs. This means assigned inputs for a running channel can be changed according to a defined schedule. You can also use MP4 files as inputs.
+
+## 3.71.1 - 2018-11-07
+
+* `Aws\CostExplorer` - Enable Payer Accounts to View Linked Account Recommendations. Payer Accounts can specify "LINKED" as scope in the request now. In the response, there is a new filed called AccountId in ReservationPurchaseRecommendationDetail for indicating which account is this recommendation detail belongs to.
+* `Aws\DatabaseMigrationService` - Update the DMS TestConnectionSucceeds waiter.
+* `Aws\EC2` - VM Import/Export now supports generating encrypted EBS snapshots, as well as AMIs backed by encrypted EBS snapshots during the import process.
+
+## 3.71.0 - 2018-11-06
+
+* `Aws\APIGateway` - AWS WAF integration with APIGW. Changes for adding webAclArn as a part of Stage output. When the user calls a get-stage or get-stages, webAclArn will also be returned as a part of the output.
+* `Aws\CodeBuild` - Documentation updates for codebuild
+* `Aws\EC2` - You can now launch the new Amazon EC2 memory optimized R5a and general purpose M5a instances families that feature AMD EPYC processors.
+* `Aws\Pinpoint` - This update adds the ability to send transactional email by using the SendMessage API. Transactional emails are emails that you send directly to specific email addresses. Unlike campaign-based email that you send from Amazon Pinpoint, you don't have to create segments and campaigns in order to send transactional email.
+* `Aws\PinpointEmail` - This is the first release of the Amazon Pinpoint Email API. You can use this API to configure and send transactional email from your Amazon Pinpoint account to specific email addresses. Unlike campaign-based email that you send from Amazon Pinpoint, you don't have to create segments and campaigns in order to send transactional email. 
+* `Aws\WAFRegional` - You can now use AWS WAF to configure protections for your Amazon API Gateway APIs. This will enable you to block (or count) undesired traffic to your APIs based on the different AWS WAF rules and conditions you create. For more information about AWS WAF, see the AWS WAF Developer Guide.
+
+## 3.70.4 - 2018-11-05
+
+* `Aws\EKS` - Adds waiters for ClusterActive and ClusterDeleted
+* `Aws\ServerlessApplicationRepository` - New AWS Serverless Application Repository APIs that support creating and reading a broader set of AWS CloudFormation templates, as well as enhancements to our existing APIs.
+
+## 3.70.3 - 2018-11-02
+
+* `Aws\CloudDirectory` - ListObjectParents API now supports a bool parameter IncludeAllLinksToEachParent, which if set to true, will return a ParentLinks list instead of a Parents map; BatchRead API now supports ListObjectParents operation.
+* `Aws\Rekognition` - This release updates the DetectLabels operation. Bounding boxes are now returned for certain objects, a hierarchical taxonomy is now available for labels, and you can now get the version of the detection model used for detection.
+
+## 3.70.2 - 2018-11-01
+
+* `Aws\ServiceCatalog` - Service Catalog integration with AWS Organizations, enables customers to more easily create and manage a portfolio of IT services across an organization. Administrators can now take advantage of the AWS account structure and account groupings configured in AWS Organizations to share Service Catalog Portfolios increasing agility and reducing risk. With this integration the admin user will leverage the trust relationship that exists within the accounts of the Organization to share portfolios to the entire Organization, a specific Organizational Unit or a specific Account.
+
+## 3.70.1 - 2018-10-31
+
+* `Aws\ConfigService` - With this release, AWS Config updated the ResourceType values. The updated list includes AWS Systems Manager AssociationCompliance and PatchCompliance, AWS Shield regional Protection, AWS Config ResourceCompliance, and AWS CodePipeline Pipeline.
+* `Aws\Greengrass` - Greengrass APIs now support bulk deployment operations, and APIs that list definition versions now support pagination.
+* `Aws\MediaStoreData` - The object size limit is increased from 10MB to 25MB and the content type is more permissive.
+* `Aws\SecretsManager` - Documentation updates for AWS Secrets Manager.
+
+## 3.70.0 - 2018-10-30
+
+* `Aws\Chime` - This is the initial release for the Amazon Chime AWS SDK. In this release, Amazon Chime adds support for administrative actions on users and accounts. API Documentation is also updated on https://docs.aws.amazon.com/chime/index.html
+* `Aws\DatabaseMigrationService` - Add waiters for TestConnectionSucceeds, EndpointDeleted, ReplicationInstanceAvailable, ReplicationInstanceDeleted, ReplicationTaskReady, ReplicationTaskStopped, ReplicationTaskRunning and ReplicationTaskDeleted.
+* `Aws\RDS` - This release adds the listener connection endpoint for SQL Server Always On to the list of fields returned when performing a describe-db-instances operation.
+
+## 3.69.16 - 2018-10-26
+
+* `Aws\AlexaForBusiness` - Documentation updates for AWS Alexa for Business
+* `Aws\SSM` - Compliance Severity feature release for State Manager. Users now have the ability to select compliance severity to their association in state manager console or CLI.
+* `Aws\SageMaker` - SageMaker notebook instances can now have a volume size configured.
+
+## 3.69.15 - 2018-10-25
+
+* `Aws\EC2` - As part of this release we are introducing EC2 On-Demand Capacity Reservations. With On-Demand Capacity Reservations, customers can reserve the exact EC2 capacity they need, and can keep it only for as long as they need it.
+
+## 3.69.14 - 2018-10-24
+
+* `Aws\AlexaForBusiness` - We extended the functionality of the Alexa for Business SDK, including additional support for third-party Alexa built-in devices, managing private and public skills, and conferencing setup.
+* `Aws\CodeStar` - This release lets you create projects from source code and a toolchain definition that you provide.
+
+## 3.69.13 - 2018-10-23
+
+* `Aws\EC2` - Provides customers the ability to Bring Your Own IP (BYOIP) prefix. You can bring part or all of your public IPv4 address range from your on-premises network to your AWS account. You continue to own the address range, but AWS advertises it on the internet.
+
+## 3.69.12 - 2018-10-22
+
+* `Aws\Inspector` - Finding will be decorated with ec2 related metadata
+* `Aws\Shield` - AWS Shield Advanced API introduced a new service-specific AccessDeniedException which will be thrown when accessing individual attack information without sufficient permission.
+
+## 3.69.11 - 2018-10-19
+
+* `Aws\Aws` - Bump Guzzle HTTP patch version for PHP 7.3 compatibility.
+* `Aws\SSM` - Rate Control feature release for State Manager. Users now have the ability to apply rate control parameters similar to run command to their association in state manager console or CLI.
+* `Aws\WorkSpaces` - Added support for PowerPro and GraphicsPro WorkSpaces bundles.
+
+## 3.69.10 - 2018-10-18
+
+* `Aws\AppStream` - This API update adds support for creating, managing, and deleting users in the AppStream 2.0 user pool.
+* `Aws\MediaLive` - This release allows you to now turn on Quality-Defined Variable Bitrate (QVBR) encoding for your AWS Elemental MediaLive channels. You can now deliver a consistently high-quality video viewing experience while reducing overall distribution bitrates by using Quality-Defined Variable Bitrate (QVBR) encoding with AWS Elemental MediaLive. QVBR is a video compression technique that automatically adjusts output bitrates to the complexity of source content and only use the bits required to maintain a defined level of quality. This means using QVBR encoding, you can save on distribution cost, while maintaining, or increasing video quality for your viewers.
+* `Aws\Route53` - This change allows customers to disable health checks.
+
+## 3.69.9 - 2018-10-17
+
+* `Aws\APIGateway` - Documentation updates for API Gateway
+* `Aws\CloudWatchEvents` - AWS Events - AWS Organizations Support in Event-Bus Policies. This release introduces a new parameter in the PutPermission API named Condition. Using the Condition parameter, customers can allow one or more AWS Organizations to access their CloudWatch Events Event-Bus resource.
+
+## 3.69.8 - 2018-10-16
+
+* `Aws\Glue` - New Glue APIs for creating, updating, reading and deleting Data Catalog resource-based policies.
+* `Aws\Lightsail` - Adds support for Lightsail managed databases.
+* `Aws\ResourceGroups` - AWS Resource Groups service added a new feature to filter resource groups by resource-type when using the ListGroups operation.
+
+## 3.69.7 - 2018-10-15
+
+* `Aws\Lambda` - Documentation updates for lambda
+* `Aws\RDS` - This release adds a new parameter to specify the DB instance or cluster parameter group for restore from DB snapshot and restore to point int time operations. For more information, see Amazon RDS Documentation.
+* `Aws\ServiceCatalog` - AWS Service Catalog enables you to reduce administrative maintenance and end-user training while adhering to compliance and security measures. With service actions, you as the administrator can enable end users to perform operational tasks, troubleshoot issues, run approved commands, or request permissions within Service Catalog. Service actions are defined using AWS Systems Manager documents, where you have access to pre-defined actions that implement AWS best practices, such asEC2 stop and reboot, as well as the ability to define custom actions.
+
+## 3.69.6 - 2018-10-12
+
+* `Aws\ClientSideMonitoring` - Adds MaxRetriesExceeded entry to ApiCall events.
+* `Aws\CloudTrail` - The LookupEvents API now supports two new attribute keys: ReadOnly and AccessKeyId
+
+## 3.69.5 - 2018-10-11
+
+* `Aws\Api/Serializer` - Fix to correctly format 'structure' options into JSON, when they have no valid values.
+* `Aws\Athena` - 1. GetQueryExecution API changes to return statementType of a submitted Athena query. 2. GetQueryResults API changes to return the number of rows added to a table when a CTAS query is executed.
+* `Aws\ClientSideMonitoring` - Updates to client-side monitoring event entry and config settings to match updated specification.
+* `Aws\DirectConnect` - This release adds support for Jumbo Frames over AWS Direct Connect. You can now set MTU value when creating new virtual interfaces. This release also includes a new API to modify MTU value of existing virtual interfaces.
+* `Aws\EC2` - You can now launch the smaller-sized G3 instance called g3s.xlarge. G3s.xlarge provides 4 vCPU, 30.5 GB RAM and a NVIDIA Tesla M60 GPU. It is ideal for remote workstations, engineering and architectural applications, and 3D visualizations and rendering for visual effects.
+* `Aws\MediaConvert` - Added Paginators for all the MediaConvert list operations
+* `Aws\TranscribeService` - With this release, Amazon Transcribe now supports transcriptions from audio sources in British English (en-UK), Australian English (en-AU), and Canadian French (fr-CA).
+
+## 3.69.4 - 2018-10-10
+
+* `Aws\Build/Docs` - Fixes API docs issue with required members in shapes.
+* `Aws\ClientSideMonitoring` - Avoids issue with late static bindings in closures in earlier versions of PHP 5.5.x.
+* `Aws\Comprehend` - This release adds French, Italian, German and Portuguese language support for all existing synchronous and asynchronous APIs
+* `Aws\ElasticsearchService` - Amazon Elasticsearch Service now supports customer-scheduled service software updates. When new service software becomes available, you can request an update to your domain and benefit from new features more quickly. If you take no action, we update the service software automatically after a certain time frame.
+* `Aws\TranscribeService` - With this update Amazon Transcribe now supports deleting completed transcription jobs. 
+
+## 3.69.3 - 2018-10-09
+
+* `Aws\SSM` - Adds StartDate, EndDate, and ScheduleTimezone to CreateMaintenanceWindow and UpdateMaintenanceWindow; Adds NextExecutionTime to GetMaintenanceWindow and DescribeMaintenanceWindows; Adds CancelMaintenanceWindowExecution, DescribeMaintenanceWindowSchedule and DescribeMaintenanceWindowsForTarget APIs.
+
+## 3.69.2 - 2018-10-08
+
+* `Aws\IoT` - We are releasing job execution timeout functionalities to customers. Customer now can set job execution timeout on the job level when creating a job. 
+* `Aws\IoTJobsDataPlane` - We are releasing job execution timeout functionalities to customers. Device can now set and update their job execution timeout. 
+
+## 3.69.1 - 2018-10-05
+
+* `Aws\DirectoryService` - SDK changes to create a new type of trust for active directory
+
+## 3.69.0 - 2018-10-04
+
+* `Aws\APIGateway` - Adding support for multi-value parameters in TestInvokeMethod and TestInvokeAuthorizer.
+* `Aws\ClientSideMonitoring` - Code for future SDK instrumentation and telemetry.
+* `Aws\CodeBuild` - Add resolved source version field in build output
+* `Aws\Neptune` - Update neptune command for support in the EU (London) region
+* `Aws\SSM` -  Adds RejectedPatchesAction to baseline to enable stricted validation of the rejected Patches List ; Add InstalledRejected and InstallOverrideList to compliance reporting
+* `Aws\StorageGateway` - AWS Storage Gateway now enables you to specify folders and subfolders when you update your file gateway's view of your S3 objects using the Refresh Cache API.
+
+## 3.68.1 - 2018-10-02
+
+* `Aws\SageMaker` - Waiter for SageMaker Batch Transform Jobs.
+* `Aws\SecretsManager` - Documentation updates for secretsmanager
+
+## 3.68.0 - 2018-10-01
+
+* `Aws\GuardDuty` - Support optional FindingPublishingFrequency parameter in CreateDetector and UpdateDetector operations, and ClientToken on Create* operations
+* `Aws\Lambda` - Added default TCP Keep-Alive Curl setting for the Lambda client.
+* `Aws\Rekognition` - Documentation updates for Amazon Rekognition
+
+## 3.67.22 - 2018-09-28
+
+* `Aws\CodeStar` - This release enables tagging CodeStar Projects at creation. The CreateProject API now includes optional tags parameter.
+* `Aws\EC2` - You can now use EC2 High Memory instances with 6 TiB memory (u-6tb1.metal), 9 TiB memory (u-9tb1.metal), and 12 TiB memory (u-12tb1.metal), which are ideal for running large in-memory databases, including production deployments of SAP HANA. These instances offer 448 logical processors, where each logical processor is a hyperthread on 224 cores. These instance deliver high networking throughput and lower latency with up to 25 Gbps of aggregate network bandwidth using Elastic Network Adapter (ENA)-based Enhanced Networking. These instances are EBS-Optimized by default, and support encrypted and unencrypted EBS volumes. This instance is only available in host-tenancy. You will need an EC2 Dedicated Host for this instance type to launch an instance.
+
+## 3.67.21 - 2018-09-27
+
+* `Aws\APIGateway` - Adding support for OpenAPI 3.0 import and export.
+* `Aws\CodeCommit` - This release adds API support for getting the contents of a file, getting the contents of a folder, and for deleting a file in an AWS CodeCommit repository.
+* `Aws\GameLift` - Amazon GameLift and Amazon GameLift FlexMatch are now available in the China cn-north-1 region.
+* `Aws\MQ` - Amazon MQ supports ActiveMQ 5.15.6, in addition to 5.15.0. Automatic minor version upgrades can be toggled. Updated the documentation.
+* `Aws\SageMaker` - SageMaker has added support for the AWS GovCloud (US) region.
+
+## 3.67.20 - 2018-09-26
+
+* `Aws\Glue` - AWS Glue now supports data encryption at rest for ETL jobs and development endpoints. With encryption enabled, when you run ETL jobs, or development endpoints, Glue will use AWS KMS keys to write encrypted data at rest. You can also encrypt the metadata stored in the Glue Data Catalog using keys that you manage with AWS KMS. Additionally, you can use AWS KMS keys to encrypt the logs generated by crawlers and ETL jobs as well as encrypt ETL job bookmarks. Encryption settings for Glue crawlers, ETL jobs, and development endpoints can be configured using the security configurations in Glue. Glue Data Catalog encryption can be enabled via the settings for the Glue Data Catalog.
+* `Aws\OpsWorksCM` - This release introduces a new API called ExportServerEngineAttribute to Opsworks-CM. You can use this API call to export engine specific attributes like the UserData script used for unattended bootstrapping of new nodes that connect to the server. 
+* `Aws\RDS` - This release includes Deletion Protection for RDS databases.
+* `Aws\SQS` - Documentation updates for Amazon SQS.
+
+## 3.67.19 - 2018-09-25
+
+* `Aws\CloudFront` - Documentation updates for cloudfront
+* `Aws\DirectoryService` - API changes related to launch of cross account for Directory Service.
+* `Aws\EC2` - Add pagination support for ec2.describe-route-tables API. 
+
+## 3.67.18 - 2018-09-24
+
+* `Aws\Connect` - This update adds the Amazon Connect Metrics API, which lets you get current metric data and historical metric data within 24 hours for the queues in your Amazon Connect instance.
+* `Aws\RDS` -  Adds DB engine version requirements for option group option settings, and specifies if an option setting requires a value.
+
+## 3.67.17 - 2018-09-21
+
+* `Aws\MediaConvert` - To offer lower prices for predictable, non-urgent workloads, we propose the concept of Reserved Transcode pricing. Reserved Transcode pricing Reserved Transcoding pricing would offer the customer access to a fixed parallel processing capacity for a fixed monthly rate. This capacity would be stated in terms of number of Reserved Transcode Slots (RTSs). One RTS would be able to process one job at a time for a fixed monthly fee.
+
+## 3.67.16 - 2018-09-20
+
+* `Aws\DirectoryService` - Added CreateLogSubscription, DeleteLogSubscription, and ListLogSubscriptions APIs for Microsoft AD. Customers can now opt in to have Windows security event logs from the domain controllers forwarded to a log group in their account.
+* `Aws\EC2` - You can now launch f1.4xlarge, a new instance size within the existing f1 family which provides two Xilinx Virtex Field Programmable Arrays (FPGAs) for acceleration. FPGA acceleration provide additional performance and time sensitivity for specialized accelerated workloads such as clinical genomics and real-time video processing. F1.4xlarge instances are available in the US East (N. Virginia), US West (Oregon), GovCloud (US), and EU West (Dublin) AWS Regions.
+* `Aws\RDS` - This launch enables RDS start-db-cluster and stop-db-cluster. Stopping and starting Amazon Aurora clusters helps you manage costs for development and test environments. You can temporarily stop all the DB instances in your cluster, instead of setting up and tearing down all the DB instances each time that you use the cluster.
+
+## 3.67.15 - 2018-09-19
+
+* `Aws\CloudWatch` - Amazon CloudWatch adds the ability to request png image snapshots of metric widgets using the GetMetricWidgetImage API.
+* `Aws\Organizations` - Introducing a new exception - AccountOwnerNotVerifiedException which will be returned for InviteAccountToOrganization call for unverified accounts.
+* `Aws\S3` - S3 Cross Region Replication now allows customers to use S3 object tags to filter the scope of replication. By using S3 object tags, customers can identify individual objects for replication across AWS Regions for compliance and data protection. Cross Region Replication for S3 enables automatic and asynchronous replication of objects to another AWS Region, and with this release customers can replicate at a bucket level, prefix level or by using object tags.
+
+## 3.67.14 - 2018-09-18
+
+* `Aws\ElasticsearchService` - Amazon Elasticsearch Service adds support for node-to-node encryption for new domains running Elasticsearch version 6.0 and above
+* `Aws\Rekognition` - This release updates the Amazon Rekognition IndexFaces API operation. It introduces a QualityFilter parameter that allows you to automatically filter out detected faces that are deemed to be of low quality by Amazon Rekognition. The quality bar is based on a variety of common use cases. You can filter low-quality detected faces by setting QualityFilter to AUTO, which is also the default setting. To index all detected faces regardless of quality, you can specify NONE. This release also provides a MaxFaces parameter that is useful when you want to only index the most prominent and largest faces in an image and don't want to index other faces detected in the image, such as smaller faces belonging to people standing in the background.
+
+## 3.67.13 - 2018-09-17
+
+* `Aws\CloudWatch` - Amazon CloudWatch adds the ability to publish values and counts using PutMetricData
+* `Aws\CodeBuild` - Support build logs configuration.
+* `Aws\EC2` - Added support for customers to tag EC2 Dedicated Hosts on creation.
+* `Aws\ECS` - This release of Amazon Elastic Container Service (Amazon ECS) introduces support for additional Docker flags as Task Definition parameters. Customers can now configure their ECS Tasks to use systemControls (sysctl), pseudoTerminal (tty), and interactive (i) Docker flags.
+* `Aws\ElastiCache` - ElastiCache for Redis added support for adding and removing read-replicas from any cluster with no cluster downtime, Shard naming: ElastiCache for Redis customers have the option of allowing ElastiCache to create names for their node groups (shards) or generating their own node group names. For more information, see https:// docs.aws.amazon.com/AmazonElastiCache/latest/APIReference/API_NodeGroupConfiguration.html, ShardsToRetain: When reducing the number of node groups (shards) in an ElastiCache for Redis (cluster mode enabled) you have the option of specifying which node groups to retain or which node groups to remove. For more information, see https:// docs.aws.amazon.com/AmazonElastiCache/latest/APIReference/API_ModifyReplicationGroupShardConfiguration.html, ReservationARN: ReservedNode includes an ARN, ReservationARN, member which identifies the reserved node. For more information, see https:// docs.aws.amazon.com/AmazonElastiCache/latest/APIReference/API_ReservedCacheNode.html
+* `Aws\ElasticTranscoder` - Added support for MP2 container
+* `Aws\SecretsManager` - Documentation updates for secretsmanager
+
+## 3.67.12 - 2018-09-13
+
+* `Aws\Polly` - Amazon Polly adds Mandarin Chinese language support with new female voice - "Zhiyu"
+
+## 3.67.11 - 2018-09-12
+
+* `Aws\Connect` - This update adds the Amazon Connect Update Contact Attributes API, which lets you update contact attributes for contacts in your Amazon Connect instance.
+* `Aws\EC2` - Pagination Support for DescribeNetworkInterfaces API
+* `Aws\FMS` - This update of Amazon Fire Wall Manager adds the ability to scope down the policy as well as to get all the member accounts belonging to a certain Fire Wall Manager admin account.
+* `Aws\SES` - Documentation updates for Amazon Simple Email Service
+* `Aws\S3` - Support for S3Select in the AWS SDK for PHP.
+
+## 3.67.10 - 2018-09-11
+
+* `Aws\OpsWorksCM` - Documentation updates for opsworkscm
+* `Aws\SSM` - Session Manager is a fully managed AWS Systems Manager capability that provides interactive one-click access to Amazon EC2 Linux and Windows instances.
+
+## 3.67.9 - 2018-09-10
+
+* `Aws\CloudHSMV2` - With this release, we are adding 2 new APIs. DeleteBackup deletes a specified AWS CloudHSM backup. A backup can be restored up to 7 days after the DeleteBackup request. During this 7-day period, the backup will be in state PENDING_DELETION. Backups can be restored using the RestoreBackup API, which will move the backup from state PENDING_DELETION back to ACTIVE.
+* `Aws\Redshift` - Adding support to Redshift to change the encryption type after cluster creation completes.
+
+## 3.67.8 - 2018-09-07
+
+* `Aws\CloudWatchLogs` - * Adding a log prefix parameter for filter log events API and minor updates to the documentation
+* `Aws\ConfigService` - Adding a new field "createdBy" to the ConfigRule data model. The field is populated only if the rule is service linked i.e the rule is created by a service. The field is empty for normal rules created by customer.
+
 ## 3.67.7 - 2018-09-06
 
 * `Aws\APIGateway` - Add support for Active X-Ray with API Gateway
