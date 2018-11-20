@@ -245,6 +245,7 @@ function get_plugin_manifest() {
 			'settings' => [
 				'network'     => true,
 				'autosuggest' => true,
+				'admin'       => false,
 			],
 		],
 		'polylang'             => [

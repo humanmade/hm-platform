@@ -103,6 +103,11 @@ add_action( 'hm.platform.elasticpress.settings.early', function ( $settings = []
 		}, 9 );
 	}
 
+	// Toggle enabled in admin.
+	if ( isset( $settings['admin'] ) && $settings['admin'] ) {
+		add_filter( 'ep_admin_wp_query_integration', '__return_true' );
+	}
+
 	// Preconfigure and handle autosuggest endpoint.
 	if ( isset( $settings['autosuggest'] ) && $settings['autosuggest'] ) {
 
