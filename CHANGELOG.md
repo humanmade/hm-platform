@@ -1,8 +1,11 @@
 ## Changelog
 
+### HEAD
+- Update AWS SDK to 3.73.0
+
 ### 1.2.15
 - Update S3 Uploads to latest
-	- Fixes wp_tempnam not being defined
+  - Fixes wp_tempnam not being defined
 
 ### 1.2.14
 - Change AWS Xray submodule to `https` instead of `git` protocol.
