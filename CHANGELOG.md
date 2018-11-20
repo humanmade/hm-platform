@@ -1,7 +1,46 @@
 ## Changelog
 
 ### HEAD
+- Add new db.php to support multi mysql server via `DB_READ_REPLICA_HOST`
+- Add new PHP Error Handler to send PHP logs to CloudWatch in ECS infrastructure
 - Update AWS SDK to 3.73.0
+
+### 1.2.23
+- Fix healthcheck status code
+- Add Cavalcade / Cron healthcheck
+- Added require-login feature and plugin
+
+### 1.2.22
+- Update Elasticsearch request signing to support ECS
+
+### 1.2.21
+- Update Cavalcade
+    - Updates the Cavalcade documentation
+    - Adds support for the WP Cron API's named schedules.
+    - Includes the interval when generating keys for comparing old and new values of the cron array so events with a changed recurrence are re-saved.
+
+### 1.2.20
+- Use Redis by default on ECS architecture
+- Update XRay plugin to 1.0.3
+	- Use local declaration of wp_debug_backtrace_summary.
+
+### 1.2.19
+- Increase execution timeout for async-upload.php.
+
+### 1.2.18
+- Update XRay plugin to 1.0.2
+  - Track Remote Requests made via the WordPress HTTP API.
+- Update S3 Uploads to latest
+  - Fix warning when using local streamwrapper
+
+### 1.2.17
+- Update Tachyon plugin to v0.9.2
+    - Latest version allows for enabling Tachyon in the WP Admin
+
+### 1.2.16
+- Log errors from ElasticPress communication with Elasticsearch
+- Don't fallback to MySQL search when Elasticsearch reqeusts fail
+>>>>>>> @{-1}
 
 ### 1.2.15
 - Update S3 Uploads to latest

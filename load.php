@@ -75,7 +75,18 @@ function bootstrap( $wp_debug_enabled ) {
 	}
 
 	require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
+	require_once __DIR__ . '/inc/performance_optimizations/namespace.php';
+	require_once __DIR__ . '/inc/cloudwatch_logs/namespace.php';
 
+	CloudWatch_Logs\bootstrap();
+	Performance_Optimizations\bootstrap();
+
+	// Only load the CloudWatch PHP Logs error handler on ECS,
+	// as the log group only exists there.
+	if ( get_environment_architecture() === 'ecs' ) {
+		require_once __DIR__ . '/inc/cloudwatch_error_handler/namespace.php';
+		CloudWatch_Error_Handler\bootstrap();
+	}
 	return $wp_debug_enabled;
 }
 
@@ -93,12 +104,13 @@ function get_config() {
 		'tachyon'         => true,
 		'cavalcade'       => true,
 		'batcache'        => true,
-		'memcached'       => true,
-		'redis'           => false,
+		'memcached'       => get_environment_architecture() === 'ec2',
+		'redis'           => get_environment_architecture() === 'ecs',
 		'ludicrousdb'     => true,
 		'xray'            => false,
 		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
 		'healthcheck'     => true,
+		'require-login'   => false,
 	);
 	return array_merge( $defaults, $hm_platform ? $hm_platform : array() );
 }
@@ -148,14 +160,36 @@ function load_advanced_cache( $should_load ) {
 function load_db() {
 	$config = get_config();
 
-	if ( ! $config['xray'] ) {
-		return;
-	}
-
 	require_once ABSPATH . WPINC . '/wp-db.php';
-	require __DIR__ . '/plugins/aws-xray/inc/class-db.php';
+	require_once __DIR__ . '/dropins/ludicrousdb/ludicrousdb/includes/class-ludicrousdb.php';
+	require_once __DIR__ . '/inc/class-db.php';
+	if ( ! defined( 'DB_CHARSET' ) ) {
+		define( 'DB_CHARSET', 'utf8mb4' );
+	}
+	if ( ! defined( 'DB_COLLATE' ) ) {
+		define( 'DB_COLLATE', 'utf8mb4_unicode_520_ci' );
+	}
 	global $wpdb;
-	$wpdb = new XRay\DB( DB_USER, DB_PASSWORD, DB_NAME, DB_HOST );
+	$wpdb = new DB();
+	$wpdb->add_database( [
+		'read' => 2,
+		'write' => true,
+		'host' => DB_HOST,
+		'name' => DB_NAME,
+		'user' => DB_USER,
+		'password' => DB_PASSWORD,
+	] );
+
+	if ( defined( 'DB_READ_REPLICA_HOST' ) && DB_READ_REPLICA_HOST ) {
+		$wpdb->add_database( [
+			'read' => 1,
+			'write' => false,
+			'host' => DB_READ_REPLICA_HOST,
+			'name' => DB_NAME,
+			'user' => DB_USER,
+			'password' => DB_PASSWORD,
+		] );
+	}
 }
 
 /**
@@ -172,6 +206,7 @@ function get_available_plugins() {
 		'redis'           => 'wp-redis/wp-redis.php',
 		'xray'            => 'aws-xray/plugin.php',
 		'healthcheck'     => 'healthcheck/plugin.php',
+		'require-login'   => 'hm-require-login/plugin.php',
 	);
 }
 
@@ -230,4 +265,17 @@ function get_aws_sdk() {
 	}
 	$sdk = new \Aws\Sdk( $params );
 	return $sdk;
+}
+
+/**
+ * Get the application architecture for the current site.
+ *
+ * @return string
+ */
+function get_environment_architecture() : string {
+	if ( defined( 'HM_ENV_ARCHITECTURE' ) ) {
+		return HM_ENV_ARCHITECTURE;
+	}
+
+	return 'ec2';
 }
