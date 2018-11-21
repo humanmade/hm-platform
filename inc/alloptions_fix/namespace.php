@@ -9,8 +9,9 @@ function bootstrap() {
 }
 
 /**
- * Fix a race condition in alloptions caching
+ * Fix a race condition in alloptions caching.
  *
+ * See https://github.com/humanmade/hm-platform/issues/132
  * See https://core.trac.wordpress.org/ticket/31245#comment:57
  */
 function maybe_clear_alloptions_cache( $option ) {
