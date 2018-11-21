@@ -73,9 +73,6 @@
 [submodule "plugins/polylang"]
 	path = plugins/polylang
 	url = https://github.com/humanmade/polylang.git
-[submodule "plugins/wordpress-seo"]
-	path = plugins/wordpress-seo
-	url = https://github.com/humanmade/wordpress-seo.git
 	ignore = dirty
 [submodule "plugins/aws-xray"]
 	path = plugins/aws-xray

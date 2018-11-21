@@ -8,5 +8,11 @@
     "google/cloud-translate": "^1.2",
     "google/apiclient": "^2.0",
     "aws/aws-sdk-php": "^3.69"
+  },
+  "extra": {
+    "installer-paths": {
+        "plugins/{$name}/": ["type:wordpress-plugin", "type:wordpress-muplugin"],
+        "dropins/{$name}/": ["type:wordpress-dropin"]
+    }
   }
 }
