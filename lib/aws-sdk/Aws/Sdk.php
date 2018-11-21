@@ -30,6 +30,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionBatch(array $args = [])
  * @method \Aws\Budgets\BudgetsClient createBudgets(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBudgets(array $args = [])
+ * @method \Aws\Chime\ChimeClient createChime(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionChime(array $args = [])
  * @method \Aws\Cloud9\Cloud9Client createCloud9(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionCloud9(array $args = [])
  * @method \Aws\CloudDirectory\CloudDirectoryClient createCloudDirectory(array $args = [])
@@ -218,10 +220,16 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionPI(array $args = [])
  * @method \Aws\Pinpoint\PinpointClient createPinpoint(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPinpoint(array $args = [])
+ * @method \Aws\PinpointEmail\PinpointEmailClient createPinpointEmail(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionPinpointEmail(array $args = [])
+ * @method \Aws\PinpointSMSVoice\PinpointSMSVoiceClient createPinpointSMSVoice(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionPinpointSMSVoice(array $args = [])
  * @method \Aws\Polly\PollyClient createPolly(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPolly(array $args = [])
  * @method \Aws\Pricing\PricingClient createPricing(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPricing(array $args = [])
+ * @method \Aws\RAM\RAMClient createRAM(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionRAM(array $args = [])
  * @method \Aws\Rds\RdsClient createRds(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionRds(array $args = [])
  * @method \Aws\Redshift\RedshiftClient createRedshift(array $args = [])
@@ -236,8 +244,12 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionRoute53(array $args = [])
  * @method \Aws\Route53Domains\Route53DomainsClient createRoute53Domains(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionRoute53Domains(array $args = [])
+ * @method \Aws\Route53Resolver\Route53ResolverClient createRoute53Resolver(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionRoute53Resolver(array $args = [])
  * @method \Aws\S3\S3Client createS3(array $args = [])
  * @method \Aws\S3\S3MultiRegionClient createMultiRegionS3(array $args = [])
+ * @method \Aws\S3Control\S3ControlClient createS3Control(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionS3Control(array $args = [])
  * @method \Aws\SageMaker\SageMakerClient createSageMaker(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSageMaker(array $args = [])
  * @method \Aws\SageMakerRuntime\SageMakerRuntimeClient createSageMakerRuntime(array $args = [])
@@ -295,7 +307,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.67.7';
+    const VERSION = '3.73.0';
 
     /** @var array Arguments for creating clients */
     private $args;

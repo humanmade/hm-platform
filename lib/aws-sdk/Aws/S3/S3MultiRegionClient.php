@@ -50,6 +50,8 @@ use GuzzleHttp\Promise;
  * @method \GuzzleHttp\Promise\Promise deleteObjectTaggingAsync(array $args = [])
  * @method \Aws\Result deleteObjects(array $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteObjectsAsync(array $args = [])
+ * @method \Aws\Result deletePublicAccessBlock(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise deletePublicAccessBlockAsync(array $args = [])
  * @method \Aws\Result getBucketAccelerateConfiguration(array $args = [])
  * @method \GuzzleHttp\Promise\Promise getBucketAccelerateConfigurationAsync(array $args = [])
  * @method \Aws\Result getBucketAcl(array $args = [])
@@ -78,6 +80,8 @@ use GuzzleHttp\Promise;
  * @method \GuzzleHttp\Promise\Promise getBucketNotificationConfigurationAsync(array $args = [])
  * @method \Aws\Result getBucketPolicy(array $args = [])
  * @method \GuzzleHttp\Promise\Promise getBucketPolicyAsync(array $args = [])
+ * @method \Aws\Result getBucketPolicyStatus(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise getBucketPolicyStatusAsync(array $args = [])
  * @method \Aws\Result getBucketReplication(array $args = [])
  * @method \GuzzleHttp\Promise\Promise getBucketReplicationAsync(array $args = [])
  * @method \Aws\Result getBucketRequestPayment(array $args = [])
@@ -96,6 +100,8 @@ use GuzzleHttp\Promise;
  * @method \GuzzleHttp\Promise\Promise getObjectTaggingAsync(array $args = [])
  * @method \Aws\Result getObjectTorrent(array $args = [])
  * @method \GuzzleHttp\Promise\Promise getObjectTorrentAsync(array $args = [])
+ * @method \Aws\Result getPublicAccessBlock(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise getPublicAccessBlockAsync(array $args = [])
  * @method \Aws\Result headBucket(array $args = [])
  * @method \GuzzleHttp\Promise\Promise headBucketAsync(array $args = [])
  * @method \Aws\Result headObject(array $args = [])
@@ -160,8 +166,12 @@ use GuzzleHttp\Promise;
  * @method \GuzzleHttp\Promise\Promise putObjectAclAsync(array $args = [])
  * @method \Aws\Result putObjectTagging(array $args = [])
  * @method \GuzzleHttp\Promise\Promise putObjectTaggingAsync(array $args = [])
+ * @method \Aws\Result putPublicAccessBlock(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise putPublicAccessBlockAsync(array $args = [])
  * @method \Aws\Result restoreObject(array $args = [])
  * @method \GuzzleHttp\Promise\Promise restoreObjectAsync(array $args = [])
+ * @method \Aws\Result selectObjectContent(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise selectObjectContentAsync(array $args = [])
  * @method \Aws\Result uploadPart(array $args = [])
  * @method \GuzzleHttp\Promise\Promise uploadPartAsync(array $args = [])
  * @method \Aws\Result uploadPartCopy(array $args = [])
@@ -244,7 +254,7 @@ class S3MultiRegionClient extends BaseClient implements S3ClientInterface
                     } catch (AwsException $e) {
                         if ($e->getAwsErrorCode() === 'AuthorizationHeaderMalformed') {
                             $region = $this->determineBucketRegionFromExceptionBody(
-                                $e->getResponse()->getBody()
+                                $e->getResponse()
                             );
                             if (!empty($region)) {
                                 $this->cache->set($cacheKey, $region);

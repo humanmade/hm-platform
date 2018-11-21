@@ -9,7 +9,9 @@ use function HM\Platform\get_aws_sdk;
 const OBJECT_CACHE_GROUP = 'cloudwatch-stream-tokens';
 
 function bootstrap() {
-	wp_cache_add_global_groups( OBJECT_CACHE_GROUP );
+	if ( function_exists( 'wp_cache_add_global_groups' ) ) {
+		wp_cache_add_global_groups( OBJECT_CACHE_GROUP );
+	}
 }
 
 function send_events_to_stream( array $events, string $group, string $stream ) {
