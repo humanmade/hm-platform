@@ -129,10 +129,10 @@ function load_object_cache() {
 	if ( $config['memcached'] ) {
 		require __DIR__ . '/dropins/wordpress-pecl-memcached-object-cache/object-cache.php';
 	} elseif ( $config['redis'] ) {
-		require __DIR__ . '/inc/redis_alloptions/namespace.php';
+		require __DIR__ . '/inc/alloptions_fix/namespace.php';
 		require __DIR__ . '/dropins/wp-redis-predis-client/vendor/autoload.php';
 
-		Redis_Alloptions\bootstrap();
+		Alloptions_Fix\bootstrap();
 		\WP_Predis\add_filters();
 
 		require __DIR__ . '/plugins/wp-redis/object-cache.php';
