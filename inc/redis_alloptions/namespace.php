@@ -3,9 +3,9 @@
 namespace HM\Platform\Redis_Alloptions;
 
 function bootstrap() {
-	add_action( 'added_option', __NAMESPACE__ . '\maybe_clear_alloptions_cache' );
-	add_action( 'updated_option', __NAMESPACE__ . '\maybe_clear_alloptions_cache' );
-	add_action( 'deleted_option', __NAMESPACE__ . '\maybe_clear_alloptions_cache' );
+	add_action( 'added_option', __NAMESPACE__ . '\\maybe_clear_alloptions_cache' );
+	add_action( 'updated_option', __NAMESPACE__ . '\\maybe_clear_alloptions_cache' );
+	add_action( 'deleted_option', __NAMESPACE__ . '\\maybe_clear_alloptions_cache' );
 }
 
 /**
