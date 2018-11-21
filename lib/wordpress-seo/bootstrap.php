@@ -53,3 +53,10 @@ add_action( 'admin_bar_menu', function () {
 add_action( 'network_admin_menu', function () {
 	remove_submenu_page( 'wpseo_dashboard', 'wpseo_licenses' );
 } );
+
+// Don't load CLI commands if not premium.
+add_action( 'plugins_loaded', function() {
+	if ( defined( 'WP_CLI' ) && WP_CLI ) {
+		remove_action( 'plugins_loaded', 'wpseo_cli_init', 20 );
+	}
+} );

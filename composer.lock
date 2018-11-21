@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eadaf216d66ee951bf417a2fde1c739c",
+    "content-hash": "56ad1e32bdfa3ecd6050997efb206401",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -683,6 +683,68 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
+            "name": "j4mie/idiorm",
+            "version": "v1.5.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/j4mie/idiorm.git",
+                "reference": "ee3022fcf71232309112714ca4a7760105002f99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/j4mie/idiorm/zipball/ee3022fcf71232309112714ca4a7760105002f99",
+                "reference": "ee3022fcf71232309112714ca4a7760105002f99",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "ext-pdo_sqlite": "*",
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "idiorm.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause",
+                "BSD-3-Clause",
+                "BSD-4-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Simon Holywell",
+                    "email": "treffynnon@php.net",
+                    "homepage": "http://simonholywell.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Jamie Matthews",
+                    "email": "jamie.matthews@gmail.com",
+                    "homepage": "http://j4mie.org",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Durham Hale",
+                    "email": "me@durhamhale.com",
+                    "homepage": "http://durhamhale.com",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A lightweight nearly-zero-configuration object-relational mapper and fluent query builder for PHP5",
+            "homepage": "http://j4mie.github.com/idiormandparis",
+            "keywords": [
+                "idiorm",
+                "orm",
+                "query builder"
+            ],
+            "time": "2018-05-30T23:57:49+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.23.0",
             "source": {
@@ -908,6 +970,56 @@
             "time": "2018-04-15T16:55:05+00:00"
         },
         {
+            "name": "pimple/pimple",
+            "version": "v3.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silexphp/Pimple.git",
+                "reference": "9e403941ef9d65d20cba7d54e29fe906db42cf32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/9e403941ef9d65d20cba7d54e29fe906db42cf32",
+                "reference": "9e403941ef9d65d20cba7d54e29fe906db42cf32",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "psr/container": "^1.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Pimple": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Pimple, a simple Dependency Injection Container",
+            "homepage": "http://pimple.sensiolabs.org",
+            "keywords": [
+                "container",
+                "dependency injection"
+            ],
+            "time": "2018-01-21T07:42:36+00:00"
+        },
+        {
             "name": "psr/cache",
             "version": "1.0.1",
             "source": {
@@ -952,6 +1064,55 @@
                 "psr-6"
             ],
             "time": "2016-08-06T20:24:11+00:00"
+        },
+        {
+            "name": "psr/container",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "time": "2017-02-14T16:28:37+00:00"
         },
         {
             "name": "psr/http-message",
@@ -1093,6 +1254,278 @@
                 "uri"
             ],
             "time": "2017-06-14T03:57:53+00:00"
+        },
+        {
+            "name": "ruckusing/ruckusing-migrations",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ruckus/ruckusing-migrations.git",
+                "reference": "57d6ef2ea89d0c07a38b4697e406734ed7313025"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ruckus/ruckusing-migrations/zipball/57d6ef2ea89d0c07a38b4697e406734ed7313025",
+                "reference": "57d6ef2ea89d0c07a38b4697e406734ed7313025",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "bin": [
+                "ruckus.php"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Ruckusing": "lib/",
+                    "Task": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cody Caughlan",
+                    "email": "codycaughlan@gmail.com",
+                    "homepage": "https://github.com/ruckus/ruckusing-migrations/wiki",
+                    "role": "Project lead / Developer"
+                }
+            ],
+            "description": "Framework for generating and managing database migrations",
+            "homepage": "https://github.com/ruckus/ruckusing-migrations",
+            "keywords": [
+                "database",
+                "migrations",
+                "mysql",
+                "postgres",
+                "rake",
+                "ruckusing",
+                "task"
+            ],
+            "time": "2016-05-21T02:31:20+00:00"
+        },
+        {
+            "name": "xrstf/composer-php52",
+            "version": "v1.0.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer-php52/composer-php52.git",
+                "reference": "bd41459d5e27df8d33057842b32377c39e97a5a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer-php52/composer-php52/zipball/bd41459d5e27df8d33057842b32377c39e97a5a8",
+                "reference": "bd41459d5e27df8d33057842b32377c39e97a5a8",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-default": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "xrstf\\Composer52": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "time": "2016-04-16T21:52:24+00:00"
+        },
+        {
+            "name": "yoast/api-libs",
+            "version": "2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Yoast/api-libs.git",
+                "reference": "e7361081a1d6ae79c0b96c8363379435ea736ef8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Yoast/api-libs/zipball/e7361081a1d6ae79c0b96c8363379435ea736ef8",
+                "reference": "e7361081a1d6ae79c0b96c8363379435ea736ef8",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "class-api-libs.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Team Yoast",
+                    "email": "support@yoast.com",
+                    "homepage": "https://yoast.com"
+                }
+            ],
+            "description": "Shared API libraries for Yoast projects.",
+            "homepage": "https://github.com/Yoast/api-libs",
+            "keywords": [
+                "wordpress"
+            ],
+            "time": "2015-07-14T10:25:59+00:00"
+        },
+        {
+            "name": "yoast/i18n-module",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Yoast/i18n-module.git",
+                "reference": "76b1645aaf8cf9a07dc06ec0bbe2a6838feeed4c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Yoast/i18n-module/zipball/76b1645aaf8cf9a07dc06ec0bbe2a6838feeed4c",
+                "reference": "76b1645aaf8cf9a07dc06ec0bbe2a6838feeed4c",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Team Yoast",
+                    "email": "support@yoast.com",
+                    "homepage": "https://yoast.com"
+                }
+            ],
+            "description": "Handle i18n for WordPress plugins.",
+            "homepage": "https://github.com/Yoast/i18n-module",
+            "keywords": [
+                "wordpress"
+            ],
+            "time": "2017-09-06T07:17:52+00:00"
+        },
+        {
+            "name": "yoast/license-manager",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Yoast/License-Manager.git",
+                "reference": "fbacabb06d788912fead4f32d0d1d8b9a2d883c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Yoast/License-Manager/zipball/fbacabb06d788912fead4f32d0d1d8b9a2d883c9",
+                "reference": "fbacabb06d788912fead4f32d0d1d8b9a2d883c9",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "class-api-request.php",
+                    "class-license-manager.php",
+                    "class-plugin-license-manager.php",
+                    "class-plugin-update-manager.php",
+                    "class-product.php",
+                    "class-theme-license-manager.php",
+                    "class-theme-update-manager.php",
+                    "class-update-manager.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Team Yoast",
+                    "email": "support@yoast.com",
+                    "homepage": "https://yoast.com"
+                }
+            ],
+            "description": "Yoast License Manager.",
+            "homepage": "https://github.com/Yoast/License-Manager",
+            "keywords": [
+                "wordpress"
+            ],
+            "time": "2017-08-22T07:59:16+00:00"
+        },
+        {
+            "name": "yoast/wordpress-seo",
+            "version": "9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Yoast-dist/wordpress-seo.git",
+                "reference": "fa5add1420955be14b1d04b2dc87fa5b21d511a3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Yoast-dist/wordpress-seo/zipball/fa5add1420955be14b1d04b2dc87fa5b21d511a3",
+                "reference": "fa5add1420955be14b1d04b2dc87fa5b21d511a3",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0",
+                "j4mie/idiorm": "^1.5",
+                "php": "^5.3.2||^7.0",
+                "pimple/pimple": "^3.2",
+                "psr/log": "^1.0",
+                "ruckusing/ruckusing-migrations": "^1.1",
+                "xrstf/composer-php52": "^1.0.20",
+                "yoast/api-libs": "^2.0",
+                "yoast/i18n-module": "^3.0",
+                "yoast/license-manager": "1.6.0"
+            },
+            "require-dev": {
+                "humbug/php-scoper": "^0.6.0",
+                "phpcompatibility/phpcompatibility-wp": "^2.0.0",
+                "roave/security-advisories": "dev-master",
+                "yoast/php-development-environment": "^1.0",
+                "yoast/yoastcs": "~0.4.3"
+            },
+            "type": "wordpress-plugin",
+            "autoload": {
+                "classmap": [
+                    "admin/",
+                    "frontend/",
+                    "inc/",
+                    "deprecated/",
+                    "cli/",
+                    "deprecated/",
+                    "vendor_prefixed/",
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Team Yoast",
+                    "email": "support@yoast.com",
+                    "homepage": "https://yoa.st/1--"
+                }
+            ],
+            "description": "Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the Yoast SEO plugin.",
+            "homepage": "https://yoa.st/1ui",
+            "keywords": [
+                "seo",
+                "wordpress"
+            ],
+            "time": "2018-11-20T09:40:48+00:00"
         }
     ],
     "packages-dev": [],

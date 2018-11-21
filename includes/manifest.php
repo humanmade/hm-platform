@@ -211,26 +211,26 @@ function get_plugin_manifest() {
 			'file'  => 'plugins/hm-related-posts/hm-related-posts.php',
 			'title' => 'Related posts',
 		],
-		// 'seo'                  => [
-		// 	'file'     => 'plugins/wordpress-seo/wp-seo.php',
-		// 	'title'    => 'SEO',
-		// 	'settings' => [
-		// 		'fake-premium'       => true,
-		// 		'hide-settings-page' => true,
-		// 	],
-		// 	'activate' => function ( $plugin ) {
-		// 		// Always load if we're activating.
-		// 		if ( ! function_exists( '_wpseo_activate' ) ) {
-		// 			require_once $plugin['file'];
-		// 		}
+		'seo'                  => [
+			'file'     => 'plugins/wordpress-seo/wp-seo.php',
+			'title'    => 'SEO',
+			'settings' => [
+				'fake-premium'       => true,
+				'hide-settings-page' => true,
+			],
+			'activate' => function ( $plugin ) {
+				// Always load if we're activating.
+				if ( ! function_exists( '_wpseo_activate' ) ) {
+					require_once $plugin['file'];
+				}
 
-		// 		if ( ! is_multisite() ) {
-		// 			_wpseo_activate();
-		// 		} else {
-		// 			wpseo_network_activate_deactivate( true );
-		// 		}
-		// 	},
-		// ],
+				if ( ! is_multisite() ) {
+					_wpseo_activate();
+				} else {
+					wpseo_network_activate_deactivate( true );
+				}
+			},
+		],
 		'redirects'            => [
 			'file'  => 'plugins/hm-redirects/hm-redirects.php',
 			'title' => 'Redirects',
