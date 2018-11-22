@@ -82,6 +82,15 @@ function get_deploys() {
 }
 
 /**
+ * Fetch backups of this site.
+ *
+ * Example URL: https://us-east-1.aws.hmn.md/api/stack/applications/encompass-development/backups
+ */
+function get_backups() {
+	return query_api( 'backups' );
+}
+
+/**
  * Query the HM Stack API for the data that we want.
  *
  * @param string $endpoint
