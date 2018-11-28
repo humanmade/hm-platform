@@ -5,6 +5,7 @@
 - Add new db.php to support multi mysql server via `DB_READ_REPLICA_HOST`
 - Add new PHP Error Handler to send PHP logs to CloudWatch in ECS infrastructure
 - Update AWS SDK to 3.73.0
+- X-Ray is not on by default on the ECS infrastructure
 
 ### 1.2.23
 - Fix healthcheck status code
