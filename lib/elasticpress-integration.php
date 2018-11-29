@@ -38,6 +38,9 @@ function sign_wp_request( array $args, string $url ) : array {
 	if ( isset( $args['headers']['Host'] ) ) {
 		unset( $args['headers']['Host'] );
 	}
+	if ( is_array( $args['body'] ) ) {
+		$args['body'] = http_build_query( $args['body'], null, '&' );
+	}
 	$request = new Request( $args['method'], $url, $args['headers'], $args['body'] );
 	$signer = new SignatureV4( 'es', HM_ENV_REGION );
 	if ( defined( 'ELASTICSEARCH_AWS_KEY' ) ) {
