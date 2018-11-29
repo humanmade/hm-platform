@@ -5,6 +5,7 @@ namespace HM\Platform;
 use LudicrousDB;
 
 class DB extends LudicrousDB {
+	public $check_tcp_responsiveness = false;
 	function query( $query ) {
 		$start = microtime( true );
 		$result = parent::query( $query );
