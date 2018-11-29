@@ -69,7 +69,7 @@ function run_checks() : array {
 		'cron-canary'  => Cavalcade\check_health(),
 	];
 
-	if ( defined( 'ELASTICSEARCH_HOST' ) ) {
+	if ( defined( 'ELASTICSEARCH_HOST' ) && ELASTICSEARCH_HOST ) {
 		$checks['elasticsearch'] = run_elasticsearch_healthcheck();
 	}
 
