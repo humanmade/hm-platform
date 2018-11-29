@@ -131,6 +131,9 @@ function load_object_cache() {
 	} elseif ( $config['redis'] ) {
 		require __DIR__ . '/inc/alloptions_fix/namespace.php';
 		require __DIR__ . '/dropins/wp-redis-predis-client/vendor/autoload.php';
+		if ( ! defined( 'WP_REDIS_DISABLE_FAILBACK_FLUSH' ) ) {
+			define( 'WP_REDIS_DISABLE_FAILBACK_FLUSH', true );
+		}
 
 		Alloptions_Fix\bootstrap();
 		\WP_Predis\add_filters();

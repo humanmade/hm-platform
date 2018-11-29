@@ -6,6 +6,7 @@
 - Add new PHP Error Handler to send PHP logs to CloudWatch in ECS infrastructure
 - Update AWS SDK to 3.73.0
 - X-Ray is not on by default on the ECS infrastructure
+- Disable Redis' failback flush
 
 ### 1.2.23
 - Fix healthcheck status code
