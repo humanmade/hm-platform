@@ -28,7 +28,7 @@ class DB extends LudicrousDB {
 	 * @return array The most appropriate character set and collation to use.
 	 */
 	public function determine_charset( $charset, $collate ) {
-		$charset_collate = parent::determine_charset( $charset, $collage );
+		$charset_collate = parent::determine_charset( $charset, $collate );
 		$charset = $charset_collate['charset'];
 		$collate = $charset_collate['collate'];
 
