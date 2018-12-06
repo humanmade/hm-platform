@@ -208,6 +208,15 @@ add_action( 'hm.platform.tachyon.settings', function ( $settings = [] ) {
 			return $args;
 		} );
 	}
+
+	// Out of the box support.
+	add_filter( 'theme_mod_header_image', function ( $url ) {
+		if ( empty( $url ) ) {
+			return $url;
+		}
+
+		return tachyon_url( $url );
+	} );
 } );
 
 // Smart media.
