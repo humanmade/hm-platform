@@ -53,9 +53,6 @@
 [submodule "plugins/hm-gtm"]
 	path = plugins/hm-gtm
 	url = https://github.com/humanmade/hm-gtm.git
-[submodule "plugins/media-explorer"]
-	path = plugins/media-explorer
-	url = https://github.com/humanmade/media-explorer.git
 [submodule "plugins/workflows"]
 	path = plugins/workflows
 	url = https://github.com/humanmade/Workflows.git

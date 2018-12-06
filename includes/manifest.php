@@ -26,7 +26,6 @@ function get_plugin_manifest() {
 		'cavalcade'            => [
 			'file'    => 'plugins/cavalcade/plugin.php',
 			'enabled' => true,
-			'title'   => 'Cavalcade',
 			'loader'  => function ( $plugin ) {
 				// Load the Cavalcade Runner CloudWatch extension.
 				// This is loaded on the Cavalcade-Runner, not WordPress, crazy I know.
@@ -48,7 +47,6 @@ function get_plugin_manifest() {
 		],
 		'memcached'            => [
 			'file'    => 'dropins/wordpress-pecl-memcached-object-cache/object-cache.php',
-			'title'   => 'Memcached',
 			'enabled' => get_environment_architecture() === 'ec2',
 			'loader'  => function ( $plugin ) {
 				add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) use ( $plugin ) {
@@ -68,7 +66,6 @@ function get_plugin_manifest() {
 		],
 		'redis'                => [
 			'file'    => 'plugins/wp-redis/object-cache.php',
-			'title'   => 'Redis',
 			'enabled' => get_environment_architecture() === 'ecs',
 			'loader'  => function ( $plugin ) {
 				add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) use ( $plugin ) {
@@ -93,7 +90,6 @@ function get_plugin_manifest() {
 			},
 		],
 		'batcache'             => [
-			'title'   => 'Batcache',
 			'file'    => 'dropins/batcache/advanced-cache.php',
 			'enabled' => true,
 			'loader'  => function ( $plugin ) {
@@ -119,7 +115,6 @@ function get_plugin_manifest() {
 		],
 		'xray'                 => [
 			'file'    => 'plugins/aws-xray/plugin.php',
-			'title'   => 'X-Ray',
 			'enabled' => false,
 			'loader'  => function ( $plugin ) {
 				if ( function_exists( 'xhprof_sample_enable' ) && ( ! defined( 'WP_CLI' ) || ! WP_CLI ) ) {
@@ -153,7 +148,6 @@ function get_plugin_manifest() {
 		],
 		'aws-ses-wp-mail'      => [
 			'file'    => 'plugins/aws-ses-wp-mail/aws-ses-wp-mail.php',
-			'title'   => 'AWS Mail',
 			'enabled' => true,
 			'loader'  => function ( $plugin ) {
 				// Load logger on AWS.
@@ -192,7 +186,6 @@ function get_plugin_manifest() {
 		's3-uploads'           => [
 			'file'    => 'plugins/s3-uploads/s3-uploads.php',
 			'enabled' => true,
-			'title'   => 'S3 Uploads',
 		],
 		'tachyon'              => [
 			'file'     => 'plugins/tachyon/tachyon.php',
@@ -212,24 +205,12 @@ function get_plugin_manifest() {
 			'title' => 'Related posts',
 		],
 		'seo'                  => [
-			'file'     => 'plugins/wordpress-seo/wp-seo.php',
+			'file'     => 'inc/noop.php',
 			'title'    => 'SEO',
 			'settings' => [
 				'fake-premium'       => true,
 				'hide-settings-page' => true,
 			],
-			'activate' => function ( $plugin ) {
-				// Always load if we're activating.
-				if ( ! function_exists( '_wpseo_activate' ) ) {
-					require_once $plugin['file'];
-				}
-
-				if ( ! is_multisite() ) {
-					_wpseo_activate();
-				} else {
-					wpseo_network_activate_deactivate( true );
-				}
-			},
 		],
 		'redirects'            => [
 			'file'  => 'plugins/hm-redirects/hm-redirects.php',
@@ -274,18 +255,6 @@ function get_plugin_manifest() {
 				'network-container-id' => null,
 				'container-id'         => null,
 			],
-		],
-		'media-explorer'       => [
-			'file'  => 'plugins/media-explorer/media-explorer.php',
-			'title' => 'Media Explorer',
-		],
-		'gutenberg'            => [
-			'file'  => 'plugins/gutenberg/gutenberg.php',
-			'title' => 'Gutenberg',
-		],
-		'publishing-checklist' => [
-			'file'  => 'plugins/publishing-checklist/publishing-checklist.php',
-			'title' => 'Publishing Checklist',
 		],
 		'workflows'            => [
 			'file'  => 'plugins/workflows/plugin.php',

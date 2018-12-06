@@ -279,7 +279,8 @@ add_action( 'hm.platform.cmb2.settings', function () {
 } );
 
 // Gutenberg.
-add_action( 'hm.platform.gutenberg.settings', function () {
+// @todo remove post 5.0
+add_action( 'admin_init', function () {
 
 	// Remove try gutenberg callout.
 	add_filter( 'get_user_metadata', function ( $value, $object_id, $meta_key ) {
