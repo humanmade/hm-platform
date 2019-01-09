@@ -11,9 +11,51 @@ use HM\Cavalcade\Runner\Worker;
 use ReflectionClass;
 use function HM\Platform\get_aws_sdk;
 
-Runner::instance()->hooks->register( 'Runner.run_job.started', __NAMESPACE__ . '\\on_job_started' );
-Runner::instance()->hooks->register( 'Runner.check_workers.job_failed', __NAMESPACE__ . '\\on_job_failed' );
-Runner::instance()->hooks->register( 'Runner.check_workers.job_completed', __NAMESPACE__ . '\\on_job_completed' );
+const JOB_HOOK = 'hm-platform.cavalcade.metrics';
+const JOB_INTERVAL = 60; // 1 min
+const JOB_SCHEDULE = 'hm-platform-cavalcade_1min';
+
+function register_runner_hooks() {
+	Runner::instance()->hooks->register( 'Runner.run_job.started', __NAMESPACE__ . '\\on_job_started' );
+	Runner::instance()->hooks->register( 'Runner.check_workers.job_failed', __NAMESPACE__ . '\\on_job_failed' );
+	Runner::instance()->hooks->register( 'Runner.check_workers.job_completed', __NAMESPACE__ . '\\on_job_completed' );
+}
+
+function bootstrap() {
+	add_filter( 'cron_schedules', __NAMESPACE__ . '\\add_cron_schedule' );
+	add_action( JOB_HOOK, __NAMESPACE__ . '\\report_queue_depth' );
+
+	// Schedule if not already scheduled.
+	if ( ! wp_next_scheduled( JOB_HOOK ) && ( ! is_multisite() || is_main_site() ) ) {
+		wp_schedule_event( time(), JOB_SCHEDULE, JOB_HOOK );
+	}
+}
+
+/**
+ * Add custom cron schedule.
+ *
+ * @param array $schedules Existing wp-cron schedules
+ * @return array Altered schedules
+ */
+function add_cron_schedule( $schedules ) {
+	$schedules[ JOB_SCHEDULE ] = [
+		'interval' => JOB_INTERVAL,
+		'display' => 'Cavalcade Metrics Schedule (1 min)',
+	];
+	return $schedules;
+}
+
+function report_queue_depth() {
+	global $wpdb;
+
+	$query = "SELECT count(*) as count FROM {$wpdb->prefix}cavalcade_jobs";
+	$query .= ' WHERE nextrun < NOW() AND status = "waiting"';
+
+	$result = $wpdb->get_results( $query )[0]->count;
+
+	put_metric_data( 'Queue Depth', $result, [ 'Application' => HM_ENV ] );
+	put_metric_data( 'Queue Depth', $result );
+}
 
 /**
  * Called when a new job is started via Cavalcade, and sends an Invocation metric to CloudWatch.

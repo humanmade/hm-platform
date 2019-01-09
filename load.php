@@ -35,6 +35,7 @@ function boostrap_cavalcade_runner() {
 	require_once __DIR__ . '/lib/aws-sdk/aws-autoloader.php';
 	if ( defined( 'HM_ENV' ) && HM_ENV ) {
 		require_once __DIR__ . '/lib/cavalcade-runner-to-cloudwatch/plugin.php';
+		\HM\Cavalcade\CloudWatch\register_runner_hooks();
 	}
 }
 
