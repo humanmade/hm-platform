@@ -24,11 +24,12 @@ function register_runner_hooks() {
 function bootstrap() {
 	add_filter( 'cron_schedules', __NAMESPACE__ . '\\add_cron_schedule' );
 	add_action( JOB_HOOK, __NAMESPACE__ . '\\report_queue_depth' );
-
-	// Schedule if not already scheduled.
-	if ( ! wp_next_scheduled( JOB_HOOK ) && ( ! is_multisite() || is_main_site() ) ) {
-		wp_schedule_event( time(), JOB_SCHEDULE, JOB_HOOK );
-	}
+	add_action( 'muplugins_loaded', function() {
+		// Schedule if not already scheduled.
+		if ( ! wp_next_scheduled( JOB_HOOK ) && ( ! is_multisite() || is_main_site() ) ) {
+			wp_schedule_event( time(), JOB_SCHEDULE, JOB_HOOK );
+		}
+	});
 }
 
 /**
