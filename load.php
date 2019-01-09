@@ -76,9 +76,11 @@ function bootstrap( $wp_debug_enabled ) {
 	}
 
 	require_once __DIR__ . '/lib/ses-to-cloudwatch/plugin.php';
+	require_once __DIR__ . '/lib/cavalcade-runner-to-cloudwatch/plugin.php';
 	require_once __DIR__ . '/inc/performance_optimizations/namespace.php';
 	require_once __DIR__ . '/inc/cloudwatch_logs/namespace.php';
 
+	\HM\Cavalcade\CloudWatch\bootstrap();
 	CloudWatch_Logs\bootstrap();
 	Performance_Optimizations\bootstrap();
 
