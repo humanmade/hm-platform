@@ -12,10 +12,8 @@ if (
 	&& ( ! defined( 'WP_CLI' ) || ! WP_CLI )
 	&& ! class_exists( 'HM\\Cavalcade\\Runner\\Runner' )
 ) {
-	global $hm_platform_xray_start_time;
-	$hm_platform_xray_start_time = microtime( true );
-	ini_set( 'xhprof.sampling_interval', 5000 );
-	xhprof_sample_enable();
+	require_once __DIR__ . '/plugins/aws-xray/functions.php';
+	XRay\initialize();
 }
 
 // Load the platform as soon as WP is loaded.
