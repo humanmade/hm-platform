@@ -12,7 +12,7 @@ if (
 	&& ( ! defined( 'WP_CLI' ) || ! WP_CLI )
 	&& ! class_exists( 'HM\\Cavalcade\\Runner\\Runner' )
 ) {
-	require_once __DIR__ . '/plugins/aws-xray/functions.php';
+	require_once __DIR__ . '/plugins/aws-xray/inc/namespace.php';
 	XRay\initialize();
 }
 
