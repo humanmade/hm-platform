@@ -28,10 +28,21 @@ versions of plugins are installed.
 See the [platform](http://engineering.hmn.md/platform/plugins/) page for details on the
 libraries that are included.
 
+### Enterprise Kit
+
+This branch of Human Made Platform contains Enterprise Kit, a collection of features that enhance WordPress beyond it's default capabilities.
+
 ### Install Instructions
+
+As of now the `beta` branch is in a hybrid situation while working on making it a composer-first project. As a result there is a caveat right now in that a build step is required:
 
 1. Add this repository to the content directory of the WordPress install, we recommend you add
 it as a git submodule.
+1. Add a step to your `.build-script` to run:
+   ```bash
+   cd content/hm-platform
+   composer install
+   ```
 1. Require the `hm-platform/load.php` file from your `wp-config.php`.
 
 ### Configuring Activated Modules
@@ -39,6 +50,63 @@ it as a git submodule.
 To optionally enable or disable any of the platform modules you can create a file called `hm.json`
 and place it in your root directory or content directory. You can also override the settings depending
 on your environment, for example `hm.local.json` will override settings when working locally.
+
+Example:
+
+```json
+{
+  "repository": "https://github.com/humanmade/platform-demo",
+  "plugins": {
+    "elasticpress": {
+      "enabled": true
+    },
+    "related-posts": {
+      "enabled": true
+    },
+    "workflows": {
+      "enabled": true
+    },
+    "seo": {
+      "enabled": true
+    },
+    "platform-ui": {
+      "enabled": true
+    },
+    "xray": {
+      "enabled": true
+    },
+    "tachyon": {
+      "enabled": true
+    },
+    "rekognition": {
+      "enabled": true,
+      "settings": {
+        "labels": true,
+        "faces": false,
+        "text": false,
+        "celebrities": true
+      }
+    },
+    "bylines": {
+      "enabled": true
+    },
+    "google-tag-manager": {
+      "enabled": true
+    },
+    "smart-media": {
+      "enabled": true,
+      "settings": {
+        "justified-library": true,
+        "cropper": true,
+        "retina": true
+      }
+    },
+    "require-login": {
+      "enabled": true
+    }
+  }
+}
+```
 
 #### Legacy Configuration
 
