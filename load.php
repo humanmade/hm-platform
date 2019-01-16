@@ -13,7 +13,7 @@ if (
 	&& ! class_exists( 'HM\\Cavalcade\\Runner\\Runner' )
 ) {
 	require_once __DIR__ . '/plugins/aws-xray/inc/namespace.php';
-	XRay\initialize();
+	XRay\bootstrap();
 }
 
 // Load the platform as soon as WP is loaded.
