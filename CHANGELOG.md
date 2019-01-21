@@ -6,6 +6,7 @@
 - Add new PHP Error Handler to send PHP logs to CloudWatch in ECS infrastructure
 - Update AWS SDK to 3.73.0
 - X-Ray is not on by default on the ECS infrastructure
+- Update X-Ray with fix for `set_error_handler` compatibility
 - Don't run Elasticsearch Healthcheck test when it's not enabled
 - Disable Redis' failback flush
 - Fix undefined variable in `inc/class-db.php`
