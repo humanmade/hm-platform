@@ -28,6 +28,3 @@
 [submodule "plugins/hm-require-login"]
 	path = plugins/hm-require-login
 	url = git@github.com:humanmade/hm-require-login.git
-[submodule "dropins/wp-redis-predis-client"]
-	path = dropins/wp-redis-predis-client
-	url = https://github.com/humanmade/wp-redis-predis-client.git
