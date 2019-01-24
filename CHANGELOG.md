@@ -9,6 +9,7 @@
 - Don't run Elasticsearch Healthcheck test when it's not enabled
 - Disable Redis' failback flush
 - Fix undefined variable in `inc/class-db.php`
+- Update wp-redis-predis-client version with support for persistent connections
 
 ### 1.2.23
 - Fix healthcheck status code
