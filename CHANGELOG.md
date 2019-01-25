@@ -10,6 +10,7 @@
 - Disable Redis' failback flush
 - Fix undefined variable in `inc/class-db.php`
 - Update wp-redis-predis-client version with support for persistent connections
+- Update XRay plugin to 1.1.0. Enables catching of fatal errors.
 
 ### 1.2.23
 - Fix healthcheck status code
