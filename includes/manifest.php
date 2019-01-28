@@ -24,6 +24,7 @@ namespace HM\Platform;
 function get_plugin_manifest() {
 	$manifest = [
 		'cavalcade'            => [
+			'title'   => 'Cavalcade',
 			'file'    => 'plugins/cavalcade/plugin.php',
 			'enabled' => true,
 			'loader'  => function ( $plugin ) {
@@ -34,86 +35,98 @@ function get_plugin_manifest() {
 				}
 
 				// Load plugin on normal hook.
-				add_action( 'muplugins_loaded', function () use ( $plugin ) {
+				add_action(
+					'muplugins_loaded', function () use ( $plugin ) {
 
-					// Force DISABLE_WP_CRON for Cavalcade.
-					if ( ! defined( 'DISABLE_WP_CRON' ) ) {
-						define( 'DISABLE_WP_CRON', true );
+						// Force DISABLE_WP_CRON for Cavalcade.
+						if ( ! defined( 'DISABLE_WP_CRON' ) ) {
+							define( 'DISABLE_WP_CRON', true );
+						}
+
+						require $plugin['file'];
 					}
-
-					require $plugin['file'];
-				} );
+				);
 			},
 		],
 		'memcached'            => [
 			'file'    => 'dropins/wordpress-pecl-memcached-object-cache/object-cache.php',
 			'enabled' => get_environment_architecture() === 'ec2',
 			'loader'  => function ( $plugin ) {
-				add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) use ( $plugin ) {
-					if ( ! class_exists( 'Memcached' ) ) {
+				add_filter(
+					'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) use ( $plugin ) {
+						if ( ! class_exists( 'Memcached' ) ) {
+							return $wp_debug_enabled;
+						}
+
+						wp_using_ext_object_cache( true );
+						require $plugin['file'];
+
+						// Cache must be initted once it's included, else we'll get a fatal.
+						wp_cache_init();
+
 						return $wp_debug_enabled;
-					}
-
-					wp_using_ext_object_cache( true );
-					require $plugin['file'];
-
-					// Cache must be initted once it's included, else we'll get a fatal.
-					wp_cache_init();
-
-					return $wp_debug_enabled;
-				}, 0 ); // Make sure this is run before everything else
+					}, 0
+				); // Make sure this is run before everything else
 			},
 		],
 		'redis'                => [
 			'file'    => 'plugins/wp-redis/object-cache.php',
 			'enabled' => get_environment_architecture() === 'ecs',
 			'loader'  => function ( $plugin ) {
-				add_filter( 'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) use ( $plugin ) {
-					// Don't load if memcached is enabled.
-					$config = Config\get_config();
-					if ( isset( $config['memcached'] ) && $config['memcached']['enabled'] ) {
+				add_filter(
+					'enable_wp_debug_mode_checks', function ( $wp_debug_enabled ) use ( $plugin ) {
+						// Don't load if memcached is enabled.
+						$config = Config\get_config();
+						if ( isset( $config['memcached'] ) && $config['memcached']['enabled'] ) {
+							return $wp_debug_enabled;
+						}
+
+						wp_using_ext_object_cache( true );
+
+						require ROOT_DIR . '/dropins/wp-redis-predis-client/vendor/autoload.php';
+						require ROOT_DIR . '/plugins/wp-redis/wp-redis.php';
+						\WP_Predis\add_filters();
+						require $plugin['file'];
+
+						// Cache must be initted once it's included, else we'll get a fatal.
+						wp_cache_init();
+
 						return $wp_debug_enabled;
-					}
-
-					wp_using_ext_object_cache( true );
-
-					require ROOT_DIR . '/dropins/wp-redis-predis-client/vendor/autoload.php';
-					require ROOT_DIR . '/plugins/wp-redis/wp-redis.php';
-					\WP_Predis\add_filters();
-					require $plugin['file'];
-
-					// Cache must be initted once it's included, else we'll get a fatal.
-					wp_cache_init();
-
-					return $wp_debug_enabled;
-				}, 0 ); // Make sure this is run before everything else
+					}, 0
+				); // Make sure this is run before everything else
 			},
 		],
 		'batcache'             => [
+			'title'   => 'Batcache'
 			'file'    => 'dropins/batcache/advanced-cache.php',
 			'enabled' => true,
 			'loader'  => function ( $plugin ) {
-				add_filter( 'enable_wp_debug_mode_checks', function ( $should_load ) use ( $plugin ) {
-					if ( ! class_exists( 'Memcached' ) || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+				add_filter(
+					'enable_wp_debug_mode_checks', function ( $should_load ) use ( $plugin ) {
+						if ( ! class_exists( 'Memcached' ) || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+							return $should_load;
+						}
+
+						if ( ! $should_load ) {
+							return $should_load;
+						}
+
+						// Disable loading advanced-cache.php from content directory.
+						add_filter(
+							'enable_loading_advanced_cache_dropin', function () {
+								return false;
+							}
+						);
+
+						require $plugin['file'];
+
 						return $should_load;
-					}
-
-					if ( ! $should_load ) {
-						return $should_load;
-					}
-
-					// Disable loading advanced-cache.php from content directory.
-					add_filter( 'enable_loading_advanced_cache_dropin', function () {
-						return false;
-					} );
-
-					require $plugin['file'];
-
-					return $should_load;
-				}, 5 ); // Load after Memcached/Redis, before everything else
+					}, 5
+				); // Load after Memcached/Redis, before everything else
 			},
 		],
 		'xray'                 => [
+			'title'   => 'X-Ray',
 			'file'    => 'plugins/aws-xray/plugin.php',
 			'enabled' => false,
 			'loader'  => function ( $plugin ) {
@@ -125,20 +138,24 @@ function get_plugin_manifest() {
 					xhprof_sample_enable();
 
 					// Load DB replacement.
-					add_filter( 'enable_wp_debug_mode_checks', function ( $enable_wp_debug_mode ) {
-						require_once ABSPATH . WPINC . '/wp-db.php';
-						require ROOT_DIR . '/plugins/aws-xray/inc/class-db.php';
+					add_filter(
+						'enable_wp_debug_mode_checks', function ( $enable_wp_debug_mode ) {
+							require_once ABSPATH . WPINC . '/wp-db.php';
+							require ROOT_DIR . '/plugins/aws-xray/inc/class-db.php';
 
-						global $wpdb;
-						$wpdb = new XRay\DB( DB_USER, DB_PASSWORD, DB_NAME, DB_HOST );
+							global $wpdb;
+							$wpdb = new XRay\DB( DB_USER, DB_PASSWORD, DB_NAME, DB_HOST );
 
-						return $enable_wp_debug_mode;
-					} );
+							return $enable_wp_debug_mode;
+						}
+					);
 
 					// Load main plugin.
-					add_action( 'muplugins_loaded', function () use ( $plugin ) {
-						require_once $plugin['file'];
-					} );
+					add_action(
+						'muplugins_loaded', function () use ( $plugin ) {
+							require_once $plugin['file'];
+						}
+					);
 				}
 			},
 		],
@@ -155,9 +172,11 @@ function get_plugin_manifest() {
 					require_once ROOT_DIR . '/lib/ses-to-cloudwatch/plugin.php';
 				}
 
-				add_action( 'muplugins_loaded', function () use ( $plugin ) {
-					require $plugin['file'];
-				} );
+				add_action(
+					'muplugins_loaded', function () use ( $plugin ) {
+						require $plugin['file'];
+					}
+				);
 			},
 		],
 		'platform-ui'          => [
@@ -184,33 +203,26 @@ function get_plugin_manifest() {
 			},
 		],
 		's3-uploads'           => [
+			'title'   => 'S3 Uploads',
 			'file'    => 'plugins/s3-uploads/s3-uploads.php',
 			'enabled' => true,
 		],
 		'tachyon'              => [
+			'title'    => 'Tachyon',
 			'file'     => 'plugins/tachyon/tachyon.php',
 			'enabled'  => true,
-			'title'    => 'Tachyon',
 			'settings' => [
 				'smart-cropping' => true,
 				'retina'         => false,
 			],
 		],
 		'sitemaps'             => [
-			'file'  => 'plugins/msm-sitemap/msm-sitemap.php',
 			'title' => 'Sitemaps',
+			'file'  => 'plugins/msm-sitemap/msm-sitemap.php',
 		],
 		'related-posts'        => [
 			'file'  => 'plugins/hm-related-posts/hm-related-posts.php',
 			'title' => 'Related posts',
-		],
-		'seo'                  => [
-			'file'     => 'inc/noop.php',
-			'title'    => 'SEO',
-			'settings' => [
-				'fake-premium'       => true,
-				'hide-settings-page' => true,
-			],
 		],
 		'redirects'            => [
 			'file'  => 'plugins/hm-redirects/hm-redirects.php',
@@ -228,13 +240,6 @@ function get_plugin_manifest() {
 				'autosuggest' => true,
 				'admin'       => false,
 			],
-		],
-		'polylang'             => [
-			'file'     => 'plugins/polylang/polylang.php',
-			'title'    => 'Polylang',
-			'activate' => function ( $plugin ) {
-				do_action( 'activate_' . ltrim( $plugin['file'], '/' ), true );
-			},
 		],
 		'cmb2'                 => [
 			'file'  => 'plugins/cmb2/init.php',
