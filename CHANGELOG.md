@@ -9,7 +9,9 @@
 - Don't run Elasticsearch Healthcheck test when it's not enabled
 - Disable Redis' failback flush
 - Fix undefined variable in `inc/class-db.php`
+- Update XRay plugin to 1.1.0. Enables catching of fatal errors.
 - XRay `SELECT` Queries with leading whitespace cause Trace ID to be added
+- Update wp-redis-predis-client version with support for persistent connections
 
 ### 1.2.23
 - Fix healthcheck status code
