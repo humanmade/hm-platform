@@ -9,6 +9,7 @@
 - Don't run Elasticsearch Healthcheck test when it's not enabled
 - Disable Redis' failback flush
 - Fix undefined variable in `inc/class-db.php`
+- XRay `SELECT` Queries with leading whitespace cause Trace ID to be added
 
 ### 1.2.23
 - Fix healthcheck status code
