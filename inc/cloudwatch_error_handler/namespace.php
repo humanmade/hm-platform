@@ -47,6 +47,13 @@ function error_handler( int $errno, string $errstr, string $errfile = null, int 
 }
 
 function send_buffered_errors() {
+
+	// Check if we were shut down by an error.
+	$last_error = error_get_last();
+	if ( $last_error && in_array( $last_error['type'], [ E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING ], true ) ) {
+		error_handler( $last_error['type'], $last_error['message'], $last_error['file'], $last_error['line'] );
+	}
+
 	$errors = $GLOBALS['hm_platform_cloudwatch_error_handler_errors'];
 	$GLOBALS['hm_platform_cloudwatch_error_handler_errors'] = [];
 	$GLOBALS['hm_platform_cloudwatch_error_handler_error_count'] = 0;
