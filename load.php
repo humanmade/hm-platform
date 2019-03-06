@@ -268,6 +268,9 @@ function get_aws_sdk() {
 			'secret' => AWS_SECRET,
 		];
 	}
+
+	$params = apply_filters( 'hm_platform.aws_sdk.params', $params );
+
 	$sdk = new \Aws\Sdk( $params );
 	return $sdk;
 }
