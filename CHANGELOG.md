@@ -1,5 +1,8 @@
 ## Changelog
 
+### HEAD
+- XRay tracks all requests sent via the AWS SDK that use `get_aws_sdk()`.
+
 ### 1.3.0
 - When using Redis, clear the alloptions cache whenever an option is added/updated/deleted.
 - Add new db.php to support multi mysql server via `DB_READ_REPLICA_HOST`
