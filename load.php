@@ -29,8 +29,6 @@ if ( class_exists( 'HM\\Cavalcade\\Runner\\Runner' ) && get_config()['cavalcade'
 // Load the Cavalcade Runner CloudWatch extension.
 // This is loaded on the Cavalcade-Runner, not WordPress, crazy I know.
 function boostrap_cavalcade_runner() {
-	// Load the common AWS SDK. bootstrap() is not called in this context.
-	require_once __DIR__ . '/lib/aws-sdk/aws-autoloader.php';
 	if ( defined( 'HM_ENV' ) && HM_ENV ) {
 		require_once __DIR__ . '/lib/cavalcade-runner-to-cloudwatch/plugin.php';
 	}
@@ -43,9 +41,6 @@ function boostrap_cavalcade_runner() {
  * that was passed in at the end of the function.
  */
 function bootstrap( $wp_debug_enabled ) {
-	// Load the common AWS SDK.
-	require __DIR__ . '/lib/aws-sdk/aws-autoloader.php';
-
 	load_object_cache();
 	load_db();
 
