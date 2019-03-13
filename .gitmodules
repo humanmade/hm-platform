@@ -1,6 +1,6 @@
 [submodule "plugins/s3-uploads"]
 	path = plugins/s3-uploads
-	url = https://github.com/humanmade/S3-Uploads.git
+	url = https://github.com/paulgibbs/S3-Uploads.git
 [submodule "plugins/aws-ses-wp-mail"]
 	path = plugins/aws-ses-wp-mail
 	url = https://github.com/humanmade/aws-ses-wp-mail.git
