@@ -1,7 +1,6 @@
 ## Changelog
 
 ### HEAD
-- XRay tracks all requests sent via the AWS SDK that use `get_aws_sdk()`.
 - Send fatal errors to CloudWatch on ECS apps.
 
 ### 1.3.0
