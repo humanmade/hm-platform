@@ -1,9 +1,9 @@
 [submodule "plugins/s3-uploads"]
 	path = plugins/s3-uploads
-	url = https://github.com/humanmade/S3-Uploads.git
+	url = https://github.com/paulgibbs/S3-Uploads.git
 [submodule "plugins/aws-ses-wp-mail"]
 	path = plugins/aws-ses-wp-mail
-	url = https://github.com/humanmade/aws-ses-wp-mail.git
+	url = https://github.com/paulgibbs/aws-ses-wp-mail.git
 [submodule "dropins/wordpress-pecl-memcached-object-cache"]
 	path = dropins/wordpress-pecl-memcached-object-cache
 	url = https://github.com/humanmade/wordpress-pecl-memcached-object-cache.git
