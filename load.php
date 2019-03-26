@@ -105,7 +105,7 @@ function get_config() {
 		'memcached'       => get_environment_architecture() === 'ec2',
 		'redis'           => get_environment_architecture() === 'ecs',
 		'ludicrousdb'     => true,
-		'xray'            => get_environment_architecture() === 'ecs',
+		'xray'            => true,
 		'elasticsearch'   => defined( 'ELASTICSEARCH_HOST' ),
 		'healthcheck'     => true,
 		'require-login'   => false,
