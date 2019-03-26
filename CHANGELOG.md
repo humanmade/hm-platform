@@ -2,6 +2,7 @@
 
 ### HEAD
 - Send fatal errors to CloudWatch on ECS apps.
+- X-Ray enabled by default on all infrastructure types.
 
 ### 1.3.0
 - When using Redis, clear the alloptions cache whenever an option is added/updated/deleted.
