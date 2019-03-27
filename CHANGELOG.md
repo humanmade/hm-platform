@@ -1,6 +1,8 @@
 ## Changelog
 
 ### HEAD
+
+### 1.4.0
 - Send fatal errors to CloudWatch on ECS apps.
 - X-Ray enabled by default on all infrastructure types.
 
