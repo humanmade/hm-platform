@@ -97,7 +97,7 @@ function get_plugin_manifest() {
 			},
 		],
 		'batcache'             => [
-			'title'   => 'Batcache'
+			'title'   => 'Batcache',
 			'file'    => 'dropins/batcache/advanced-cache.php',
 			'enabled' => true,
 			'loader'  => function ( $plugin ) {
