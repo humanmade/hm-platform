@@ -1,6 +1,7 @@
 ## Changelog
 
 ### HEAD
+- Enable Batcache caching on logged-out `admin-ajax.php` GET requests.
 
 ### 1.4.0
 - Send fatal errors to CloudWatch on ECS apps.
