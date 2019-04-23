@@ -170,9 +170,7 @@ function disable_no_cache_headers_on_admin_ajax_nopriv() {
 		return;
 	}
 
-	array_map( function ( string $header ) {
-		header_remove( $header );
-	}, array_keys( wp_get_nocache_headers() ) );
+	array_map( 'header_remove', array_keys( wp_get_nocache_headers() ) );
 }
 
 /**
