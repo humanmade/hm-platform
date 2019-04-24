@@ -5,7 +5,7 @@
 			Shared library for sites on the Human Made Platform.
 		</td>
 		<td align="right" width="20%">
-			Version 1.4.0
+			Version 1.4.1
 		</td>
 	</tr>
 	<tr>
