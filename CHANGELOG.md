@@ -1,6 +1,8 @@
 ## Changelog
 
 ### HEAD
+
+### 1.4.1
 - Enable Batcache caching on logged-out `admin-ajax.php` GET requests.
 
 ### 1.4.0
