@@ -82,8 +82,8 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise getChannelsAsync(array $args = [])
  * @method \Aws\Result getEmailChannel(array $args = [])
  * @method \GuzzleHttp\Promise\Promise getEmailChannelAsync(array $args = [])
- * @method \Aws\Result getEndpoint(array $args = [])
- * @method \GuzzleHttp\Promise\Promise getEndpointAsync(array $args = [])
+ * @method \Aws\Result getUserEndpoint(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise getUserEndpointAsync(array $args = [])
  * @method \Aws\Result getEventStream(array $args = [])
  * @method \GuzzleHttp\Promise\Promise getEventStreamAsync(array $args = [])
  * @method \Aws\Result getExportJob(array $args = [])
@@ -114,6 +114,8 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise getUserEndpointsAsync(array $args = [])
  * @method \Aws\Result getVoiceChannel(array $args = [])
  * @method \GuzzleHttp\Promise\Promise getVoiceChannelAsync(array $args = [])
+ * @method \Aws\Result listTagsForResource(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise listTagsForResourceAsync(array $args = [])
  * @method \Aws\Result phoneNumberValidate(array $args = [])
  * @method \GuzzleHttp\Promise\Promise phoneNumberValidateAsync(array $args = [])
  * @method \Aws\Result putEventStream(array $args = [])
@@ -126,6 +128,10 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise sendMessagesAsync(array $args = [])
  * @method \Aws\Result sendUsersMessages(array $args = [])
  * @method \GuzzleHttp\Promise\Promise sendUsersMessagesAsync(array $args = [])
+ * @method \Aws\Result tagResource(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise tagResourceAsync(array $args = [])
+ * @method \Aws\Result untagResource(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise untagResourceAsync(array $args = [])
  * @method \Aws\Result updateAdmChannel(array $args = [])
  * @method \GuzzleHttp\Promise\Promise updateAdmChannelAsync(array $args = [])
  * @method \Aws\Result updateApnsChannel(array $args = [])
@@ -144,10 +150,10 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise updateCampaignAsync(array $args = [])
  * @method \Aws\Result updateEmailChannel(array $args = [])
  * @method \GuzzleHttp\Promise\Promise updateEmailChannelAsync(array $args = [])
- * @method \Aws\Result updateEndpoint(array $args = [])
- * @method \GuzzleHttp\Promise\Promise updateEndpointAsync(array $args = [])
- * @method \Aws\Result updateEndpointsBatch(array $args = [])
- * @method \GuzzleHttp\Promise\Promise updateEndpointsBatchAsync(array $args = [])
+ * @method \Aws\Result updateUserEndpoint(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise updateUserEndpointAsync(array $args = [])
+ * @method \Aws\Result updateUserEndpointsBatch(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise updateUserEndpointsBatchAsync(array $args = [])
  * @method \Aws\Result updateGcmChannel(array $args = [])
  * @method \GuzzleHttp\Promise\Promise updateGcmChannelAsync(array $args = [])
  * @method \Aws\Result updateSegment(array $args = [])
@@ -157,47 +163,4 @@ use Aws\AwsClient;
  * @method \Aws\Result updateVoiceChannel(array $args = [])
  * @method \GuzzleHttp\Promise\Promise updateVoiceChannelAsync(array $args = [])
  */
-class PinpointClient extends AwsClient
-{
-    private static $nameCollisionOverrides = [
-        'GetUserEndpoint' => 'GetEndpoint',
-        'GetUserEndpointAsync' => 'GetEndpointAsync',
-        'UpdateUserEndpoint' => 'UpdateEndpoint',
-        'UpdateUserEndpointAsync' => 'UpdateEndpointAsync',
-        'UpdateUserEndpointsBatch' => 'UpdateEndpointsBatch',
-        'UpdateUserEndpointsBatchAsync' => 'UpdateEndpointsBatchAsync',
-    ];
-
-    public function __call($name, array $args)
-    {
-        // Overcomes a naming collision with `AwsClient::getEndpoint`.
-        if (isset(self::$nameCollisionOverrides[ucfirst($name)])) {
-            $name = self::$nameCollisionOverrides[ucfirst($name)];
-        }
-
-        return parent::__call($name, $args);
-    }
-
-    /**
-     * @internal
-     * @codeCoverageIgnore
-     */
-    public static function applyDocFilters(array $api, array $docs)
-    {
-        foreach (self::$nameCollisionOverrides as $overrideName => $operationName) {
-            if (substr($overrideName, -5) === 'Async') {
-                continue;
-            }
-            // Overcomes a naming collision with `AwsClient::getEndpoint`.
-            $api['operations'][$overrideName] = $api['operations'][$operationName];
-            $docs['operations'][$overrideName] = $docs['operations'][$operationName];
-            unset($api['operations'][$operationName], $docs['operations'][$operationName]);
-        }
-        ksort($api['operations']);
-
-        return [
-            new Service($api, ApiProvider::defaultProvider()),
-            new DocModel($docs)
-        ];
-    }
-}
+class PinpointClient extends AwsClient {}
