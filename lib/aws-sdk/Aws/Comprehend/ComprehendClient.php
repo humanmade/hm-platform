@@ -63,6 +63,8 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise listKeyPhrasesDetectionJobsAsync(array $args = [])
  * @method \Aws\Result listSentimentDetectionJobs(array $args = [])
  * @method \GuzzleHttp\Promise\Promise listSentimentDetectionJobsAsync(array $args = [])
+ * @method \Aws\Result listTagsForResource(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise listTagsForResourceAsync(array $args = [])
  * @method \Aws\Result listTopicsDetectionJobs(array $args = [])
  * @method \GuzzleHttp\Promise\Promise listTopicsDetectionJobsAsync(array $args = [])
  * @method \Aws\Result startDocumentClassificationJob(array $args = [])
@@ -85,5 +87,13 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise stopKeyPhrasesDetectionJobAsync(array $args = [])
  * @method \Aws\Result stopSentimentDetectionJob(array $args = [])
  * @method \GuzzleHttp\Promise\Promise stopSentimentDetectionJobAsync(array $args = [])
+ * @method \Aws\Result stopTrainingDocumentClassifier(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise stopTrainingDocumentClassifierAsync(array $args = [])
+ * @method \Aws\Result stopTrainingEntityRecognizer(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise stopTrainingEntityRecognizerAsync(array $args = [])
+ * @method \Aws\Result tagResource(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise tagResourceAsync(array $args = [])
+ * @method \Aws\Result untagResource(array $args = [])
+ * @method \GuzzleHttp\Promise\Promise untagResourceAsync(array $args = [])
  */
 class ComprehendClient extends AwsClient {}
