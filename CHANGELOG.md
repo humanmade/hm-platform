@@ -2,6 +2,9 @@
 
 ### HEAD
 
+### 1.4.2
+- Upgrade AWS SDK to version 3.101.1
+
 ### 1.4.1
 - Enable Batcache caching on logged-out `admin-ajax.php` GET requests.
 
