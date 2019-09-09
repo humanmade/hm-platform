@@ -6,6 +6,14 @@ use LudicrousDB;
 
 class DB extends LudicrousDB {
 	public $check_tcp_responsiveness = false;
+
+	public function __construct( $args = null ) {
+		if( defined( 'DB_NAME' ) ){
+			$this->dbname = DB_NAME;
+		}
+		parent::__construct( $args );
+	}
+
 	function query( $query ) {
 		$start = microtime( true );
 		$result = parent::query( $query );
