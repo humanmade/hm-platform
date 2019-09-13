@@ -6,6 +6,7 @@ use LudicrousDB;
 
 class DB extends LudicrousDB {
 	public $check_tcp_responsiveness = false;
+
 	function query( $query ) {
 		$start = microtime( true );
 		$result = parent::query( $query );
@@ -41,5 +42,24 @@ class DB extends LudicrousDB {
 			}
 		}
 		return compact( 'charset', 'collate' );
+	}
+
+	/**
+	 * Add the connection parameters for a database.
+	 *
+	 * This overrides the parent method in LudicrousDB, as we want to
+	 * populte the dbname, dbuser etc instance vairables for compatibilty with
+	 * wpdb, and code that relies on those variables being set.
+	 *
+	 * @param array $db The database connection details.
+	 */
+	public function add_database( array $db = [] ) {
+		if ( ! empty( $db['write'] ) ) {
+			$this->dbname     = $db['name'];
+			$this->dbpassword = $db['password'];
+			$this->dbuser     = $db['user'];
+			$this->dbhost     = $db['host'];
+		}
+		parent::add_database( $db );
 	}
 }
