@@ -2,6 +2,12 @@
 
 ### HEAD
 
+### 1.4.3
+
+- Set dbname when a writer endpoint is missing.
+- Update S3 Uploads plugin to version 2.1.0.
+- Update AWS X-Ray plugin to 1.2.2.
+
 ### 1.4.2
 - Upgrade AWS SDK to version 3.101.1
 
