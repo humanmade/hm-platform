@@ -14,7 +14,7 @@ class DB extends LudicrousDB {
 			$host = $this->current_host ?: $this->last_connection['host'];
 			// Host gets the port number applied, which we don't want to add.
 			$host = strtok( $host, ':' );
-			XRay\trace_wpdb_query( apply_filters( 'query' , $query ), $start, microtime( true ), $result === false ? $this->last_error : null, $host );
+			XRay\trace_wpdb_query( apply_filters( 'query', $query ), $start, microtime( true ), $result === false ? $this->last_error : null, $host );
 		}
 		return $result;
 	}
