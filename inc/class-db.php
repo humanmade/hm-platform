@@ -9,7 +9,7 @@ class DB extends LudicrousDB {
 
 	protected function _do_query( $query, $dbh_or_table = false ) {
 		$start  = microtime( true );
-		$result = parent::_do_query( $query );
+		$result = parent::_do_query( $query, $dbh_or_table );
 
 		if ( function_exists( __NAMESPACE__ . '\\XRay\\trace_wpdb_query' ) ) {
 			$host = $this->current_host ?: $this->last_connection['host'];
