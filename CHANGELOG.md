@@ -2,6 +2,27 @@
 
 ### HEAD
 
+### 1.4.8
+
+- Upgrade AWS SDK 3.101.1 -> 3.150.0 #186
+
+### 1.4.7
+
+- Update S3 Uploads to version 2.2.2 #182
+
+### 1.4.6
+
+- Update Aws X-Ray plugin to v1.2.11 (#181)
+
+### 1.4.5
+
+- Update AWS Xray to 1.2.11
+- Update hm-require-login to version 1.0.1
+
+### 1.4.4
+
+- Update AWS X-Ray plugin to 1.2.7 #175, #176, #177
+
 ### 1.4.3
 
 - Set dbname when a writer endpoint is missing.
