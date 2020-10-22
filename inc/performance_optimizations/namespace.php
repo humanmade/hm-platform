@@ -3,7 +3,7 @@
 namespace HM\Platform\Performance_Optimizations;
 
 function bootstrap() {
-	if ( strpos( $_SERVER['REQUEST_URI'], '/wp-admin/async-upload.php' ) !== false ) {
+	if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/wp-admin/async-upload.php' ) !== false ) {
 		increase_set_time_limit_on_async_upload();
 	}
 }
